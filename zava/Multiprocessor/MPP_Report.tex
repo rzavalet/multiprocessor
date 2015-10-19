@@ -1,0 +1,89 @@
+% -------------------------------------------------------- %
+% Report for Isaac D. Scherson
+% by: Dario Bahena Tapia
+% by: Ricardo Zavaleta Vazquez
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+\documentclass[letter,12pt]{report}
+
+
+% -------------------------------------------------------- %
+% Packages
+\usepackage{algorithmic}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{listings,multicol}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+
+% -------------------------------------------------------- %
+% Document
+\begin{document}
+
+
+% --------------------------- %
+% Title Page Start
+% --------------------------- %
+\begin{titlepage}
+\begin{center}
+
+~\\[4 cm]
+
+\includegraphics[width=15 cm]{Oracle_Logo.pdf}
+
+~\\[0.5 cm]
+
+% Document Information
+{\LARGE Multiprocessor Programming Course} \\[0.2 cm]
+
+% Names
+{Dario Bahena Tapia - Ricardo Zavaleta Vazquez - Isai Barajas Cicourel}
+
+% Date
+{\small October 2015}
+
+\end{center}
+\end{titlepage}
+% --------------------------- %
+% Title Page End
+% --------------------------- %
+
+
+% --------------------------- %
+% Mutual Start
+% --------------------------- %
+\chapter{Mutual Exclusion}
+\section{Problem Definition}
+\include{Peterson}
+\include{Bakery}
+% --------------------------- %
+% Mutual End
+% --------------------------- %
+
+\chapter{Foundations of Shared Memory}
+\include{SafeBooleanMRSW}
+\include{AtomicMRSWRegister}
+\include{WFSnapshot}
+
+\chapter{Spin Locks and Contention}
+\input{SpinLocks}
+\include{TASLockTest}
+\include{HBOLockTest}
+\include{CLHLockTest}
+
+\chapter{Monitors and Blocking Synchronization}
+\include{CountDownLatch}
+
+\chapter{Linked Lists: The Role of Locking}
+%\include{CoarseList}
+%\include{LockFreeList}
+\end{document}

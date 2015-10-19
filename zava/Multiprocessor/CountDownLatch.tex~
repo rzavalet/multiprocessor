@@ -1,0 +1,29 @@
+\section{\textbf{Count Down Latch}}
+\subsection{Particular Case}
+\par
+The purpose of this experiment to our eyes is to demonstrate how monitor locks and conditions are used. Let us remember both concepts before going further.
+\par
+The concept of monitor consists on encapsulating three components: data, methods and synchronization mechanism. This allows to have our datastructures (or classes) take care of synchronization instead of overwhelming the user of the API with this task. \par
+Now, the concept of \textit{conditions} comes into play because with them we can signal threads about an event. For example, instead of having threads spinning waiting for a value to become false, we can instead signal threads and let them know that they can now re-check for their locking condition.
+\par
+\subsection{Solution}
+\par
+The java interface for \textit{Lock} suggests two methods to implement the protocol drafter above. First, there is a method \textit{await()} which basically asks the thread wait till it is signaled about an event. The accompaning method \textit{signalAll} achieves this latter task.
+\par
+\subsection{Experiment Description}
+\par
+To demonstrate that this implementation works, the test that was provided does the following:
+\begin{enumerate}
+\item Initiate a shared counter with a value of $0$
+\item Start $32$ threads
+\item Each thread has to increment the counter by one $32$ times
+\item At the end, the counter must hold a value of $32*32$
+\end{enumerate}
+\subsection{Sample Results}
+
+\subsection{Interpretation}
+It was shown that the algorithm seems to work and allows synchronization of multiple threads trying to access a shared resource.
+\par
+One problem however, has to do with the fact that this locking protocol is not fair in the sense that local threads have more chances of acquiring the lock in the next attempt. 
+\par
+Another thing that we ought to note is that threads spin in the same memory address which causes invalidation of remote cached copies of this value. This problem will be solved yet with another protocol.
