@@ -1,0 +1,611 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  19 OCT 2015 10:20
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**MPP_Report.tex
+(./MPP_Report.tex
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+\c@ALC@unique=\count88
+\c@ALC@line=\count89
+\c@ALC@rem=\count90
+\c@ALC@depth=\count91
+\ALC@tlm=\skip43
+\algorithmicindent=\skip44
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks15
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 142.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count92
+))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+LaTeX Info: Redefining \color on input line 702.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 94.
+)
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen105
+\captionmargin@=\dimen106
+\captionwidth=\dimen107
+\caption@tempdima=\dimen108
+\caption@indent=\dimen109
+\caption@parindent=\dimen110
+\caption@hangindent=\dimen111
+)
+\c@ContinuedFloat=\count93
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count94
+\lst@gtempboxa=\box26
+\lst@token=\toks16
+\lst@length=\count95
+\lst@currlwidth=\dimen112
+\lst@column=\count96
+\lst@pos=\count97
+\lst@lostspace=\dimen113
+\lst@width=\dimen114
+\lst@newlines=\count98
+\lst@lineno=\count99
+\lst@maxwidth=\dimen115
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+\c@lstnumber=\count100
+\lst@skipnumbers=\count101
+\lst@framebox=\box27
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2014/09/06 1.5e listings configuration
+))
+Package: listings 2014/09/06 1.5e (Carsten Heinz)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
+\c@tracingmulticols=\count102
+\mult@box=\box28
+\multicol@leftmargin=\dimen116
+\c@unbalance=\count103
+\c@collectmore=\count104
+\doublecol@number=\count105
+\multicoltolerance=\count106
+\multicolpretolerance=\count107
+\full@width=\dimen117
+\page@free=\dimen118
+\premulticols=\dimen119
+\postmulticols=\dimen120
+\multicolsep=\skip45
+\multicolbaselineskip=\skip46
+\partial@page=\box29
+\last@line=\box30
+\maxbalancingoverflow=\dimen121
+\mult@rightbox=\box31
+\mult@grightbox=\box32
+\mult@gfirstbox=\box33
+\mult@firstbox=\box34
+\@tempa=\box35
+\@tempa=\box36
+\@tempa=\box37
+\@tempa=\box38
+\@tempa=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\c@columnbadness=\count108
+\c@finalcolumnbadness=\count109
+\last@try=\dimen122
+\multicolovershoot=\dimen123
+\multicolundershoot=\dimen124
+\mult@nat@firstbox=\box52
+\colbreak@box=\box53
+\mc@col@check@num=\count110
+)
+
+LaTeX Warning: Unused global option(s):
+    [letter].
+
+(./MPP_Report.aux (./sections/Peterson.aux
+
+LaTeX Warning: Label `fig:peterson' multiply defined.
+
+) (./sections/Bakery.aux) (./sections/SafeBooleanMRSW.aux)
+(./sections/AtomicMRSWRegister.aux) (./sections/WFSnapshot.aux)
+(./sections/TASLockTest.aux) (./sections/HBOLockTest.aux)
+(./sections/CLHLockTest.aux) (./sections/CountDownLatch.aux))
+\openout1 = `MPP_Report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+
+(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count111
+\scratchdimen=\dimen125
+\scratchbox=\box54
+\nofMPsegments=\count112
+\nofMParguments=\count113
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count114
+\MPscratchDim=\dimen126
+\MPnumerator=\count115
+\makeMPintoPDFobject=\count116
+\everyMPtoPDFconversion=\toks18
+) (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: listings package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\c@lstlisting=\count117
+
+<images/Oracle_Logo.pdf, id=1, 532.2657pt x 75.59897pt>
+File: images/Oracle_Logo.pdf Graphic file (type pdf)
+
+<use images/Oracle_Logo.pdf>
+Package pdftex.def Info: images/Oracle_Logo.pdf used on input line 41.
+(pdftex.def)             Requested size: 426.79134pt x 60.61882pt.
+
+Overfull \hbox (36.79134pt too wide) in paragraph at lines 41--42
+ [][] 
+ []
+
+[1
+
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./image
+s/Oracle_Logo.pdf>]
+Chapter 1.
+[1
+
+]
+\openout2 = `sections/Peterson.aux'.
+
+ (./sections/Peterson.tex
+Overfull \hbox (10.96251pt too wide) in paragraph at lines 26--29
+[]\OT1/cmr/m/n/12 The Pe-ter-son al-go-rithm com-bines these two meth-ods to ac
+hieve a starvation-
+ []
+
+[2
+
+] <images/Peterson.png, id=20, 623.32875pt x 192.72pt>
+File: images/Peterson.png Graphic file (type png)
+
+<use images/Peterson.png>
+Package pdftex.def Info: images/Peterson.png used on input line 56.
+(pdftex.def)             Requested size: 369.88582pt x 114.3625pt.
+
+<images/Peterson01.png, id=22, 456.70625pt x 204.765pt>
+File: images/Peterson01.png Graphic file (type png)
+
+<use images/Peterson01.png>
+Package pdftex.def Info: images/Peterson01.png used on input line 63.
+(pdftex.def)             Requested size: 284.52756pt x 127.57161pt.
+) [3 <./images/Peterson.png> <./images/Peterson01.png>] [4]
+\openout2 = `sections/Bakery.aux'.
+
+ (./sections/Bakery.tex
+LaTeX Font Info:    Try loading font information for U+msa on input line 9.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 9.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 43.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
+
+<images/Bakery00.png, id=31, 628.3475pt x 111.41624pt>
+File: images/Bakery00.png Graphic file (type png)
+
+<use images/Bakery00.png>
+Package pdftex.def Info: images/Bakery00.png used on input line 54.
+(pdftex.def)             Requested size: 369.88582pt x 65.5854pt.
+ [5
+
+
+]
+<images/Bakery01.png, id=37, 308.15125pt x 220.825pt>
+File: images/Bakery01.png Graphic file (type png)
+
+<use images/Bakery01.png>
+Package pdftex.def Info: images/Bakery01.png used on input line 61.
+(pdftex.def)             Requested size: 142.26378pt x 101.948pt.
+) [6 <./images/Bakery00.png> <./images/Bakery01.png>]
+Chapter 2.
+[7
+
+
+]
+\openout2 = `sections/SafeBooleanMRSW.aux'.
+
+ (./sections/SafeBooleanMRSW.tex [8
+
+]
+<images/SafeBooleanMRSW00.png, id=50, 984.67876pt x 254.9525pt>
+File: images/SafeBooleanMRSW00.png Graphic file (type png)
+
+<use images/SafeBooleanMRSW00.png>
+Package pdftex.def Info: images/SafeBooleanMRSW00.png used on input line 59.
+(pdftex.def)             Requested size: 369.88582pt x 95.77032pt.
+
+<images/SafeBooleanMRSW01.png, id=51, 1123.19624pt x 251.94125pt>
+File: images/SafeBooleanMRSW01.png Graphic file (type png)
+
+<use images/SafeBooleanMRSW01.png>
+Package pdftex.def Info: images/SafeBooleanMRSW01.png used on input line 66.
+(pdftex.def)             Requested size: 369.88582pt x 82.96786pt.
+
+<images/SafeBooleanMRSW02.png, id=52, 692.5875pt x 257.96375pt>
+File: images/SafeBooleanMRSW02.png Graphic file (type png)
+
+<use images/SafeBooleanMRSW02.png>
+Package pdftex.def Info: images/SafeBooleanMRSW02.png used on input line 77.
+(pdftex.def)             Requested size: 369.88582pt x 137.77109pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<images/SafeBooleanMRSW03.png, id=53, 799.98875pt x 253.94875pt>
+File: images/SafeBooleanMRSW03.png Graphic file (type png)
+
+<use images/SafeBooleanMRSW03.png>
+Package pdftex.def Info: images/SafeBooleanMRSW03.png used on input line 84.
+(pdftex.def)             Requested size: 369.88582pt x 117.41844pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[9 <./images/SafeBooleanMRSW00.png> <./images/SafeBooleanMRSW01.png>]) [10 <./i
+mages/SafeBooleanMRSW02.png> <./images/SafeBooleanMRSW03.png>]
+\openout2 = `sections/AtomicMRSWRegister.aux'.
+
+
+(./sections/AtomicMRSWRegister.tex [11
+
+
+]
+<images/AtomicMRSW00.png, id=68, 1037.8775pt x 255.95625pt>
+File: images/AtomicMRSW00.png Graphic file (type png)
+
+<use images/AtomicMRSW00.png>
+Package pdftex.def Info: images/AtomicMRSW00.png used on input line 57.
+(pdftex.def)             Requested size: 369.88582pt x 91.21855pt.
+
+<images/AtomicMRSW01.png, id=69, 696.6025pt x 253.94875pt>
+File: images/AtomicMRSW01.png Graphic file (type png)
+
+<use images/AtomicMRSW01.png>
+Package pdftex.def Info: images/AtomicMRSW01.png used on input line 66.
+(pdftex.def)             Requested size: 369.88582pt x 134.84406pt.
+
+<images/AtomicMRSW02.png, id=70, 806.01125pt x 297.11pt>
+File: images/AtomicMRSW02.png Graphic file (type png)
+
+<use images/AtomicMRSW02.png>
+Package pdftex.def Info: images/AtomicMRSW02.png used on input line 73.
+(pdftex.def)             Requested size: 369.88582pt x 136.34584pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[12 <./images/AtomicMRSW00.png> <./images/AtomicMRSW01.png>]) [13 <./images/Ato
+micMRSW02.png>]
+\openout2 = `sections/WFSnapshot.aux'.
+
+ (./sections/WFSnapshot.tex [14
+
+
+]
+<images/WFS00.png, id=84, 713.66624pt x 296.10625pt>
+File: images/WFS00.png Graphic file (type png)
+ <use images/WFS00.png>
+Package pdftex.def Info: images/WFS00.png used on input line 53.
+(pdftex.def)             Requested size: 369.88582pt x 153.4701pt.
+
+<images/WFS01.png, id=85, 794.97pt x 299.1175pt>
+File: images/WFS01.png Graphic file (type png)
+ <use images/WFS01.png>
+Package pdftex.def Info: images/WFS01.png used on input line 60.
+(pdftex.def)             Requested size: 369.88582pt x 139.17947pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [15 <./images/WFS00.png>] [16 <./images/WFS01.png>]
+Chapter 3.
+(./sections/SpinLocks.tex) [17
+
+
+]
+\openout2 = `sections/TASLockTest.aux'.
+
+ (./sections/TASLockTest.tex [18
+
+]
+<images/TAS00.png, id=101, 667.49374pt x 304.13625pt>
+File: images/TAS00.png Graphic file (type png)
+ <use images/TAS00.png>
+Package pdftex.def Info: images/TAS00.png used on input line 76.
+(pdftex.def)             Requested size: 369.88582pt x 168.53772pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<images/TAS01.png, id=102, 639.38875pt x 181.67876pt>
+File: images/TAS01.png Graphic file (type png)
+ <use images/TAS01.png>
+Package pdftex.def Info: images/TAS01.png used on input line 83.
+(pdftex.def)             Requested size: 369.88582pt x 105.10207pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [19] [20 <./images/TAS00.png> <./images/TAS01.png>]
+\openout2 = `sections/HBOLockTest.aux'.
+
+
+(./sections/HBOLockTest.tex [21
+
+
+]
+<images/HBO00.png, id=114, 296.10625pt x 306.14375pt>
+File: images/HBO00.png Graphic file (type png)
+ <use images/HBO00.png>
+Package pdftex.def Info: images/HBO00.png used on input line 38.
+(pdftex.def)             Requested size: 142.26378pt x 147.08746pt.
+
+<images/HBO01.png, id=115, 617.30624pt x 108.405pt>
+File: images/HBO01.png Graphic file (type png)
+ <use images/HBO01.png>
+Package pdftex.def Info: images/HBO01.png used on input line 45.
+(pdftex.def)             Requested size: 369.88582pt x 64.95747pt.
+
+[22 <./images/HBO00.png> <./images/HBO01.png>]) [23]
+\openout2 = `sections/CLHLockTest.aux'.
+
+
+(./sections/CLHLockTest.tex [24
+
+
+]
+<images/CLH00.png, id=128, 285.065pt x 303.1325pt>
+File: images/CLH00.png Graphic file (type png)
+ <use images/CLH00.png>
+Package pdftex.def Info: images/CLH00.png used on input line 35.
+(pdftex.def)             Requested size: 142.26378pt x 151.2791pt.
+
+<images/CLH01.png, id=129, 620.3175pt x 110.4125pt>
+File: images/CLH01.png Graphic file (type png)
+ <use images/CLH01.png>
+Package pdftex.def Info: images/CLH01.png used on input line 42.
+(pdftex.def)             Requested size: 369.88582pt x 65.83691pt.
+)
+[25 <./images/CLH00.png> <./images/CLH01.png>] [26]
+Chapter 4.
+[27
+
+
+]
+\openout2 = `sections/CountDownLatch.aux'.
+
+ (./sections/CountDownLatch.tex
+Overfull \hbox (0.35706pt too wide) in paragraph at lines 6--6
+[]\OT1/cmr/m/n/12 The con-cept of mon-i-tor con-sists on en-cap-su-lat-ing thre
+e com-po-nents: data,
+ []
+
+[28
+
+] <images/CountDown00.png, id=144, 652.4375pt x 306.14375pt>
+File: images/CountDown00.png Graphic file (type png)
+
+<use images/CountDown00.png>
+Package pdftex.def Info: images/CountDown00.png used on input line 34.
+(pdftex.def)             Requested size: 369.88582pt x 173.56946pt.
+
+<images/CountDown01.png, id=145, 435.6275pt x 289.08pt>
+File: images/CountDown01.png Graphic file (type png)
+
+<use images/CountDown01.png>
+Package pdftex.def Info: images/CountDown01.png used on input line 41.
+(pdftex.def)             Requested size: 227.62204pt x 151.04585pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [29 <./images/CountDown00.png>] [30 <./images/CountDown01.png>]
+Chapter 5.
+[31
+
+
+] (./MPP_Report.aux (./sections/Peterson.aux) (./sections/Bakery.aux)
+(./sections/SafeBooleanMRSW.aux) (./sections/AtomicMRSWRegister.aux)
+(./sections/WFSnapshot.aux) (./sections/TASLockTest.aux)
+(./sections/HBOLockTest.aux) (./sections/CLHLockTest.aux)
+(./sections/CountDownLatch.aux))
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4985 strings out of 493089
+ 75441 string characters out of 6134842
+ 141207 words of memory out of 5000000
+ 8329 multiletter control sequences out of 15000+600000
+ 11048 words of font info for 41 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 38i,7n,39p,551b,279s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on MPP_Report.pdf (32 pages, 487800 bytes).
+PDF statistics:
+ 185 PDF objects out of 1000 (max. 8388607)
+ 99 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 111 words of extra memory for PDF output out of 10000 (max. 10000000)
+
