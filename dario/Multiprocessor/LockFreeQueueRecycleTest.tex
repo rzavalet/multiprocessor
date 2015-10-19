@@ -1,0 +1,45 @@
+\section{\textbf{LockFreeQueueRecycleTest}}
+
+\subsection{Particular Case (problem)}
+From the generic problem of improving coarse grained lock approaches,
+the particular approach followed on this exercise corresponds to the
+extreme case: lock-free data structure. The particular case is for a
+queue, and it has the additional bonus of recycling memory.
+
+\subsection{Solution}
+The solution is based on an 1996 ACM article from Maged M. Michel and
+Michael L. Scott, who based on previous publications, suggest a new
+way of implementing a lock-free queue with recycles. They implement the
+queue with a single-linked list using \C{tail} and \C{head} pointers;
+where \C{head} always points to a dummy or sentinel node which is the
+first in the list, and \C{tail} points to either the last or second to
+last node in the list. The algorithm uses ``compare and swap''
+(\C{CAS}) with modification counters to avoid the ABA problem. \\
+
+Dequeuers are allowed to free dequeued nodes by ensuring that \C{tail}
+does not point to the dequeued node nor to any of its predecessors
+(that is, dequeued nodes may be safely reused). To obtain consistent
+values of various pointers the authors relied on sequences of reads
+that re-check earlier values to ensure they have not changed (these
+reads are claimed to be simpler than snapshots). 
+
+\subsection{Experiment Description}
+The test is pretty much the same described for \C{LockFreeQueueTest}
+(with the exceptiont that it uses 8 threads instead of two).
+
+\subsection{Observations and Interpretations}
+The test does not exhibit any pitfall, which suggests that the theory
+works just fine on the tested machine. Sample output below:
+
+\begin{verbatim}
+.parallel enq
+.parallel deq
+.parallel both
+.sequential push and pop
+
+Time: 0.023
+
+OK (4 tests)
+\end{verbatim}
+\hfill
+

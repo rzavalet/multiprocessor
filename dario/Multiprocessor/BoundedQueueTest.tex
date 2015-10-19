@@ -1,0 +1,98 @@
+\section{\textbf{BoundedQueueTest}}
+
+\subsection{Particular Case (problem)}
+The problem is to implement a bounded partial queue (that is, one
+which finite capacity which allows waits inside its methods). 
+
+\subsection{Solution}
+The solution proposes to allow concurrency among enqueuers and
+dequeuers, by using two different locks (one for each group of
+threads). The code is small enough to be placed and explained in a bit
+more detail here, so let us give it a try:
+
+\begin{lstlisting}[style=numbers]
+  public void enq(T x) {
+    if (x == null) throw new NullPointerException();
+    boolean mustWakeDequeuers = false;
+    enqLock.lock();
+    try {
+      while (size.get() == capacity) {
+        try {
+          notFullCondition.await();
+        } catch (InterruptedException e) {}
+      }
+      Entry e = new Entry(x);
+      tail.next = e;
+      tail = e;
+      if (size.getAndIncrement() == 0) {
+        mustWakeDequeuers = true;
+      }
+    } finally {
+      enqLock.unlock();
+    }
+    if (mustWakeDequeuers) {
+      deqLock.lock();
+      try {
+        notEmptyCondition.signalAll();
+      } finally {
+        deqLock.unlock();
+      }
+    }
+  }
+\end{lstlisting}
+\hfill
+
+The main points of algorithm above are as follows (the code above was
+previously corrected, as it had several things inverted):
+
+\begin{itemize}
+\item It does not allow null values.
+\item There is a lock dedicated to \C{enq} method, which guarantees
+  mutual exclusion to the critical section for enqueuers.
+\item It spins while the queue is full (the try/catch block was added
+  just to allow compilation). This line was incorrectly asking whether
+  queue was empty, while it needs to ask whether is still full.
+\item  Once we know queue is room, we allocate the new node and update
+  \C{tail} pointer.
+\item We atomically get and increment the atomic counter for the size
+  (this was previously a decrement, which was incorrect).
+\item If the atomically retrieved previous value of size was zero, it
+  means the queue was empty and there may had been waiting dequeuers;
+  therefore we acquire the lock for \C{deq} method and inform all
+  dequeuers that the queue has not at least an item.
+\end{itemize}
+\hfill
+
+The \C{deq} method is symmetric so we do not repeat same explanation
+(but worth to say that it had same inverted conditions and actions
+than \C{enq} method, in the code; so we needed to apply same
+corrective actions ... perhaps that was the purpose of the exercise?).
+
+\subsection{Experiment Description}
+The test is pretty much the same described for \C{LockFreeQueueTest}.
+(with the exceptiont that it uses 8 threads instead of two).
+
+\subsection{Observations and Interpretations}
+The original code for the test made no sense, as conditions and
+actions for \C{enq} and \C{deq} methods were inverted; we did not even
+care testing such strange version that did not match at all the one
+published on the book (we also needed to fix the initialization of the
+\C{size} variable, which shall be zero instead of \C{capacity}). After
+the corrections mentioned on the Solution section above, the test ran
+normally. Sample output below: 
+
+\begin{verbatim}
+.parallel both
+.sequential push and pop
+.parallel enq
+.parallel deq
+
+Time: 0.028
+
+OK (4 tests)
+\end{verbatim}
+\hfill
+
+Even if the original version of this test actually ran (we did not
+test it), it turns out quite counter-intuitive.
+

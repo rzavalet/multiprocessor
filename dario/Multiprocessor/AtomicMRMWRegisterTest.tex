@@ -1,0 +1,306 @@
+\section{\textbf{LockFreeQueueTest}}
+
+\subsection{Particular Case (problem)}
+This is a particular case of the mutual exclusion problem, where the
+shared resource is a queue.
+
+\subsection{Solution}
+In order to guarantee the correctness of
+the multi-threaded access to the queue, it implements a lock free
+scheme on its \C{enq} and \C{deq} methods by putting waits
+before modifying the state of the queue. It does it incorrectly
+though, as we will see later. \\
+
+\begin{lstlisting}[style=numbers]
+class LockFreeQueue {
+  public int head = 0;   // next item to dequeue
+  public int tail = 0;   // next empty slot
+  Object[] items; // queue contents
+  public LockFreeQueue(int capacity) {
+    head = 0; tail = 0;
+    items = new Object[capacity];
+  }
+
+ public void enq(Object x) {
+     // spin while full
+     while (tail - head == items.length) {}; // spin
+     items[tail % items.length] = x;
+     tail++;
+  }
+
+  public Object deq() {
+      // spin while empty
+      while (tail == head) {}; // spin
+      Object x = items[head % items.length];
+      head++;
+      return x;
+  }
+}
+\end{lstlisting}
+\hfill
+
+\subsection{Experiment Description}
+The test program LockFreeQueueTest includes the following individual
+test cases; the parallel degree is two threads for each operation
+(queue or dequeue), with a TEST\_SIZE of 512 (number of items to
+enqueue and dequeue) which is spread evenly among the two threads on
+each group:
+
+\begin{itemize}
+  \item \C{testSequential}: calls \C{enq} method as many times as
+    TEST\_SIZE, and later calls \C{deq} method the same number of
+    times checking that the FIFO order is preserved. 
+  \item \C{testParallelEnq}: enqueues in parallel (two threads) but dequeues
+    sequentially.
+  \item \C{testParallelDeq}: enqueues sequentially but dequeues in
+    parallel (two threads)
+  \item \C{testParallelBoth}: enqueues and dequeues in parallel (with
+    a total of four threads, two for each operation).
+\end{itemize}
+
+\subsection{Observations and Interpretations}
+The bottom line of this exercise is most likely, to show several types
+of problems that can occur if we do not use mutual exclusion; the
+queue implementation fails implementing it, making the test vulnerable
+to several cases of race conditions. Below we explain some of them.
+
+\subsubsection{Non atomic dequeue: referencing invalid registers}
+
+The symptom for this problem is a NullPointerException: \\
+
+\begin{verbatim}
+There was 1 error:
+1) testParallelEnq(mutex.LockFreeQueueTest)java.lang.NullPointerException
+	at mutex.LockFreeQueueTest.testParallelEnq(LockFreeQueueTest.java:69)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+\end{verbatim}
+\hfill
+
+where the offending line is a cast to an Integer from the value
+returned by the \C{deq} method; this implies that such function is
+returning \C{null}. A possible scenario to produce this outcome is as
+follows. Prefixes of T1 or T2 indicate the thread running the action,
+and they refer to the line numbers of the code of method \C{deq}
+posted above.
+
+\begin{itemize}
+\item Assume that queue holds a single element which lives in \C{items}
+  array at position 0; the array has \C{null} on position 1 (per
+  initialization).
+\item T1: Executes method up to line 20. 
+\item T2: Executes method up to line 19. 
+\item T1: Executes line 21, getting \C{items[0]}. 
+\item T2: Executes line 20, but as \C{head} was changed already, it
+  gets \C{items[1]}.  
+\item T1: Executes line 22 returning \C{items[0]}
+\item T2: Executes line 22 returning \C{items[1]}, which was \C{null}.
+\end{itemize}
+\hfill
+
+The problem with above interlacing derives from the fact that the
+\C{deq} method is not an atomic operation, hence it allowed both threads to
+enter into the critical section and compete for updating the shared
+variables. 
+
+\subsubsection{Non atomic dequeue: returning duplicate values}
+
+The symptom for this problem is a duplicate pop warning: \\
+
+\begin{verbatim}
+.parallel both
+.sequential push and pop
+.parallel enq
+E.parallel deq
+Exception in thread "Thread-7" junit.framework.AssertionFailedError: 
+DeqThread: duplicate pop
+	at junit.framework.Assert.fail(Assert.java:47)
+	at mutex.LockFreeQueueTest$DeqThread.run(LockFreeQueueTest.java:132)
+\end{verbatim}
+\hfill
+
+where the offending line is an assertion that validates that nobody
+else has pop such value from the queue; as the threads which populate
+do have non overlapping ranges of values, the pop operations (\C{deq})
+shall never return a duplicate one. But duplication is possible
+indeed, if we have a sequence like the one below between the two threads:
+
+\begin{itemize}
+\item Assume that queue holds a single element which lives in \C{items}
+  array at position 0.
+\item T1: Executes method up to line 19. 
+\item T2: Executes method up to line 19. 
+\item T1: Executes line 20, getting \C{items[0]}.
+\item T2: Executes line 20, getting as well \C{items[0]}.
+\item T1: Executes line 21, setting \C{head} to 1.
+\item T2: Executes line 21, setting \C{head} to 2.
+\item T1: Executes line 22 returning \C{items[0]}.
+\item T2: Executes line 22 returning \C{items[0]}.
+\end{itemize}
+\hfill
+
+Not only we left the queue in an inconsistent state (head has
+incorrect value), but we also returned the same element twice,
+triggering then the violation on the test. The underlying problem is
+the same as previous case: lack of atomicity of the \C{deq} method.
+
+\subsubsection{Non atomic auto-increment: loosing values}
+
+The symptom for this problem is a never ending program, hanging on the
+test \C{testParallelBoth}. When produced several thread dumps of the
+Java program, we can see two hanging threads: \\
+
+\begin{verbatim}
+"Thread-7" #16 prio=5 os_prio=0 tid=0x00007f3140102000 nid=0x3f51
+           runnable [0x00007f31226e9000]
+   java.lang.Thread.State: RUNNABLE
+	at mutex.LockFreeQueue.deq(LockFreeQueue.java:33)
+	at mutex.LockFreeQueueTest$DeqThread.run(LockFreeQueueTest.java:141)
+
+"main" #1 prio=5 os_prio=0 tid=0x00007f3140009800 nid=0x3f3c in Object.wait() 
+          [0x00007f3148382000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000000d6effea8> (a mutex.LockFreeQueueTest$DeqThread)
+	at java.lang.Thread.join(Thread.java:1245)
+	- locked <0x00000000d6effea8> (a mutex.LockFreeQueueTest$DeqThread)
+	at java.lang.Thread.join(Thread.java:1319)
+	at mutex.LockFreeQueueTest.testParallelBoth(LockFreeQueueTest.java:123)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at junit.framework.TestCase.runTest(TestCase.java:164)
+	at junit.framework.TestCase.runBare(TestCase.java:130)
+\end{verbatim}
+\hfill
+
+The main thread is waiting for a dequeue thread to finish; but that
+one is on an infinite loop at line 19 of \C{deq} method (line numbers
+per our listing in this document, not in the file). This means that we
+have lost some of the inserted elements in queue, and that one of the
+dequeue threads will never finish; as they expect each to pop a fixed
+amount of elements per the test. \\
+
+But the amount of times we request a dequeue operation, among all
+threads, is the same as the number of elements we queued; how come we
+end up loosing some of those? One possible explanation is again, the
+lack of atomicity but this time of the \C{enq} method; to be more
+specific, the lack of atomicity of its auto-increment operation 
+\C{tail++} (line 14). Let us remember that the auto-increment
+operator in Java is nothing but syntactic sugar for the following
+sequence of operations (when applied to \C{tail} variable): \\
+
+\begin{lstlisting}[style=nonumbers]
+  tmp = tail;
+  tmp = tmp + 1;
+  tail = tmp;
+\end{lstlisting} 
+\hfill
+
+If two threads execute the lower level operations above, we can see
+how they can end up loosing increments in the shared variable
+\C{tail}; the following sequence is on example of such scenario:
+
+\begin{itemize}
+\item T1: executes \C{tmp = tail}.
+\item T2: executes \C{tmp = tail}.
+\item T1: executes \C{tmp = tmp + 1}.
+\item T2: executes \C{tmp = tmp + 1}.
+\item T1: executes \C{tail = tmp}.
+\item T2: executes \C{tail = tmp}.
+\end{itemize}
+\hfill
+
+We can appreciate that in the above interlacing, the final value of
+the shared variable is $\C{tail} + 1$; instead of the expected value
+of $\C{tail} + 2$. It would be enough to loose a single value this
+way, in order to make the enqueue threads think that they inserted the
+total of 512, while they really inserted 511; as each dequeue thread
+will try to pop 256 each, only one of them will be able to finish
+while the other will get blocked after having removed 255
+entries. That is most likely the explanation for the hung threads we
+pasted above \footnote{Note that it does not matter that the array
+  \C{items} has populated all the correct entries, because the flow is
+  controlled by the counters \C{tail} and \C{head}.}; the solution is
+again to really implement mutual 
+exclusion around the methods \C{deq} / \C{enq}; in such a way that
+they become atomic operations.
+
+\subsection{Proposed changes to fix the problems}
+
+All the three scenarios described before can be eliminated, if we make
+the methods \C{enq} and \C{deq} atomic; this can be easily achieved in
+Java by making them \C{synchronized}. However, by doing that, we will
+loose parallelism among the two groups of threads (those calling
+\C{enq} and those calling \C{deq}); this is because the
+\C{synchronized} keyword uses as lock the whole class, so at any
+moment in time, only one synchronized method can actually run. In
+order to overcome this limitation, we can use synchronized blocks
+against two different lock objects (one for each operation). \\
+
+Even with the changes above, we can still have issues; what if the
+very first thread running is one calling \C{deq} method? It will find
+the queue empty and loop forever. In order to prevent that, we should
+remove the waiting operation out of the queue methods, and put them in
+the test code itself. This is because, on the cited scenario that we
+try to dequeue with an empty queue, we would expect to simply try
+again (giving the chance to parallel enqueue threads to produce something for
+us to pop). The final code which incorporates these fixes is listed
+below: \\
+
+\newpage
+\begin{lstlisting}[style=numbers]
+class LockFreeQueue {
+  private static Object enqLock = new Object();
+  private static Object deqLock = new Object();
+    
+  public int head = 0;   // next item to dequeue
+  public int tail = 0;   // next empty slot
+  Object[] items; // queue contents
+  public LockFreeQueue(int capacity) {
+    head = 0; tail = 0;
+    items = new Object[capacity];
+  }
+
+ public  boolean enq(Object x) {
+     synchronized(enqLock)
+         {
+             if (tail - head == items.length) {
+                 return false;
+             }
+             items[tail % items.length] = x;
+             tail++;
+             return true;
+         }
+  }
+
+  public Object deq() {
+      synchronized(deqLock)
+          {
+              if (tail == head) {
+                 return null;
+              }
+              Object x = items[head % items.length];
+              head++;
+              return x;
+          }
+  }
+}
+
+\end{lstlisting}
+\hfill
+\newpage
+
+The test code was also modified, to make the enqueue and dequeue
+threads to iterate until they have successfully called their
+respective methods 256 times (total size of queue divided by number of
+threads). A successful call is one that does not return \C{false} nor
+\C{null}. The modified code was executed ten thousand times and it did
+not produce any of the original problems we explained. Though not a
+formal proof of its correctness, it is a good indication of the same
+(the original program produced one of the cited problems quite often,
+usually within 10 executions).
+
+

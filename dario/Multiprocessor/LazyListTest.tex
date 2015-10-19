@@ -1,0 +1,65 @@
+\section{\textbf{LazyListTest}}
+
+\subsection{Particular Case (problem)}
+The problem is that of gradually improving what coarse grain locking
+offers for concurrent data structures like sets (implemented with
+linked lists).
+
+\subsection{Solution}
+The \C{LazyList} solution is a refinement of the \C{OptimisticList}
+solution which does not lock while searching, but locks one it finds
+the interesting nodes (and then confirms that the locked nodes are
+correct). As one drawback of \C{OptimisticList} is that the most
+common method \C{contains} method locks, the next logical improvement
+is to make this method wait-free while keeping the \C{add} and
+\C{remove} methods locking (but reducing their transversings of the
+list from two to just one). \\
+
+The refinement mentioned above is precisely that of \C{LazyList},
+which adds a new bit to each node to indicate whether they still
+belong to the set or not (this prevents transvering the list to detect
+if the node is reachable, as the new bit introduces such invariant: if
+a transversing thread does not find a node or it is marked in this
+bit, then the corresponding item does not belong to the set. This
+behaviour implies that \C{contains} method does a single wait-free
+transversal of the list. \\
+
+For adding an element to the list, \C{add} method traverses the list,
+locks the target's predecessor, and inserts the node. The \C{remove} 
+method is lazy (hece the name of the solution), as it splits its task in
+two parts: first marks the node in the new bit, logically removing it;
+and second, update its predecessor's next field, physically removing
+it. \\
+
+The three methods ignore the locks while transversing the list,
+possibly passing over both logically and physically deleted nodes. The
+\C{add} and \C{remove} methods still lock \C{pred} and \C{curr} nodes
+as with \C{OptimisticList} solution, but the validation reduces to
+check that \C{curr} node has not been marked; as well as validating
+the same for \C{pred} node, and that it still points to \C{curr}
+(validating a couple of nodes is much better than transversing whole
+list though). Finally, the introduction of logical removals implies a
+new contract for detecting that an item still belongs to set: it does
+so, if still referred by an unmarked reachable node. 
+
+
+\subsection{Experiment Description}
+The test is pretty much the same described for \C{LockFreeQueueTest}
+(with the exceptiont that it uses 8 threads instead of two).
+
+\subsection{Observations and Interpretations}
+
+The test works as expected, below sample execution:
+
+\begin{verbatim}
+.parallel deq
+.parallel both
+.sequential push and pop
+.parallel enq
+
+Time: 0.03
+
+OK (4 tests)
+\end{verbatim}
+\hfill
+

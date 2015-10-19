@@ -1,0 +1,135 @@
+\section{\textbf{TreeTest}}
+
+\subsection{Particular Case (problem)}
+This problem belongs to chapter 12, where the idea is to present
+problems which look inherently serial but that surprisingly accept
+interesting concurrent solutions (though not always easy to explain).
+
+The particular problem this test is exercising is that of shared
+counting, where we have \C{N} threads to increase a shared numeric
+variable up to certain value; but with the goal of producing less
+contention than a serial solution would generate. 
+
+\subsection{Solution}
+
+The java program is called \C{Tree.java}, although it corresponds to  
+the \C{CombiningTree} from the book, which is a binary tree structure
+where each thread is located at a leaf and at most two threads can
+share a leaf. The shared counter is at the root of the tree, and the
+rest of the nodes serve as intermmediate result points. When a couple
+of threads collide in their attempt to increment, only one of them
+will serve as the representant and go up in the tree with the mission
+of propagating the combined increment (2) up to the shared counter at
+the root of the tree. In its way up, it may encounter further threads
+that collide again with it, making it wait or continue its journey to
+the root. \\
+
+When a thread reaches the root it adds its accumulated result to the
+shared counter, and propagates down the news that the job is done to
+the rest of the threads that waited along the way. This
+solution to the counting problem has worse latency than lock-based
+solutions (\bigO{1} vs \bigO{log(p)}, where $p$ is the number of
+threads or processors; but it offers a better throughput. 
+
+\subsection{Experiment Description}
+
+The program consists of a single unit test \C{testGetAndIncrement},
+which creates 8 threads to perform each $2^20$ increments. The program
+uses an auxiliary array called \C{test} to record the individual
+increments done by each thread; assertions are made to ensure that
+none of the attemtps results in a duplicated value, as well as to
+ensure that all threads completed their task.
+
+\subsection{Observations and Interpretations}
+
+The test performs without much controversy in an elapsed time between
+3 and 4 seconds (laptop computer with i5 processor). Below a sample
+output: \\
+
+\begin{verbatim}
+.Parallel, 8 threads, 1048576 tries
+
+Time: 3.641
+\end{verbatim}
+\hfill
+
+To make the test a little more interesting, we created another couple
+of tests reusing sample template of existing one; difference was the
+Thread class used on each case. \\
+
+The first additional test uses a thread class based on Java provider
+\C{java.util.concurrent.atomic.AtomicInteger}: \\
+
+\begin{lstlisting}[style=nonumbers]
+  cnt2 = new AtomicInteger();
+
+  class MyThread2 extends Thread {
+    public void run() {
+      for (int j = 0; j < TRIES; j++) {
+        int i = cnt2.getAndIncrement();
+        if (test[i]) {
+          System.out.printf("ERROR duplicate value %d\n", i);
+        } else {
+          test[i] = true;
+        }
+      }
+    }        
+  }
+\end{lstlisting}
+\hfill
+
+while the second additional test was based on a custom class that used
+synchronized \C{getAndIncrement} method:\\
+
+\begin{lstlisting}[style=nonumbers]
+  class MyThread3 extends Thread {
+    public void run() {
+      for (int j = 0; j < TRIES; j++) {
+        int i = cnt3.getAndIncrement();
+        if (test[i]) {
+          System.out.printf("ERROR duplicate value %d\n", i);
+        } else {
+          test[i] = true;
+        }
+      }
+    }        
+  }
+
+  class MyCounter {
+    private int cnt = 0;
+
+    public synchronized int getAndIncrement()
+    {
+      return cnt++;
+    }
+  }
+\end{lstlisting}
+\hfill
+
+The expectation was that the test test based on a synchronized method
+would be the slowest (\C{Parallel3} label on output), the one based on
+the \C{CombineTree} would become second (\C{Parallel1} label on
+output) and the fastest would be the one based on \C{AtomicInteger}
+(\C{Parallel2}); as the latest is likely to take advantage of hardware
+atomic instruction of 32bits. Surprisingly, the test based on
+\C{CombineTree} was the worst of all, by far: \\
+
+\begin{verbatim}
+.Parallel1, 8 threads, 1048576 tries took 3878
+.Parallel2, 8 threads, 1048576 tries took 162
+.Parallel3, 8 threads, 1048576 tries took 723
+
+Time: 4.827
+
+OK (3 tests)
+\end{verbatim}
+\hfill
+
+Most likely we are not comparing apples with apples, as the theory
+does not match the experiment; perhaps the \C{CombineTest} class is
+not meant for real usage, so this comparison is not fair.
+
+
+
+
+

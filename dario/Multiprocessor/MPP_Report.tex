@@ -1,0 +1,75 @@
+% -------------------------------------------------------- %
+% Report for Isaac D. Scherson
+% by: Dario Bahena Tapia
+% by: Ricardo Zavaleta Vazquez
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+\documentclass[letter,12pt]{article}
+
+
+% -------------------------------------------------------- %
+% Packages
+\usepackage{amsopn}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+\usepackage{listings}
+\lstset{ %
+  language=Java,
+  basicstyle=\footnotesize,
+  numbers=left
+}
+\lstdefinestyle{numbers}{numbers=left}
+\lstdefinestyle{nonumbers}{numbers=none}
+
+\usepackage{fancyvrb}
+\fvset{fontsize=\scriptsize}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{}
+
+% -------------------------------------------------------- %
+% Commands
+\newcommand{\C}[1]{\emph{#1}}
+\newcommand{\bigO}[1]{\ensuremath{\operatorname{O}\left(#1\right)}}
+
+% -------------------------------------------------------- %
+% Document
+\begin{document}
+
+
+% --------------------------- %
+% Title Page Start
+% --------------------------- %
+\begin{titlepage}
+\begin{center}
+
+~\\[4 cm]
+
+\includegraphics[width=15 cm]{Oracle_Logo.pdf}
+
+~\\[0.5 cm]
+
+% Document Information
+{\LARGE Multiprocessor Programming Course} \\[0.2 cm]
+
+% Names
+{Dario Bahena Tapia - Ricardo Zavaleta Vazquez - Isai Barajas Cicourel}
+
+% Date
+{\small October 2015}
+
+\end{center}
+\end{titlepage}
+% --------------------------- %
+% Title Page End
+% --------------------------- %
+\input{LockFreeQueueTest.tex}
+\input{TreeTest.tex}
+\input{SynchronousDualQueueTest.tex}
+\input{LockFreeQueueRecycleTest.tex}
+\input{BoundedQueueTest.tex}
+\input{LazyListTest.tex}
+
+\end{document}

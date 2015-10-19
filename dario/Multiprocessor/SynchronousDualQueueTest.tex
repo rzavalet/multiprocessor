@@ -1,0 +1,91 @@
+\section{\textbf{SynchronousDualQueueTest}}
+
+\subsection{Particular Case (problem)}
+The problem is to reduce the synchronization overhead of a synchronous
+queue.
+
+\subsection{Solution}
+The solution is given by using what is called a dual data structure;
+which splits the \C{enq} and \C{deq} operations in two parts.  
+When a dequeuer tries to
+remove an item from the queue, it inserts a reservation object
+indicating that is waiting for an enqueuer. Later when an enqueuer
+thread realizes about the reservation, it fulfills the same by
+depositing an item and setting the reservation's flag. On the same
+way, an enqueuer thread can make another reservation when it wants to
+add an item and spin on its reservation's flag. \\
+
+This solution has some nice properties: \\
+
+\begin{itemize}
+  \item Waiting threads can spin on a locally cached flag
+    (scalability).
+  \item Ensures fairness in a natural way. Reservations are queued in
+    the order they arrive.
+  \item This data structure is linearizable, since each partial method
+    call can be ordered when it is fulfilled.
+\end{itemize}
+
+\subsection{Experiment Description}
+The test creates 16 threads, grouping them on enqueuers and dequeuers;
+for each group it divides the worlkoad (512) evenly. Then each thread
+proceeds to either enqueue or dequeue, as many times as its share of
+the workload indicated (512/8). There are some assertions to ensure
+that we do not repeat values (each dequeuer marks an array at the
+index of the value it got). 
+among them. 
+
+\subsection{Observations and Interpretations}
+The test runs normally most of the times, but in some occasions it
+hangs. During those cases we can see a null pointer exception, and
+some never ending enqueuers:
+
+\begin{verbatim}
+.parallel both
+Exception in thread "Thread-9" java.lang.NullPointerException
+	at queue.SynchronousDualQueueTest$DeqThread.run(SynchronousDualQueueTest.java:67)
+2015-10-18 23:20:41
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (25.60-b23 mixed mode):
+
+"Thread-12" #21 prio=5 os_prio=0 tid=0x00007f4314112800 nid=0x75cf runnable [0x00007f42fc980000]
+   java.lang.Thread.State: RUNNABLE
+	at queue.SynchronousDualQueue.enq(SynchronousDualQueue.java:49)
+	at queue.SynchronousDualQueueTest$EnqThread.run(SynchronousDualQueueTest.java:60)
+
+"Thread-8" #17 prio=5 os_prio=0 tid=0x00007f431410e800 nid=0x75cd runnable [0x00007f42fcb82000]
+   java.lang.Thread.State: RUNNABLE
+	at queue.SynchronousDualQueue.enq(SynchronousDualQueue.java:49)
+	at queue.SynchronousDualQueueTest$EnqThread.run(SynchronousDualQueueTest.java:60)
+\end{verbatim}
+\hfill
+
+The \C{NullPointerException} and the hanging enqueuers are related;
+the former appears cause the \C{deq} method returns null hence it
+fails to cast into integer for a dequeuer thread (leaving the overall
+situation unbalanced, as now nobody will consume some of the items
+being pushed into the queue). \\
+
+The queue is populated with integers, so the \C{null} value returned
+must be either a defect of the tested class \C{SynchronousDualQueue};
+or that the test case is badly designed. The easiest way to handle
+this is to modify the test to handle \C{null} values on dequeuers
+thread class: \\
+
+\begin{lstlisting}[style=nonumbers]
+  class DeqThread extends Thread {
+    public void run() {
+      for (int i = 0; i < PER_THREAD; i++) {
+        Object v = null;
+        while ( (v = instance.deq()) == null ); 
+        int value = (Integer) v;
+        if (map[value]) {
+          fail("DeqThread: duplicate pop");
+        }
+        map[value] = true;
+      }
+    }
+  }  
+\end{lstlisting}
+\hfill
+
+With above modification, the test does not hang anymore.

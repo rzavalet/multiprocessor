@@ -1,0 +1,6 @@
+
+mutual exclusion
+
+lockone: starvation
+
+
