@@ -1,0 +1,158 @@
+% -------------------------------------------------------- %
+% Report for Isaac D. Scherson
+% by: Dario Bahena Tapia
+% by: Ricardo Zavaleta Vazquez
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+\documentclass[letter,12pt]{report}
+
+
+% -------------------------------------------------------- %
+% Packages
+\usepackage{algorithmic}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{amsopn}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{listings,multicol}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\graphicspath{ {images/} }
+
+\usepackage{listings}
+\lstset{ %
+  language=Java,
+  basicstyle=\footnotesize,
+  numbers=left
+}
+\lstdefinestyle{numbers}{numbers=left}
+\lstdefinestyle{nonumbers}{numbers=none}
+
+\usepackage{fancyvrb}
+\fvset{fontsize=\scriptsize}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{}
+
+% -------------------------------------------------------- %
+% Commands
+\newcommand{\C}[1]{\emph{#1}}
+\newcommand{\bigO}[1]{\ensuremath{\operatorname{O}\left(#1\right)}}
+
+% -------------------------------------------------------- %
+% Document
+\begin{document}
+
+
+% --------------------------- %
+% Title Page Start
+% --------------------------- %
+\begin{titlepage}
+\begin{center}
+
+~\\[4 cm]
+
+\includegraphics[width=15 cm]{Oracle_Logo.pdf}
+
+~\\[0.5 cm]
+
+% Document Information
+{\LARGE Multiprocessor Programming Course} \\[0.2 cm]
+
+% Names
+{Dario Bahena Tapia - Ricardo Zavaleta Vazquez - Isai Barajas Cicourel}
+
+% Date
+{\small October 2015}
+
+\end{center}
+\end{titlepage}
+% --------------------------- %
+% Title Page End
+% --------------------------- %
+
+\tableofcontents
+
+% --------------------------- %
+% Mutual Start
+% --------------------------- %
+\chapter{Mutual Exclusion}
+\include{./sections/LockFreeQueueTest}
+\include{./sections/Peterson}
+\include{./sections/Bakery}
+% --------------------------- %
+% Mutual End
+% --------------------------- %
+
+% --------------------------- %
+% Foundations Start
+% --------------------------- %
+\chapter{Foundations of Shared Memory}
+\include{./sections/SafeBooleanMRSW}
+\include{./sections/AtomicMRSWRegister}
+\include{./sections/WFSnapshot}
+% --------------------------- %
+% Foundations End
+% --------------------------- %
+
+% --------------------------- %
+% Spin Locks Start
+% --------------------------- %
+\chapter{Spin Locks and Contention}
+\input{./sections/SpinLocks}
+\include{./sections/TASLockTest}
+\include{./sections/HBOLockTest}
+\include{./sections/CLHLockTest}
+% --------------------------- %
+% Spin Locks End
+% --------------------------- %
+
+% --------------------------- %
+% Monitors Start
+% --------------------------- %
+\chapter{Monitors and Blocking Synchronization}
+\include{./sections/CountDownLatch}
+% --------------------------- %
+% Monitors End
+% --------------------------- %
+
+% --------------------------- %
+% Linked Lists Start
+% --------------------------- %
+\chapter{Linked Lists: The Role of Locking}
+\include{./sections/LockFreeQueueTest}
+\include{./sections/LazyListTest}
+%\include{./sections/CoarseList}
+%\include{./sections/LockFreeList}
+% --------------------------- %
+% Linked Lists End
+% --------------------------- %
+
+% --------------------------- %
+% Concurrent Queues Start
+% --------------------------- %
+\chapter{Concurrent Queues and the ABA Problem}
+\include{./sections/SynchronousDualQueueTest}
+\include{./sections/LockFreeQueueRecycleTest}
+\include{./sections/BoundedQueueTest}
+% --------------------------- %
+% Concurrent Queues End
+% --------------------------- %
+
+% --------------------------- %
+% Counting/Sorting Start
+% --------------------------- %
+\chapter{Counting, Sorting and Distributed Coordination}
+\include{./sections/TreeTest}
+% --------------------------- %
+% Counting/Sorting End
+% --------------------------- %
+
+\end{document}
