@@ -1,0 +1,54 @@
+\BOOKMARK [1][-]{section.1}{LockFreeQueueTest}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Particular Case \(problem\)}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Solution}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Experiment Description}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Observations and Interpretations}{section.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.4.1}{Non atomic dequeue: referencing invalid registers}{subsection.1.4}% 6
+\BOOKMARK [3][-]{subsubsection.1.4.2}{Non atomic dequeue: returning duplicate values}{subsection.1.4}% 7
+\BOOKMARK [3][-]{subsubsection.1.4.3}{Non atomic auto-increment: loosing values}{subsection.1.4}% 8
+\BOOKMARK [2][-]{subsection.1.5}{Proposed changes to fix the problems}{section.1}% 9
+\BOOKMARK [1][-]{section.2}{AtomicMRMWRegisterTest}{}% 10
+\BOOKMARK [2][-]{subsection.2.1}{Particular Case \(problem\)}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.2}{Solution}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.3}{Experiment Description}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.4}{Observations and Interpretations}{section.2}% 14
+\BOOKMARK [1][-]{section.3}{RegMRSWRegisterTest}{}% 15
+\BOOKMARK [2][-]{subsection.3.1}{Particular Case \(problem\)}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.2}{Solution}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.3}{Experiment Description}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.4}{Observations and Interpretations}{section.3}% 19
+\BOOKMARK [1][-]{section.4}{SimpleSnapshotTest}{}% 20
+\BOOKMARK [2][-]{subsection.4.1}{Particular Case \(problem\)}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.2}{Solution}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.3}{Experiment Description}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.4}{Observations and Interpretations}{section.4}% 24
+\BOOKMARK [1][-]{section.5}{QueueTest}{}% 25
+\BOOKMARK [2][-]{subsection.5.1}{Particular Case \(problem\)}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.2}{Solution}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.3}{Experiment Description}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.4}{Observations and Interpretations}{section.5}% 29
+\BOOKMARK [1][-]{section.6}{LazyListTest}{}% 30
+\BOOKMARK [2][-]{subsection.6.1}{Particular Case \(problem\)}{section.6}% 31
+\BOOKMARK [2][-]{subsection.6.2}{Solution}{section.6}% 32
+\BOOKMARK [2][-]{subsection.6.3}{Experiment Description}{section.6}% 33
+\BOOKMARK [2][-]{subsection.6.4}{Observations and Interpretations}{section.6}% 34
+\BOOKMARK [1][-]{section.7}{BoundedQueueTest}{}% 35
+\BOOKMARK [2][-]{subsection.7.1}{Particular Case \(problem\)}{section.7}% 36
+\BOOKMARK [2][-]{subsection.7.2}{Solution}{section.7}% 37
+\BOOKMARK [2][-]{subsection.7.3}{Experiment Description}{section.7}% 38
+\BOOKMARK [2][-]{subsection.7.4}{Observations and Interpretations}{section.7}% 39
+\BOOKMARK [1][-]{section.8}{LockFreeQueueRecycleTest}{}% 40
+\BOOKMARK [2][-]{subsection.8.1}{Particular Case \(problem\)}{section.8}% 41
+\BOOKMARK [2][-]{subsection.8.2}{Solution}{section.8}% 42
+\BOOKMARK [2][-]{subsection.8.3}{Experiment Description}{section.8}% 43
+\BOOKMARK [2][-]{subsection.8.4}{Observations and Interpretations}{section.8}% 44
+\BOOKMARK [1][-]{section.9}{SynchronousDualQueueTest}{}% 45
+\BOOKMARK [2][-]{subsection.9.1}{Particular Case \(problem\)}{section.9}% 46
+\BOOKMARK [2][-]{subsection.9.2}{Solution}{section.9}% 47
+\BOOKMARK [2][-]{subsection.9.3}{Experiment Description}{section.9}% 48
+\BOOKMARK [2][-]{subsection.9.4}{Observations and Interpretations}{section.9}% 49
+\BOOKMARK [1][-]{section.10}{TreeTest}{}% 50
+\BOOKMARK [2][-]{subsection.10.1}{Particular Case \(problem\)}{section.10}% 51
+\BOOKMARK [2][-]{subsection.10.2}{Solution}{section.10}% 52
+\BOOKMARK [2][-]{subsection.10.3}{Experiment Description}{section.10}% 53
+\BOOKMARK [2][-]{subsection.10.4}{Observations and Interpretations}{section.10}% 54
