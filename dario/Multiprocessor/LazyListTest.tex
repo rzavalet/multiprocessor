@@ -25,7 +25,8 @@ behaviour implies that \C{contains} method does a single wait-free
 transversal of the list. \\
 
 For adding an element to the list, \C{add} method traverses the list,
-locks the target's predecessor, and inserts the node. The \C{remove} 
+locks the target's predecessor and successor nodes, and inserts the
+new node in between. The \C{remove}   
 method is lazy (hece the name of the solution), as it splits its task in
 two parts: first marks the node in the new bit, logically removing it;
 and second, update its predecessor's next field, physically removing
@@ -40,16 +41,70 @@ the same for \C{pred} node, and that it still points to \C{curr}
 (validating a couple of nodes is much better than transversing whole
 list though). Finally, the introduction of logical removals implies a
 new contract for detecting that an item still belongs to set: it does
-so, if still referred by an unmarked reachable node. 
+so, if still referred by an unmarked reachable node. \\
 
+The most relevant methods, \C{remove} and \C{contains}, are listed
+below: \\
+
+\newpage
+\begin{lstlisting}[style=numbers]
+  public boolean remove(T item) {
+    int key = item.hashCode();
+    while (true) {
+      Node pred = this.head;
+      Node curr = head.next;
+      while (curr.key < key) {
+        pred = curr; curr = curr.next;
+      }
+      pred.lock();
+      try {
+        curr.lock();
+        try {
+          if (validate(pred, curr)) {
+            if (curr.key != key) {    // present
+              return false;
+            } else {                  // absent
+              curr.marked = true;     // logically remove
+              pred.next = curr.next;  // physically remove
+              return true;
+            }
+          }
+        } finally {                   // always unlock curr
+          curr.unlock();
+        }
+      } finally {                     // always unlock pred
+        pred.unlock();
+      }
+    }
+  }
+
+  public boolean contains(T item) {
+    int key = item.hashCode();
+    Node curr = this.head;
+    while (curr.key < key)
+      curr = curr.next;
+    return curr.key == key && !curr.marked;
+  }
+\end{lstlisting}
+\hfill
 
 \subsection{Experiment Description}
-The test is pretty much the same described for \C{LockFreeQueueTest}
-(with the exceptiont that it uses 8 threads instead of two).
+The test is pretty much the same described for \C{LockFreeQueueTest},
+with a few differences.
+
+\begin{itemize}
+\item The data structure here is a set, rather than a queue.
+\item The exceptiont that it uses 8 threads instead of two for each
+  operation (\C{add} / \C{remove}).
+\item The threads that remove elements do not care only in
+  successfully removing certain number of times (like with the queue);
+  here they expect to remove a particular subset of the values.
+\end{itemize}
+  
 
 \subsection{Observations and Interpretations}
 
-The test works as expected, below sample execution:
+The test works as expected on a two cores machine, sample output below:
 
 \begin{verbatim}
 .parallel deq
@@ -63,3 +118,33 @@ OK (4 tests)
 \end{verbatim}
 \hfill
 
+Interestingly, on a 24 cores machine, sometimes the test case
+\C{testParallelBoth} fails with exceptions like the one below: \\
+
+\begin{verbatim}
+junit.framework.AssertionFailedError: RemoveThread: duplicate remove
+at junit.framework.Assert.fail(Assert.java:57)
+at junit.framework.TestCase.fail(TestCase.java:227)
+at lists.LazyListTest$RemoveThread.run(LazyListTest.java:142)
+\end{verbatim}
+\hfill
+
+While debugging the error above, we found that the message of
+``duplicate remove'' is a bit misleading; is not really that someone
+else tried to delete that value (as each \C{RemoveThread} cares about
+a unique set of values). The real problem is that the removing threads
+just try once to remove each value, and fail if they did not find any
+of them. Since both the adder and remover threads are started
+concurrently, there is no guarantee that the adders will come first
+than the removers; so it could be that the removers try to pull out
+something that has not been inserted yet (leaving to the exception
+shown above). \\
+
+Since the \C{LazyList} solution does not include an error-and-retry
+approach (as with our second rewrite of the \C{LockFreeQueue}, which
+used Java condition's await methods), the only way to fix this would
+be to rewrite the test program itself. Each remover thread will need
+to indefinitely try to remove all its items until completion, rather
+than expecting that all of them are available by the time they are to
+be removed. We tried that approach and made the proper adjustments
+to the test program, after which the problem got solved as expected.
