@@ -1,0 +1,84 @@
+\section{\textbf{RegMRSWRegisterTest}}
+
+\subsection{Particular Case (problem)}
+The problem we face here is that of building a regular multi-valued
+multiple-reader single-writer register; out of simpler constructions,
+like the rest of chapter 4. 
+
+\subsection{Solution}
+The solution, though supporting multi-values (integers), is bounded in
+the range of values. We use as primitive blocks regular boolean
+multiple-reader single-writer registers; and create an array of them
+(as many as values in supported range), and use it to represent
+numbers in unary way. That is, each position on the array that is set
+to true represents the number corresponding to that position (the
+index itself is the number). \\
+
+Initially the boolean array is initialized to zero value, indicated by
+having true the cell at index 0. The write method of value \C{x} sets
+to true array position \C{x}, and updates to false the lower value
+positions (so it updates from right to left). In order to guarantee
+the regular property, the read method operates on the opposite
+direction: it goes from left to right, starting at zero position, and
+returns the first position whose value is true (an invariant of the
+array should be that there is at least one cell in with true
+value). The code from the book is presented below, for further
+reference (the range of values picked
+by the book's authors was that of byte Java type): \\
+
+\newpage
+\begin{lstlisting}[style=numbers]
+public class RegMRSWRegister implements Register<Byte> {
+  private static int RANGE = Byte.MAX_VALUE - Byte.MIN_VALUE + 1;
+  // regular boolean mult-reader single-writer register
+  boolean[] r_bit = new boolean[RANGE]; 
+  public RegMRSWRegister(int capacity) {
+    r_bit[0] = true; // least value
+  }
+  public void write(Byte x) {
+    r_bit[x] = true;
+    for (int i = x - 1; i >= 0; i--)
+      r_bit[i] = false;
+  }
+  public Byte read() {
+    for (int i = 0; i < RANGE; i++)
+      if (r_bit[i]) {
+        return (byte)i;
+      }
+    return -1;  // never reached
+  }
+}
+\end{lstlisting}
+\hfill
+
+\subsection{Experiment Description}
+The test program \C{RegMRSWRegisterTest} includes the following individual
+test cases (which is pretty much the same thing as test
+\C{AtomicMRMWRegisterTest}):
+
+\begin{itemize}
+  \item \C{testSequential}: calls \C{write} method first with a value
+    of 11, then calls \C{read} method expecting read 11. A single
+    thread is used (main thread).
+  \item \C{testParallel}: calls twice method \C{write}, putting first
+    11 then 22 value. Then proceeds to create 8 reader threads, which
+    expect all to read 22. 
+\end{itemize}
+
+\subsection{Observations and Interpretations}
+Just like \C{AtomicMRMWRegisterTest}, this does not exhibit any issue
+on two nor in 24 core machines. Again, part of that reason is that the
+test is not really interlacing writes with reads. A sample successful
+execution is shown below: \\
+
+\begin{verbatim}
+$ junit register.RegMRSWRegisterTest
+.sequential read and write
+.parallel read
+
+Time: 0.004
+
+OK (2 tests)
+\end{verbatim}
+\hfill
+
