@@ -58,6 +58,9 @@ each group:
     a total of four threads, two for each operation).
 \end{itemize}
 
+The test program was run on two types of machines; one with two cores
+only and another with 24 cores.
+
 \subsection{Observations and Interpretations}
 The bottom line of this exercise is most likely, to show several types
 of problems that can occur if we do not use mutual exclusion; the
@@ -66,15 +69,15 @@ to several cases of race conditions. Below we explain some of them.
 
 \subsubsection{Non atomic dequeue: referencing invalid registers}
 
-The symptom for this problem is a NullPointerException: \\
+The symptom for this problem is a NullPointerException, and it
+occurred on both test machines:
 
 \begin{verbatim}
-There was 1 error:
 1) testParallelEnq(mutex.LockFreeQueueTest)java.lang.NullPointerException
-	at mutex.LockFreeQueueTest.testParallelEnq(LockFreeQueueTest.java:69)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at mutex.LockFreeQueueTest.testParallelEnq(LockFreeQueueTest.java:67)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 \end{verbatim}
 \hfill
 
@@ -89,11 +92,13 @@ posted above.
 \item Assume that queue holds a single element which lives in \C{items}
   array at position 0; the array has \C{null} on position 1 (per
   initialization).
-\item T1: Executes method up to line 20. 
+\item T1: Executes method up to line 19. 
 \item T2: Executes method up to line 19. 
-\item T1: Executes line 21, getting \C{items[0]}. 
+\item T1: Executes lines 20, getting \C{items[0]}.
+\item T1: Executes lines 21, increasing \C{head} to 1.
 \item T2: Executes line 20, but as \C{head} was changed already, it
-  gets \C{items[1]}.  
+  gets \C{items[1]}.
+\item T2: Executes lines 21, increasing \C{head} to 2.
 \item T1: Executes line 22 returning \C{items[0]}
 \item T2: Executes line 22 returning \C{items[1]}, which was \C{null}.
 \end{itemize}
@@ -106,17 +111,15 @@ variables.
 
 \subsubsection{Non atomic dequeue: returning duplicate values}
 
-The symptom for this problem is a duplicate pop warning: \\
+The symptom for this problem is a duplicate pop warning, and it
+occurred on both test machines:
 
 \begin{verbatim}
-.parallel both
-.sequential push and pop
-.parallel enq
-E.parallel deq
-Exception in thread "Thread-7" junit.framework.AssertionFailedError: 
-DeqThread: duplicate pop
-	at junit.framework.Assert.fail(Assert.java:47)
-	at mutex.LockFreeQueueTest$DeqThread.run(LockFreeQueueTest.java:132)
+.parallel deq
+Exception in thread "Thread-5" junit.framework.AssertionFailedError: DeqThread: duplicate pop
+at junit.framework.Assert.fail(Assert.java:57)
+at junit.framework.TestCase.fail(TestCase.java:227)
+at mutex.LockFreeQueueTest$DeqThread.run(LockFreeQueueTest.java:129)
 \end{verbatim}
 \hfill
 
@@ -147,9 +150,12 @@ the same as previous case: lack of atomicity of the \C{deq} method.
 
 \subsubsection{Non atomic auto-increment: loosing values}
 
-The symptom for this problem is a never ending program, hanging on the
-test \C{testParallelBoth}. When produced several thread dumps of the
-Java program, we can see two hanging threads: \\
+The symptom for this problem is a never ending program, hanging on
+either the test \C{testParallelBoth} or \C{testParallelEnq}; this
+issue occurred on both test machines (though it was easier to
+reproduce on the one with two cores). When produced several thread
+dumps of the Java program, we can see either two hanging threads
+(\C{testParallelBoth} case): \\
 
 \begin{verbatim}
 "Thread-7" #16 prio=5 os_prio=0 tid=0x00007f3140102000 nid=0x3f51
@@ -182,6 +188,11 @@ per our listing in this document, not in the file). This means that we
 have lost some of the inserted elements in queue, and that one of the
 dequeue threads will never finish; as they expect each to pop a fixed
 amount of elements per the test. \\
+
+The other hanging scenario that comes out of (\C{testParallelEnq}), is
+a single hanging thread, which was actually the main thread doing a 
+serial dequeue. The common factor for both scenarios was a parallel
+enqueue. \\ 
 
 But the amount of times we request a dequeue operation, among all
 threads, is the same as the number of elements we queued; how come we
@@ -230,6 +241,16 @@ they become atomic operations.
 
 \subsection{Proposed changes to fix the problems}
 
+In class it was mentioned that the \C{head} and \C{tail} variables
+were not declared as \C{volatile}; which in Java jargon means they are
+susceptible to caching on each core. This means, that a write to any
+of those two variables (which control the queue size) are not meant to
+be reflected immediately to the other cores, unless we declare the
+variable as \C{volatile}. We did several attempts to achive lock-free
+implementation of this queue, by making the variables \C{volatile} but
+it was enough; then we tried by making atomic only portions of the
+\C{enq} and \C{deq} methods; but it did not work either. \\
+
 All the three scenarios described before can be eliminated, if we make
 the methods \C{enq} and \C{deq} atomic; this can be easily achieved in
 Java by making them \C{synchronized}. However, by doing that, we will
@@ -251,7 +272,7 @@ us to pop). The final code which incorporates these fixes is listed
 below: \\
 
 \newpage
-\begin{lstlisting}[style=numbers]
+\begin{lstlisting}[style=nonumbers]
 class LockFreeQueue {
   private static Object enqLock = new Object();
   private static Object deqLock = new Object();
@@ -301,6 +322,87 @@ threads). A successful call is one that does not return \C{false} nor
 not produce any of the original problems we explained. Though not a
 formal proof of its correctness, it is a good indication of the same
 (the original program produced one of the cited problems quite often,
-usually within 10 executions).
+usually within 10 executions). \\
+
+A probably more elegant solution we came out with, after reading about
+Java facilities for locks and conditions, was the following; it has
+the advantage that it does not require us to change the test case: \\ 
+
+\begin{lstlisting}[style=nonumbers]
+class LockFreeQueue {
+  int head = 0;   // next item to dequeue
+  int tail = 0;   // next empty slot
+  Object[] items; // queue contents
+
+  final Lock lock = new ReentrantLock();
+  final Condition notFull  = lock.newCondition(); 
+  final Condition notEmpty = lock.newCondition(); 
+
+  public LockFreeQueue(int capacity) {
+    head = 0; tail = 0;
+    items = new Object[capacity];
+  }
+
+  public void enq(Object x) {
+    lock.lock();
+    try {
+      // spin while full
+      while (tail - head == items.length) 
+        notFull.await();
+      items[tail % items.length] = x;
+      tail++;
+      notEmpty.signalAll();
+    }
+    catch(InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+    finally {
+      lock.unlock();
+    }
+  }
+
+  public Object deq() {
+    lock.lock();
+    try {
+      // spin while empty
+      while (tail == head)
+        notEmpty.await();
+      Object x = items[head % items.length];
+      head++;
+      notFull.signalAll();
+      return x;
+    }
+    catch(InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+    finally {
+      lock.unlock();
+    }
+  }
+}  
+\end{lstlisting}
+\hfill
+
+This second option is interesting on its usage of the \C{await} call
+to the condition objects; such call provokes that a thread which got
+granted a lock releases it to give a change to other threads to come
+in. For example, an enqueuer may give a chance to a dequeuer to make
+room for it; or, a dequeuer may give an enqueuer a chance to produce
+something for it. Without those calls to \C{await}, we could end up
+falling into never ending loops. \\
+
+Another relevant detail of this second solution is the usage of
+\C{signalAll}  method on conditions; this is to awake the threads
+which were waiting on that particular condition. In our 
+case, it corresponds to the enqueuers or dequeuers which
+called \C{await} on their respective \C{notFull} or \C{notEmpty}
+conditions. Thus, as soon as there is room an enqueuer is awakened
+and as soon as there is data a dequeuer is awakened. As there are
+tests where we can have more than one thread on each condition, we
+prefer to use \C{signalAll} method rather than \C{signal} (which will
+awake a single thread). This is to prevent the lost awakes problem
+that is mentioned on the book (on the chapter about monitors, if we
+recall correctly).
+
 
 
