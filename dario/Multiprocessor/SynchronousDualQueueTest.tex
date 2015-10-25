@@ -1,3 +1,4 @@
+\newpage
 \section{\textbf{SynchronousDualQueueTest}}
 
 \subsection{Particular Case (problem)}
@@ -15,7 +16,7 @@ depositing an item and setting the reservation's flag. On the same
 way, an enqueuer thread can make another reservation when it wants to
 add an item and spin on its reservation's flag. \\
 
-This solution has some nice properties: \\
+This solution has some nice properties: 
 
 \begin{itemize}
   \item Waiting threads can spin on a locally cached flag
@@ -35,6 +36,7 @@ that we do not repeat values (each dequeuer marks an array at the
 index of the value it got). 
 among them. 
 
+\newpage
 \subsection{Observations and Interpretations}
 The test runs normally most of the times, but in some occasions it
 hangs (in the test machine with two cores is a rare error, but on the
@@ -73,6 +75,7 @@ related with concurrency, as error occurs much more often on the machine
 with 24 cores. The easiest way to handle this is to modify the test to
 handle \C{null} values on dequeuers thread class: \\
 
+\newpage
 \begin{lstlisting}[style=nonumbers]
   class DeqThread extends Thread {
     public void run() {
@@ -91,5 +94,9 @@ handle \C{null} values on dequeuers thread class: \\
 \hfill
 
 With above modification, the test does not hang anymore (tried in both
-test machines, with 2 and 24 cores). 
+test machines, with 2 and 24 cores). Given more time, we would have
+preferred to dig further into root cause of this problem; instead of
+just putting a patch on the test program.
+
+
 

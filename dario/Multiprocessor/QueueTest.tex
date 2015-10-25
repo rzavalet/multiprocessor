@@ -1,0 +1,126 @@
+\newpage
+\section{\textbf{QueueTest}}
+
+\subsection{Particular Case (problem)}
+The problem we want to solve is again mutual exclusion around a shared
+bounded queue; just like chapter 2. The difference here is that, instead of
+just using locks the authors try to explain the facilities provided by
+Java \C{Condition} interface (part of package
+\C{java.util.concurrent.locks}). Such interface, along with the
+\C{Lock} one, offer a finer grain control over the
+Monitors \footnote{Monitors, as explained in the book, are an
+  structured way to integrate synchronization with an object's data
+  and methods (speaking about OO paradigm).}
+capabilities offered by Java language; when compared to merely using
+the \C{synchronized} feature. 
+
+\subsection{Solution}
+The solution to the mutual exclusion problem around the bounded queue is
+solved by using a single Lock of type \C{ReentrantLock}, to control
+exclusive access to the data structure (reentrant is important to
+ensure that a thread which has gotten the lock already, can request it
+again as many times as it want). In addition, the solution uses a
+couple of \C{Condition} objects to represent the conditions 
+which enqueuers and dequeuers wait on: \\
+
+\begin{itemize}
+  \item \C{notFull}: condition enqueuers wait on, prior daring to push.
+  \item \C{notEmpty}: condition dequeuers wait on, prior daring to pop.
+\end{itemize}
+\hfill
+
+The implementations of methods \C{enq} and \C{deq} are similar to
+those from the flawed \C{LockFreeQueue} that we analyzed before; there
+are a couple of crucial differences though: \\
+
+\begin{itemize}
+\item We use a lock to implement mutual exclusion, so we eliminate all
+  the issues seen before due race conditions.
+\item The potentially infinite loops for both \C{enq} and \C{deq} now
+  do something: they call the \C{await} method on their respective
+  conditions. This guarantees that we do not have deadlocks: if a
+  thread does not find the queue on the expected state to perform the
+  operation, it releases the lock and allow the others to proceed. In
+  that way we allow enqueuers to put the data we are waiting for, or
+  the dequeuers to make the space we need; after which they
+  ``wake-up'' the waiting threads with a call to condition's
+  \C{signal} method. 
+\end{itemize}
+\hfill
+
+The code looks quite similar to our second proposed modification of previous
+exercise \C{LockFreeQueueTest}; and actually, it also looks quite
+similar to the sample code listed on the \href{http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Condition.html}{Javadoc API of \C{Condition}
+  interface} (on which we also based our proposal). Anyway, the book
+solution is listed below for further reference: \\
+
+\begin{lstlisting}[style=numbers]
+class Queue<T> {
+  final Lock lock = new ReentrantLock();
+  final Condition notFull  = lock.newCondition();
+  final Condition notEmpty = lock.newCondition();  
+  final T[] items; 
+  int tail, head, count;  
+  public Queue(int capacity) {
+    items = (T[])new Object[capacity];
+  }
+  public void enq(T x) throws InterruptedException {
+    lock.lock();
+    try {
+      while (count == items.length)
+        notFull.await();
+      items[tail] = x;
+      if (++tail == items.length)
+        tail = 0;
+      ++count;
+      notEmpty.signal();
+    } finally {
+      lock.unlock();
+    }
+  }  
+  public T deq() throws InterruptedException {
+    lock.lock();
+    try {
+      while (count == 0)
+        notEmpty.await();
+      T x = items[head];
+      if (++head == items.length)
+        head = 0;
+      --count;
+      notFull.signal();
+      return x;
+    } finally {
+      lock.unlock();
+    }
+  }
+}
+\end{lstlisting}
+\hfill
+
+\subsection{Experiment Description}
+
+The test is pretty much the same than \C{LockFreeQueueTest}, except
+for the number of threads (8 instead of 2) and data (64 instead of
+512). 
+
+\subsection{Observations and Interpretations}
+Although the test does not exhibit any issue on 2 nor in 24 cores, we
+would feel safer replacing the \C{signal} calls by \C{signalAll}, just
+to totally discard the potencial problem of lost wake-ups explained on
+the book (this is what we did for our second proposal to fix
+\C{LockFreeQueueTest}, indeed). A sample successful execution is shown
+below: \\ 
+
+\begin{verbatim}
+$ junit monitor.QueueTest
+.sequential push and pop
+.parallel both
+.parallel deq
+.parallel enq
+
+Time: 0.009
+
+OK (4 tests)
+\end{verbatim}
+\hfill
+

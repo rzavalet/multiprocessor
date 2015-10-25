@@ -1,3 +1,4 @@
+\newpage
 \section{\textbf{LockFreeQueueTest}}
 
 \subsection{Particular Case (problem)}
@@ -271,7 +272,6 @@ again (giving the chance to parallel enqueue threads to produce something for
 us to pop). The final code which incorporates these fixes is listed
 below: \\
 
-\newpage
 \begin{lstlisting}[style=nonumbers]
 class LockFreeQueue {
   private static Object enqLock = new Object();
@@ -312,7 +312,6 @@ class LockFreeQueue {
 
 \end{lstlisting}
 \hfill
-\newpage
 
 The test code was also modified, to make the enqueue and dequeue
 threads to iterate until they have successfully called their
@@ -328,6 +327,7 @@ A probably more elegant solution we came out with, after reading about
 Java facilities for locks and conditions, was the following; it has
 the advantage that it does not require us to change the test case: \\ 
 
+\newpage
 \begin{lstlisting}[style=nonumbers]
 class LockFreeQueue {
   int head = 0;   // next item to dequeue

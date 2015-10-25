@@ -1,3 +1,4 @@
+\newpage
 \section{\textbf{AtomicMRMWRegisterTest}}
 
 \subsection{Particular Case (problem)}
@@ -27,6 +28,7 @@ with thread ids). This is essentially the same as Lamport's Bakery
 algorithm from mutual exclusion chapter; the code is small enough to
 fit here, so there it goes for reference: \\
 
+\newpage
 \begin{lstlisting}[style=numbers]
 public class AtomicMRMWRegister<T> implements Register<T>{
   // array of multi-reader single-writer registers

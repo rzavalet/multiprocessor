@@ -1,11 +1,12 @@
+\newpage
 \section{\textbf{TreeTest}}
 
 \subsection{Particular Case (problem)}
 This problem belongs to chapter 12, where the idea is to present
 problems which look inherently serial but that surprisingly accept
-interesting concurrent solutions (though not always easy to explain).
-
-The particular problem this test is exercising is that of shared
+interesting concurrent solutions (though not always easy to
+explain). The particular problem this test is exercising is that of
+shared 
 counting, where we have \C{N} threads to increase a shared numeric
 variable up to certain value; but with the goal of producing less
 contention than a serial solution would generate. 
@@ -44,20 +45,19 @@ ensure that all threads completed their task.
 
 The test performs without much controversy in an elapsed time between
 3 and 4 seconds (laptop computer with i5 processor). Below a sample
-output: \\
+output: 
 
 \begin{verbatim}
 .Parallel, 8 threads, 1048576 tries
 
 Time: 3.641
 \end{verbatim}
-\hfill
 
 To make the test a little more interesting, we created another couple
 of tests reusing sample template of existing one; difference was the
 Thread class used on each case. \\
 
-The first additional test uses a thread class based on Java provider
+The first additional test uses a thread class based on Java provider \\
 \C{java.util.concurrent.atomic.AtomicInteger}: \\
 
 \begin{lstlisting}[style=nonumbers]
