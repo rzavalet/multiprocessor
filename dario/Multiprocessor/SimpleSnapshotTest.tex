@@ -1,0 +1,117 @@
+\section{\textbf{SimpleSnapshotTest}}
+
+\subsection{Particular Case (problem)}
+The problem we want to solve is that of atomic snapshots: we want to
+read atomically a set of registers. For this problem we assume the
+registers are themselves atomic, and that each one supports
+multiple-readers but just one writer. The problem is better defined in 
+terms of the Java interface we want to implement: \\
+
+\begin{lstlisting}[style=nonumbers]
+public interface Snapshot<T> {
+  public void update(T v);
+  public T[] scan();
+}
+\end{lstlisting}
+\hfill
+
+While the method \C{update} allows each thread to modify its own
+register (single-writer), the \C{scan} method allows any thread to
+read all the registers as a single atomic operation
+(multiple-readers). Ideally, we would like to have a wait-free
+implementation of these two methods.
+
+\subsection{Solution}
+The solution presented in the book is a natural evolution to the
+sequential implementation (which uses \C{synchronized} methods for
+both \C{update} and \C{scan} methods). The solution is called
+\C{SimpleSnapshot} and it uses stamped values for the \C{update}
+method; there is no need to seek for the maximum, just to increase the
+current stamp per thread (each thread only writes to its own
+register). This makes the \C{update} method wait-free, which is the
+ideal (it was not very hard to achieve indeed, given the single-writer
+restriction). \\
+
+For the \C{scan} method we call an auxiliary function \C{collect},
+which represents a non atomic read of all the registers (which are
+copied into a new array and returned); if two
+consecutive \C{collect} calls return same values, it means that between
+those two calls there were no writes. When we reach that condition, we
+return the array of values; otherwise we repeat the iteration. Please
+note that \C{scan} method is not wait-free (we do not know how many
+times we will need to iterate), but at least is
+obstruction-free (we are not blocking other threads from trying their
+own \C{scan} calls). \\
+
+The main parts of the code are presented below for reference: \\
+
+\begin{lstlisting}[style=numbers]
+public class SimpleSnapshot<T> implements Snapshot<T> {
+  // array of atomic MRSW registers
+  private StampedValue<T>[] a_table;  
+  ...
+  public void update(T value) {
+    int me = ThreadID.get();
+    StampedValue<T> oldValue = a_table[me];
+    StampedValue<T> newValue =
+        new StampedValue<T>((oldValue.stamp)+1, value);
+    a_table[me] = newValue;
+  }
+  private StampedValue<T>[] collect() {
+    StampedValue<T>[] copy = (StampedValue<T>[]) new StampedValue[a_table.length];
+    for (int j = 0; j < a_table.length; j++)
+      copy[j] = a_table[j];
+    return copy;
+  }
+  public T[] scan() {
+    StampedValue<T>[] oldCopy, newCopy;
+    oldCopy = collect();
+    collect: while (true) {
+      newCopy = collect();
+      if (! Arrays.equals(oldCopy, newCopy)) {
+        oldCopy = newCopy;
+        continue collect;
+      }
+      // clean collect
+      T[] result = (T[]) new Object[a_table.length];
+      for (int j = 0; j < a_table.length; j++)
+        result[j] = newCopy[j].value;
+      return result;
+    }
+  }
+}
+\end{lstlisting}
+\hfill
+
+\subsection{Experiment Description}
+
+The test program \C{SimpleSnapshotTest} consists of two individual
+test cases: 
+
+\begin{itemize}
+  \item \C{testSequential}: with a single thread we update its value
+    first (11), and then obtain an snapshot (\C{scan}); expectation is
+    to have a single value in array (the one we wrote).
+  \item \C{testParallel}: we create a couple of threads, and each one
+    writes its own register twice (first putting 11, then 22). Then
+    each thread proceeds to call \C{scan} method and saves its own
+    returned values into a global results table. At the end of test,
+    main thread check that both threads got the same results (which
+    should be a two element array, both with value 22). 
+\end{itemize}
+
+\subsection{Observations and Interpretations}
+The test runs fine, both in 2 and 24 core machines; sample output
+below: \\
+
+\begin{verbatim}
+$ junit register.SimpleSnapshotTest
+.sequential
+.parallel
+
+Time: 0.002
+
+OK (2 tests)
+\end{verbatim}
+\hfill
+
