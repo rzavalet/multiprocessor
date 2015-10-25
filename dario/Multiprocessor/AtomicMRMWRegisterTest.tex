@@ -2,8 +2,12 @@
 
 \subsection{Particular Case (problem)}
 The problem we are trying to solve here, is that of implementing an
-atomic multiple-reader multiple-writer register. Let us briefly recall
-that atomic registers are the most powerful ones, when compated with the
+atomic multi-valued \footnote{As opposed to boolean values, which have
+only a couple of values; while multi-valued can range over a big set,
+like integers.}
+multiple-reader multiple-writer register. Let us 
+briefly recall that atomic registers are the most powerful ones, when
+compated with the 
 other two categories: safe and regular. Informally, atomic registers
 behave like one would expect when reads overlap writes: the reads
 always ``see'' the last written value; while regular registers allows
@@ -12,7 +16,7 @@ allow reads to see any value (not safe at all then!).
 
 \subsection{Solution}
 The solution from the book uses as primitive blocks the atomic
-multi-reader single-writer registers; we build an array of them whose
+multi-valued multi-reader single-writer registers; we build an array of them whose
 size equals the number of threads we want to support (assuming number
 of writers is same as readers). When a given thread \C{A} wants to
 write a value, it needs to read all the values on the array and writes
@@ -75,7 +79,7 @@ of writes and reads. We believe the authors just copied paste a
 previous test (probably one that just cared about single reader and
 multiple writers), and forgot to update. Due time constraints we did
 not modify the test to exercise those missing features; a sample
-execution is shown below: 
+execution is shown below: \\\\
 
 \begin{verbatim}
 $ junit register.AtomicMRMWRegisterTest

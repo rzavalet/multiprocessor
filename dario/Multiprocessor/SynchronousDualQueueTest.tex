@@ -37,8 +37,9 @@ among them.
 
 \subsection{Observations and Interpretations}
 The test runs normally most of the times, but in some occasions it
-hangs. During those cases we can see a null pointer exception, and
-some never ending enqueuers:
+hangs (in the test machine with two cores is a rare error, but on the
+one with 24 cores it almost always occurs) . During those cases we can
+see a null pointer exception, and some never ending enqueuers:
 
 \begin{verbatim}
 .parallel both
@@ -67,9 +68,10 @@ being pushed into the queue). \\
 
 The queue is populated with integers, so the \C{null} value returned
 must be either a defect of the tested class \C{SynchronousDualQueue};
-or that the test case is badly designed. The easiest way to handle
-this is to modify the test to handle \C{null} values on dequeuers
-thread class: \\
+or that the test case is badly designed. On either case, is shall be
+related with concurrency, as error occurs much more often on the machine
+with 24 cores. The easiest way to handle this is to modify the test to
+handle \C{null} values on dequeuers thread class: \\
 
 \begin{lstlisting}[style=nonumbers]
   class DeqThread extends Thread {
@@ -88,4 +90,6 @@ thread class: \\
 \end{lstlisting}
 \hfill
 
-With above modification, the test does not hang anymore.
+With above modification, the test does not hang anymore (tried in both
+test machines, with 2 and 24 cores). 
+
