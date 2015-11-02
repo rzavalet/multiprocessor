@@ -1,0 +1,270 @@
+\section{\textbf{MCSLockTest}}
+
+\subsection{Particular Case (problem)}
+The problem is still how to build scalable spinning locks, and in
+particular, how to overcome the limitations from the backoff
+approaches. The queue-based approach introduced both \C{ALock} and
+\C{CLHLock}, the first is space inefficient and the second overcomes
+such limitation at the expense of not being suitable for cache-less
+NUMA architecture.
+
+\subsection{Solution}
+The solution or rather alternative to \C{CLHLock} approach is called
+\C{MCSLock}; and that is the algorithm tested in this section. Just
+like the \C{CLHLock} approach, the lock is modeled with a linked
+list of QNode objects, where each one represents either a lock holder
+or a thread waiting to acquire the lock; the difference though, is
+that the list is explicit, not virtual \footnote{The author introduces
+  the term ``virtual'', when describing \C{CLHLock} because the
+list is implicit: each thread refers to its predecessor through a
+thread-local \C{pred} variable.}. On the \C{MCSLock} approach, instead of
+embedding the list in thread-local variables, it is placed in the
+globally accessible QNode objects.
+
+The \C{MCSLock} code is presented below for further reference: \\
+
+\begin{lstlisting}[style=numbers]
+public class MCSLock implements Lock {
+  AtomicReference<QNode> queue;
+  ThreadLocal<QNode> myNode;
+  public MCSLock() {
+    queue = new AtomicReference<QNode>(null);
+    // initialize thread-local variable
+    myNode = new ThreadLocal<QNode>() {
+      protected QNode initialValue() {
+        return new QNode();
+      }
+    };
+  }
+  public void lock() {
+    QNode qnode = myNode.get();
+    QNode pred = queue.getAndSet(qnode);
+    if (pred != null) {
+      qnode.locked = true;
+      pred.next = qnode;
+      while (qnode.locked) {}     // spin
+    }
+  }
+  public void unlock() {
+    QNode qnode = myNode.get();
+    if (qnode.next == null) {
+      if (queue.compareAndSet(qnode, null))
+        return;
+      while (qnode.next == null) {} // spin
+    }
+    qnode.next.locked = false;
+    qnode.next = null;
+  }
+  ...
+  static class QNode {     // Queue node inner class
+    boolean locked = false;
+    QNode   next = null;
+  }
+}
+\end{lstlisting}
+\hfill
+
+This \C{MCSLock} solution is not a perfect replacement for
+\C{CLHLock}: on one side it has same advantages than \C{CLHLock}, in
+particular, the property that each lock release invalidates only the
+successor's cache entry, with the plus that it is better suited to
+cache-less NUMA architectures because each thread controls the
+location on which it spins. The space complexity is the same as
+\C{CLHLock}, \bigO{L + n}, as the nodes can be recycled. \\
+
+On the other side, the disadvantages of \C{MCSLock} algorithm is that
+releasing a lock requires spinning; and that it requires more reads,
+writes, and compareAndSet() calls than the \C{CLHLock} algorithm.
+
+\subsection{Experiment Description}
+
+The test is exactly the same as that of \C{BackoffLockTest}: 8 threads
+try to increment 1024 times a shared counter, and they do that
+concurrently. At the end the counter shall have $8 * 1024$ as final
+value. 
+
+\subsection{Observations and Interpretations}
+The test works fine in two-cores, but in 24 cores it hangs time to
+time; below a sample thread dump captured when hanging occurred (after
+trying the test a bit more than 300 times):
+
+\begin{verbatim}
+Full thread dump OpenJDK 64-Bit Server VM (23.7-b01 mixed mode):
+
+"Thread-7" prio=10 tid=0x00007f3c4c0e0000 nid=0x6aaa runnable [0x00007f3bf6e4c000]
+   java.lang.Thread.State: RUNNABLE
+	at spin.MCSLock.lock(MCSLock.java:41)
+	at spin.MCSLockTest$MyThread.run(MCSLockTest.java:52)
+
+"Thread-6" prio=10 tid=0x00007f3c4c0de000 nid=0x6aa9 runnable [0x00007f3bf6f4d000]
+   java.lang.Thread.State: RUNNABLE
+	at spin.MCSLock.lock(MCSLock.java:41)
+	at spin.MCSLockTest$MyThread.run(MCSLockTest.java:52)
+
+"Thread-5" prio=10 tid=0x00007f3c4c0dc000 nid=0x6aa8 runnable [0x00007f3bf704e000]
+   java.lang.Thread.State: RUNNABLE
+	at spin.MCSLock.lock(MCSLock.java:41)
+	at spin.MCSLockTest$MyThread.run(MCSLockTest.java:52)
+
+"Thread-4" prio=10 tid=0x00007f3c4c0da000 nid=0x6aa7 runnable [0x00007f3bf714f000]
+   java.lang.Thread.State: RUNNABLE
+	at spin.MCSLock.lock(MCSLock.java:41)
+	at spin.MCSLockTest$MyThread.run(MCSLockTest.java:52)
+
+"Thread-3" prio=10 tid=0x00007f3c4c0d7000 nid=0x6aa6 runnable [0x00007f3bf7250000]
+   java.lang.Thread.State: RUNNABLE
+	at spin.MCSLock.lock(MCSLock.java:41)
+	at spin.MCSLockTest$MyThread.run(MCSLockTest.java:52)
+
+"Thread-2" prio=10 tid=0x00007f3c4c0d5800 nid=0x6aa5 runnable [0x00007f3bf7351000]
+   java.lang.Thread.State: RUNNABLE
+	at spin.MCSLock.lock(MCSLock.java:41)
+	at spin.MCSLockTest$MyThread.run(MCSLockTest.java:52)
+
+"Thread-1" prio=10 tid=0x00007f3c4c0d4000 nid=0x6aa4 runnable [0x00007f3bf7452000]
+   java.lang.Thread.State: RUNNABLE
+	at spin.MCSLock.lock(MCSLock.java:41)
+	at spin.MCSLockTest$MyThread.run(MCSLockTest.java:52)
+
+"Thread-0" prio=10 tid=0x00007f3c4c0d8800 nid=0x6aa3 runnable [0x00007f3bf7553000]
+   java.lang.Thread.State: RUNNABLE
+	at spin.MCSLock.lock(MCSLock.java:41)
+	at spin.MCSLockTest$MyThread.run(MCSLockTest.java:52)
+...
+"main" prio=10 tid=0x0000000000c8a800 nid=0x6a79 in Object.wait() [0x00007f3c5ce0d000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000058386adc8> (a spin.MCSLockTest$MyThread)
+	at java.lang.Thread.join(Thread.java:1260)
+	- locked <0x000000058386adc8> (a spin.MCSLockTest$MyThread)
+	at java.lang.Thread.join(Thread.java:1334)
+	at spin.MCSLockTest.testParallel(MCSLockTest.java:43)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at junit.framework.TestCase.runTest(TestCase.java:176)
+	at junit.framework.TestCase.runBare(TestCase.java:141)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:129)
+	at junit.framework.TestSuite.runTest(TestSuite.java:252)
+	at junit.framework.TestSuite.run(TestSuite.java:247)
+	at junit.textui.TestRunner.doRun(TestRunner.java:116)
+	at junit.textui.TestRunner.start(TestRunner.java:183)
+	at junit.textui.TestRunner.main(TestRunner.java:137)
+\end{verbatim}
+\hfill
+
+From the above stacks, we can observe that the main thread hangs
+because none of the launched 8 threads gets out of the spinning while
+of \C{lock} method (line 41): \\
+
+\begin{lstlisting}[style=numbers]
+      while (qnode.locked) {}     // spin
+\end{lstlisting}
+\hfill
+
+The reason of the above must be that the \C{locked} flag is not
+declared as \C{volatite}; without such keyword, the JVM does not
+guarantee any synchronization time limits between the \C{RAM} and the local
+caches of each core. Thus, the hanging shall occur when the write made
+by last thread to its local flag (\C{locked=false}, did not get
+propagated to any other core for a while; we do now know when they
+would get propagated, actually. \\
+
+This is an interesting aspect of the \C{AtomicReference} class; while
+it does cover the ``reference'' to a \C{QNode}, it does not
+appear to affect the attributes of the object. Thus, changes to the
+\C{queue} reference will be atomic indeed; but they would point to
+attributes whose writes are not. \\
+
+One may be tempted to think that the \C{volatile} keyword is only
+applicable to the \C{locked} boolean flag; but even with that chance
+the test may still hang. Below sample thread dump on the 24 cores
+machine, after retrying test 1118 times: \\
+
+\begin{verbatim}
+Full thread dump OpenJDK 64-Bit Server VM (23.7-b01 mixed mode):
+
+"Thread-7" prio=10 tid=0x00007f55b00ef800 nid=0x9e07 runnable [0x00007f555c6e8000]
+   java.lang.Thread.State: RUNNABLE
+	at spin.MCSLock.unlock(MCSLock.java:49)
+	at spin.MCSLockTest$MyThread.run(MCSLockTest.java:56)
+
+"Thread-6" prio=10 tid=0x00007f55b00ed800 nid=0x9e06 runnable [0x00007f555c7e9000]
+   java.lang.Thread.State: RUNNABLE
+	at spin.MCSLock.lock(MCSLock.java:41)
+	at spin.MCSLockTest$MyThread.run(MCSLockTest.java:52)
+
+  ...
+
+"main" prio=10 tid=0x00000000018eb800 nid=0x9dd6 in Object.wait() [0x00007f55c2736000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x000000058386b910> (a spin.MCSLockTest$MyThread)
+	at java.lang.Thread.join(Thread.java:1260)
+	- locked <0x000000058386b910> (a spin.MCSLockTest$MyThread)
+	at java.lang.Thread.join(Thread.java:1334)
+	at spin.MCSLockTest.testParallel(MCSLockTest.java:43)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at junit.framework.TestCase.runTest(TestCase.java:176)
+	at junit.framework.TestCase.runBare(TestCase.java:141)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:129)
+	at junit.framework.TestSuite.runTest(TestSuite.java:252)
+	at junit.framework.TestSuite.run(TestSuite.java:247)
+	at junit.textui.TestRunner.doRun(TestRunner.java:116)
+	at junit.textui.TestRunner.start(TestRunner.java:183)
+	at junit.textui.TestRunner.main(TestRunner.java:137)
+\end{verbatim}
+\hfill
+
+
+In the above dump there are only hanging threads two; ``Thread-6'' is
+waiting on the already seen spinning loop of \C{lock} method, which should no
+longer be attributable to the lack of \C{volatile} attribute (we just
+fixed that). This spinning loop of the ``Thread-6'' hanging thread
+then, must be valid: the \C{locked} flag of the other thread has not
+changed. \\
+
+The new part is the other hanging thread ``Thread-7'', which is
+waiting on the spinning loop of the \C{unlock} method: \\
+
+\begin{lstlisting}[style=numbers]
+      while (qnode.next == null) {} // spin
+\end{lstlisting}
+\hfill
+
+We immediately notice same problem as with \C{locked} flag; the
+\C{next} pointer also needs immediate propagation to main memory,
+otherwise the threads will not detect then is being set to
+null. Let us also note that the hanging due \C{next} variable,
+triggers the hanging on the spinning loop for \C{lock} method; the
+\C{locked} flag is volatile, so a write to it would propagate right
+away and invalidate other's caches; but since the thread doing the
+\C{unlock} never exits the loop, it can not perform such
+write. Putting as volatile both attribues of class \C{Qnode} solves
+this issue; we ran  the test 10,000 times without a hang. 
+
+An interesting observation made while discussing this exercise on the
+distribution list, was that the solution imposes a serialization,
+after all; but that is correct. Let us remember that the queue is just
+the internal implementation artifact of the high level lock
+construction. And for this particular test, we are trying to solve the
+mutual-exclusion problem for a counter; thus serialization is what we
+want, indeed. \\
+
+Even if serialization is required, there are several ways of achieving
+it; some are more efficient at hardware level than others. The family
+of solutions that \C{MCSLock} belongs to, tries to minimize traffic on
+the core buses (as we only invalidate the cache of the core that owes
+the modified variables \C{locked} / \C{next}).
+
+

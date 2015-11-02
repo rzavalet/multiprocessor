@@ -1,0 +1,127 @@
+\section{\textbf{BackoffLockTest}}
+
+\subsection{Particular Case (problem)}
+This is part of the chapter 7, where we are dealing with the generic
+issue of building real-life lock implementations that solve the
+multual exclusion problem. The particular subproblem is doing that
+with spinning locks (those which repeatedly try to acquire the lock);
+and the very concrete sub-subproblem here is how to reduce the
+contention out of the \C{TTASLock}.
+
+\subsection{Solution}
+The solution is based on a key observation, for which we need to cite
+the \C{TTASLock} code first: \\
+
+\begin{lstlisting}[style=numbers]
+public class TTASLock implements Lock {
+  AtomicBoolean state = new AtomicBoolean(false);
+  public void lock() {
+    while (true) {
+      while (state.get()) {};  // spin
+      if (!state.getAndSet(true))
+        return;
+    }
+  }
+  public void unlock() {
+    state.set(false);
+  }
+  ...
+}
+\end{lstlisting}
+\hfill
+
+If between the calls to \C{get} and \C{getAndSet}, another thread took
+the look; then it must be that there is high contention for such
+resource (many threads trying to acquire it). Insisting on acquiring
+the lock on high contention scenarios is a bad idea; we will add a lot
+of traffic to the bus used by cores to communicate (as primitive
+\C{getAndSet} forces reads to be consistent) and the chances of
+getting it are scarce (too much competion). \\
+
+The solution then, is to wait some time before retrying; how much?
+Well, the more we fail to acquire the lock the more we wait next time.
+The concrete solution for that, on the context of this test, is to use
+what is called ``adaptive exponential backoff''. Each time we fail to
+acquire the lock, a random number is generated within a given range
+and the thread sleeps that time \footnote{This sample uses
+  milliseconds, a common unit when dealing with multi-thread
+  programming}. Everytime we do this waiting, the range is enlarged
+twice (meaning that on average the random number is twice larged);
+this is done up to a maximum established (1024 in this case). 
+Code is presented below for reference (note that we also have a lower
+bound for the minimum amount of time to wait; being 32 milliseconds
+here): \\
+
+\begin{lstlisting}[style=numbers]
+public class BackoffLock implements Lock {
+  private Backoff backoff;
+  private AtomicBoolean state = new AtomicBoolean(false);  
+  private static final int MIN_DELAY = 32;
+  private static final int MAX_DELAY = 1024;
+  public void lock() {
+    Backoff backoff = new Backoff(MIN_DELAY, MAX_DELAY);
+    while (true) {
+      while (state.get()) {};	// spin
+      if (!state.getAndSet(true)) { // try to acquire lock
+        return;
+      } else {			// backoff on failure
+        try {
+          backoff.backoff();
+        } catch (InterruptedException ex) {
+        }
+      }
+    }
+  }  
+  public void unlock() {
+    state.set(false);
+  }
+  ...
+}
+
+public class Backoff {
+  ...
+  
+  /**
+   * Backoff for random duration.
+   * @throws java.lang.InterruptedException 
+   */
+  public void backoff() throws InterruptedException {
+    int delay = random.nextInt(limit);
+    if (limit < maxDelay) { // double limit if less than max
+      limit = 2 * limit;
+    }
+    Thread.sleep(delay);
+  }
+}
+\end{lstlisting}
+\hfill
+
+By the way, the code for \C{Backoff} has an error (not shown above to
+save space in this report); the argument
+\C{max} passed to the constructor is not really used (there seems to
+be a typo there, where we used \C{min} parameter instead). 
+
+\subsection{Experiment Description}
+
+The test consists in a single case \C{testParallel}, which creates 8
+threads and puts each one to increase 1024 times a shared counter. The
+access to the counter is protected by the \C{BackoffLock} solution we
+described already. The assertion of the test is that the shared
+counter ends up with a final value, that reflects the fact that all
+the thread contributions are present (nobody lost increments, and we
+do not have more than expected).
+
+\subsection{Observations and Interpretations}
+With or without the fix mentioned about the \C{max} argument
+constructor in \C{Backoff} class, the test works fine on 2 and 24
+cores. Below a sample execution: \\
+
+\begin{verbatim}
+.parallel
+
+Time: 0.075
+
+OK (1 test)
+\end{verbatim}
+\hfill
+

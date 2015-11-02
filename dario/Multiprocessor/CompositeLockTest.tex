@@ -1,0 +1,54 @@
+\section{\textbf{CompositeLockTest}}
+
+\subsection{Particular Case (problem)}
+The particular problem we are trying to solve, is that of looking for
+a good balance between the traceoffs imposed by queue locks vs backoff
+locks. On one hand, queue locks provide FIFO fairness, fast lock
+release, and low contention, but require nontrivial
+protocols for recycling abandoned nodes; on the other hand, backoff
+locks support trivial timeout protocols, but are not scalable, and may
+have slow lock release if timeout parameters are not well-tuned.
+
+\subsection{Solution}
+The solution proposed is to combine both type of locks, and is based
+on the observation that only the threads at the front of the queue
+need to do lock handoffs; while the rest may be happy doing
+backoffs. This solution occupies several pages at the book, and
+putting all the code and the details here may be cumbersome; let us
+just put the main high-level details. \\
+
+The \C{CompositeLock} solution uses a short array of auxiliary lock
+nodes (the array is static, it can not be resized). Once a thread
+needs to acquire ``the'' lock it picks a random slot in the array;
+which would have a node. If the auxiliary lock protecting that node is
+used, the thread uses an adaptive backoff approach and retries (after
+sleeping the required time). Once 
+the thread could acquire the lock over the picked node, it places
+that node into a \C{TOLock}-style queue. Then, the thread spins on
+the preceding node, and when that node's owner indicates it has
+finished, the thread can finally acquire ``the'' lock (and enter its
+critical section). When the thread leaves due completion or time-out,
+it releases ownership of the node, and another thread doing backoff 
+can acquire it. There are far more details regarding the procedure to
+recycle the freed nodes of the array, while multiple threads attempt
+to acquire control over them; we omit those details here.
+
+\subsection{Experiment Description}
+There is a single test case \C{testParallel}, which creates a couple
+of threads and asks each to increment 2048 times a shared counter. The
+counter increment is the critical section, and is protected with a
+\C{CompositeLock}. At the end the shared counter shall have a value of
+4096. 
+
+\subsection{Observations and Interpretations}
+
+The test runs fine on our two and 24 core machines, sample execution below: \\
+
+\begin{verbatim}
+.
+Time: 0.066
+
+OK (1 test)
+\end{verbatim}
+\hfill
+

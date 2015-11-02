@@ -96,7 +96,10 @@
 % --------------------------- %
 \chapter{Foundations of Shared Memory}
 \include{./sections/SafeBooleanMRSW}
+\include{./sections/RegMRSWRegisterTest}
 \include{./sections/AtomicMRSWRegister}
+\include{./sections/AtomicMRMWRegisterTest}
+\include{./sections/SimpleSnapshotTest}
 \include{./sections/WFSnapshot}
 % --------------------------- %
 % Foundations End
@@ -108,8 +111,12 @@
 \chapter{Spin Locks and Contention}
 \input{./sections/SpinLocks}
 \include{./sections/TASLockTest}
+\include{./sections/TTASLockTest}
 \include{./sections/HBOLockTest}
+\include{./sections/BackoffLockTest}
 \include{./sections/CLHLockTest}
+\include{./sections/CompositeLockTest}
+\include{./sections/MCSLockTest}
 % --------------------------- %
 % Spin Locks End
 % --------------------------- %
@@ -118,6 +125,7 @@
 % Monitors Start
 % --------------------------- %
 \chapter{Monitors and Blocking Synchronization}
+\include{./sections/QueueTest}
 \include{./sections/CountDownLatch}
 % --------------------------- %
 % Monitors End
@@ -131,6 +139,7 @@
 \include{./sections/LazyListTest}
 %\include{./sections/CoarseList}
 %\include{./sections/LockFreeList}
+
 % --------------------------- %
 % Linked Lists End
 % --------------------------- %
@@ -139,6 +148,7 @@
 % Concurrent Queues Start
 % --------------------------- %
 \chapter{Concurrent Queues and the ABA Problem}
+\include{./sections/BoundedQueueTest}
 \include{./sections/SynchronousDualQueueTest}
 \include{./sections/LockFreeQueueRecycleTest}
 \include{./sections/BoundedQueueTest}
