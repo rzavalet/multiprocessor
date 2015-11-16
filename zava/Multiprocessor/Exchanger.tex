@@ -1,0 +1,44 @@
+\section{\textbf{Exchanger}}
+% ---------------------------------------------------------------------------- %
+\subsection{Particular Case}
+\par
+The problem we are trying to solve is how to allow two threads exchange values
+they hold. The idea is that if a Thread A calls an $exchange()$ method with a given
+argument and thread B calls the $exchange()$ method with another arguments, then
+thread A will return B's argument and B will return A's argument.
+\par
+% ---------------------------------------------------------------------------- %
+\subsection{Solution}
+\par
+The solution in this excercise is based on the \textit{A Scalable
+Elimination-based Exchange Channel} paper. 
+\par
+% ---------------------------------------------------------------------------- %
+\subsection{Experiment Description}
+\par
+The experiment here creates an array of integers of size $THREADS$. It then
+spawns $THREADS$ threads. Each thread will exchange its thread id with another
+one and will record this value in the array. For example, suppose that thread 1
+and thread 2 are the participants. In this case thread 2 will store $array[2]=1$
+and thread 1 will store $array[1]=2$. The condition that the test must satisfy
+is $i \neq array[array[i]]$. In this case $1 \neq
+array[array[1]]$. 
+\par
+% ---------------------------------------------------------------------------- %
+\subsection{Sample Results}
+\par
+For this test, we observed that the test always passes:
+\par
+\begin{verbatim}
+.exchange
+OK
+
+Time: 0.007
+
+OK (1 test)
+\end{verbatim}
+\par
+% ---------------------------------------------------------------------------- %
+\subsection{Interpretation}
+% ---------------------------------------------------------------------------- %
+We see that the proposal of Scherer et. al works correctly.
