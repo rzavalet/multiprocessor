@@ -2,48 +2,72 @@
 % ---------------------------------------------------------------------------- %
 \subsection{Particular Case}
 \par
-In this experiment we are dealing with the problem of creating an algorithm to
-create a Snapshot of a set of Register in such a way that the algorithm
-garantees a Wait-Free operation.
+We have seen some algorithms for implementing a concurrent list. Now it is time
+to see how a Lock-Free implementation can be done.
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Solution}
 \par
-The purpose of a Wait-Free snapshot is to overcome the problems of the Simple snapshot presented before. Let us remember that such snapshot executes sucesive collect() operations. Once it achieves a \textit{clean double collect}, it returns the snapshot. Otherwise, it keeps trying. 
-\par
-One of the ideas behind the Wait-Free Snapshot is that when a double collect fails, it is because a update interfered. That means that the updater could take a snapshot right before its update and other threads could use it as their snapshot too. 
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Experiment Description}
 \par
-These are the details of the system we used to run the experiments:
-\begin{itemize}
-\item Processor: Intel Core i5 @2.5 GHz. 2 Cores.
-\item L2 Cache per Core: 256 KB
-\item L3 Cache: 3 MB
-\item System Memory: 16 GB
-\end{itemize}
+Again, we have the same four test cases that we have been dealing with:
+\par
+\begin{enumerate}
+\item \textit{testSequential()}. The main thread inserts multiple elements to
+the list, then checks if all elements are there and finally removes all elements
+one by one.
+\item \textit{testParallelAdd()}. The main thread spawns multiple threads that
+add elements to the list concurrently. When they are done, the main thread
+checks if all elements are in there and finally removes all elements.
+\item \textit{testParallelRemove()}. The main thread inserts multiple elements
+to the list, then checks if all elements are in there and finally it spawns
+multiple threads that remove the elements from the list concurrently.
+\item \textit{testParallelBoth()}. The main thread creates multiple threads.
+Some of them insert elements to the list and some of them remove elements.
+\end{enumerate}
+\par
 % ---------------------------------------------------------------------------- %
 \subsection{Sample Results}
 \par
-For this test, we saw that in every try, both test cases passed.
+Similar to the other implementations, the test cases turns out to have a
+problem. Here is the output:
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{WFS00.png}
-  \caption{Successful execution of the tests for Wait-Free Snapshot}
-  \label{fig:WFS00}
-\end{figure}
+\begin{verbatim}
+[oraadm@gdlaa008 Lists]$ junit lists.LockFreeListTest
+.sequential add, contains, and remove
+.parallel both
+Exception in thread "Thread-13" junit.framework.AssertionFailedError:
+RemoveThread: duplicate remove: 109
+        at junit.framework.Assert.fail(Assert.java:57)
+        at junit.framework.TestCase.fail(TestCase.java:227)
+        at lists.LockFreeListTest$RemoveThread.run(LockFreeListTest.java:145)
+.parallel add
+.parallel remove
+
+Time: 0.022
+
+OK (4 tests)
+\end{verbatim}
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{WFS01.png}
-  \caption{Successful execution of the tests for Wait-Free Snapshot}
-  \label{fig:WFS01}
-\end{figure}
+The fix for this is the same that has been discussed before. Here is the test
+output after the fix:
+\begin{verbatim}
+[oraadm@gdlaa008 Lists]$ junit lists.LockFreeListTest
+.sequential add, contains, and remove
+.parallel both
+.parallel add
+.parallel remove
+
+Time: 0.016
+
+OK (4 tests)
+\end{verbatim}
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Interpretation}
 % ---------------------------------------------------------------------------- %
-In this experiment we were able to observe how a Wait-Free Snapshot can be
-constructed. 
+We observed a way in which a list could be implemented allowing it to be lock
+free. When using the same set of unit tests as before, we see that the
+implementation works correctly.

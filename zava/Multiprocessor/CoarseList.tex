@@ -2,50 +2,217 @@
 % ---------------------------------------------------------------------------- %
 \subsection{Particular Case}
 \par
-In this experiment we are dealing with the problem of creating an algorithm to
-create a Snapshot of a set of Register in such a way that the algorithm
-garantees a Wait-Free operation.
+In this exercise we are trying to solve the problem of accessing a List data
+structure by multiple threads simultaneously. While allowing multiple threads
+accessing the data structure, we still want to maintain its consistency. 
+\par
+As mentioned in the book, the invariants that we want to satisfy are:
+\par
+\begin{enumerate}
+\item Sentinels are neither added or removed (ie. the head and the tail)
+\item Nodes are sorted by key
+\item Keys are unique
+\end{enumerate}
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Solution}
 \par
-The purpose of a Wait-Free snapshot is to overcome the problems of the Simple snapshot presented before. Let us remember that such snapshot executes sucesive collect() operations. Once it achieves a \textit{clean double collect}, it returns the snapshot. Otherwise, it keeps trying. 
+Our first approach to solving this problem is then through a coarse grained
+list. This means that we use a lock in such a way that any access to the list is
+sequential because this lock must be hold and there is only one lock.
 \par
-One of the ideas behind the Wait-Free Snapshot is that when a double collect fails, it is because a update interfered. That means that the updater could take a snapshot right before its update and other threads could use it as their snapshot too. 
+Let's take a quick look at the add and remove items to grasp the idea behind
+this algorithm. Notice how the whole logic of the \textit{add()} and
+\textit{remove()} operations are guarded by the calls to \textit{lock()} and
+\textit{unlock()}.
+\par
+\hfil
+\begin{lstlisting}[style=numbers]
+  /** 
+   * Add an element.
+   * @param item element to add
+   * @return true iff element was not there already
+   */
+  
+  public boolean add(T item) {
+    Node pred, curr;
+    int key = item.hashCode();
+    lock.lock();
+    try {
+      pred = head;
+      curr = pred.next;
+      while (curr.key < key) {
+        pred = curr;
+        curr = curr.next;
+      }   
+      if (key == curr.key) {
+        return false;
+      } else {
+        Node node = new Node(item);
+        node.next = curr;
+        pred.next = node;
+        return true;
+      }   
+    } finally {
+      lock.unlock();
+    }   
+  }
+
+  /** 
+   * Remove an element.
+   * @param item element to remove
+   * @return true iff element was present
+   */
+  public boolean remove(T item) {
+    Node pred, curr;
+    int key = item.hashCode();
+    lock.lock();
+    try {
+      pred = this.head;
+      curr = pred.next;
+      while (curr.key < key) {
+        pred = curr;
+        curr = curr.next;
+      }   
+      if (key == curr.key) {  // present
+        pred.next = curr.next;
+        return true;
+      } else {
+        return false;         // not present
+      }   
+    } finally {               // always unlock
+      lock.unlock();
+    }   
+  }
+\end{lstlisting}
+\hfill
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Experiment Description}
 \par
-
+We have four test cases:
 \par
-These are the details of the system we used to run the experiments:
-\begin{itemize}
-\item Processor: Intel Core i5 @2.5 GHz. 2 Cores.
-\item L2 Cache per Core: 256 KB
-\item L3 Cache: 3 MB
-\item System Memory: 16 GB
-\end{itemize}
+\begin{enumerate}
+\item \textit{testSequential()}. The main thread inserts multiple elements to
+the list, then checks if all elements are there and finally removes all elements
+one by one.
+\item \textit{testParallelAdd()}. The main thread spawns multiple threads that
+add elements to the list concurrently. When they are done, the main thread
+checks if all elements are in there and finally removes all elements.
+\item \textit{testParallelRemove()}. The main thread inserts multiple elements
+to the list, then checks if all elements are in there and finally it spawns
+multiple threads that remove the elements from the list concurrently.
+\item \textit{testParallelBoth()}. The main thread creates multiple threads.
+Some of them insert elements to the list and some of them remove elements.
+\end{enumerate}
+\par
 % ---------------------------------------------------------------------------- %
 \subsection{Sample Results}
 \par
-For this test, we saw that in every try, both test cases passed.
+For this test, we saw that it failed consistently with the following error:
+\begin{verbatim}
+[oraadm@gdlaa008 Lists]$ junit lists.CoarseListTest
+.sequential add, contains, and remove
+.parallel both
+Exception in thread "Thread-3" Exception in thread "Thread-5" Exception in
+thread "Thread-9" Exception in thread "Thread-15"
+junit.framework.AssertionFailedError: RemoveThread: duplicate remove: 32
+        at junit.framework.Assert.fail(Assert.java:57)
+        at junit.framework.TestCase.fail(TestCase.java:227)
+        at lists.CoarseListTest$RemoveThread.run(CoarseListTest.java:145)
+junit.framework.AssertionFailedError: RemoveThread: duplicate remove: 121
+        at junit.framework.Assert.fail(Assert.java:57)
+        at junit.framework.TestCase.fail(TestCase.java:227)
+        at lists.CoarseListTest$RemoveThread.run(CoarseListTest.java:145)
+junit.framework.AssertionFailedError: RemoveThread: duplicate remove: 17
+        at junit.framework.Assert.fail(Assert.java:57)
+        at junit.framework.TestCase.fail(TestCase.java:227)
+        at lists.CoarseListTest$RemoveThread.run(CoarseListTest.java:145)
+junit.framework.AssertionFailedError: RemoveThread: duplicate remove: 66
+        at junit.framework.Assert.fail(Assert.java:57)
+        at junit.framework.TestCase.fail(TestCase.java:227)
+        at lists.CoarseListTest$RemoveThread.run(CoarseListTest.java:145)
+.parallel add
+.parallel remove
+
+Time: 0.017
+
+OK (4 tests)
+\end{verbatim}
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{WFS00.png}
-  \caption{Successful execution of the tests for Wait-Free Snapshot}
-  \label{fig:WFS00}
-\end{figure}
+So, the test that fails consistently is \textit{parallel both}. It complains
+saying that an specific element was removed multiple times by one or more
+threads.
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{WFS01.png}
-  \caption{Successful execution of the tests for Wait-Free Snapshot}
-  \label{fig:WFS01}
-\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proposed solution}
 \par
+This failure turns out to be a test issue. Each remover thread is in charge of
+removing a specific set of elements, say from $25$ to $50$. In the same way, an
+inserter thread is in charge of adding a specific set of elements. Since the
+threads for a given interval are spawned concurrently, it might be the case that
+a remover thread is trying to remove an element that hasn't been inserted yet. 
+\par
+One way of solving this problem is by asking the remover thread to retry till it
+is successful. (Obviously this fix should be improved further since it might
+lead to a hang in user's application -- Imagine the case where an specific
+element is never inserted. However, for this specific case, the fix is good
+enought.)
+\par
+This is the code of the remover thread before the fix:
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  class removethread extends thread {
+    int value;
+    removethread(int i) {
+      value = i;
+    }   
+    public void run() {
+      for (int i = 0; i < per_thread; i++) {
+        if (!instance.remove(value + i)) {
+          fail("removethread: duplicate remove: " + (value + i));
+        }
+      }   
+    }   
+  }
+\end{lstlisting}
+\hfill
+\par
+And here is the code with the fix:
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  class removethread extends thread {
+    int value;
+    removethread(int i) {
+      value = i;
+    }   
+    public void run() {
+      for (int i = 0; i < per_thread; i++) {
+        while (!instance.remove(value + i)) {}
+      }   
+    }   
+  }
+\end{lstlisting}
+\hfill
+\par
+And here is the test output after the fix:
+\par
+\begin{verbatim}
+[oraadm@gdlaa008 Lists]$ junit lists.CoarseListTest
+.sequential add, contains, and remove
+.parallel both
+.parallel add
+.parallel remove
+
+Time: 0.016
+
+OK (4 tests)
+\end{verbatim}
 % ---------------------------------------------------------------------------- %
 \subsection{Interpretation}
 % ---------------------------------------------------------------------------- %
-In this experiment we were able to observe how a Wait-Free Snapshot can be
-constructed. 
+In this experiment we observed how to implement a simple list that allows
+concurrent access by making all the access sequential. We saw that eventhough
+the algorithm is correct, a correct usage of the API is also required.
