@@ -7,12 +7,132 @@ they hold. The idea is that if a Thread A calls an $exchange()$ method with a gi
 argument and thread B calls the $exchange()$ method with another arguments, then
 thread A will return B's argument and B will return A's argument.
 \par
+Let us discuss a little bit why such method is required. The motivation of this
+comes from the problem of implementing a concurrent queue. Imagine that two
+threads are trying to access the queue and one of them wants to enqueue an
+element and the other one wants to dequeue an element. In this situation, we can
+avoid contention in the top of the stack by letting the threads simply exchange
+their values. That is, the enqueuer can pass its value to the dequeuer thread.
+This approach is called the \textit{Elimination backoff stack}.
+\par
 % ---------------------------------------------------------------------------- %
 \subsection{Solution}
 \par
 The solution in this excercise is based on the \textit{A Scalable
-Elimination-based Exchange Channel} paper. 
+Elimination-based Exchange Channel} paper. Since, this algorithm is a bit more
+involved and it is not discussed in the book, let us describe it in more detail.
 \par
+The algorithm uses an array of \textit{AtomicReference}s. Note that the size of
+this array depends on the number of processors in the system. Actually, it has
+to be of half the number of processors. The reason for this is that if we have
+$n$ threads, then we can only have up to $n/2$ concurrent exchanges and each
+slot in the array is used for an exchange.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+public class Exchanger<V> {
+  private static final int SIZE =
+      (Runtime.getRuntime().availableProcessors() + 1) / 2;
+  private static final long BACKOFF_BASE = 128L;
+  static final Object FAIL = new Object();
+  private final AtomicReference[] arena;
+  private final Random random;
+  public Exchanger() {
+    arena = new AtomicReference[SIZE + 1];
+    random = new Random();
+    for (int i = 0; i < arena.length; ++i)
+      arena[i] = new AtomicReference();
+  }
+\end{lstlisting}
+\hfill
+\par
+Now, from our program we can call the \textit{exchange()} methods in two ways.
+One in which we can specify a timeout for the exchange operation and another
+where there is no timeout.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public V exchange(V x) throws InterruptedException {
+    try {
+      return (V)doExchange(x, Integer.MAX_VALUE);
+    } catch (TimeoutException cannotHappen) {
+      throw new Error(cannotHappen);
+    }
+  }
+  public V exchange(V x, long timeout, TimeUnit unit)
+  throws InterruptedException, TimeoutException {
+    return (V)doExchange(x, unit.toNanos(timeout));
+  }
+\end{lstlisting}
+\hfill
+\par
+The interesting method is \textit{doExchange()}. Imagine that a thread first
+tries to do an exchange. So it calls this method and gets into the whie loop. It
+takes the first slot in the arena and finds it is not occupied and hence it will
+try to occupy the slot setting its id in the slot using a \textit{compareAndSet}
+operation. Then it will sit there and wait for someone else to come and exchange
+its value in the \textit{waitForHole()} call.
+\par
+Now imagine that another thread comes and tries to exchange its value with the
+previous thread. It then enters the loop, looks into the first slot and sees
+that someone has put a request in that slot. In other words, some other thread
+is willing to exchange a value. To do this, it fills the hole with the requested
+value and the other thread is signaled to continue. Our current thread then
+returns with the value of the other thread.
+\par
+The first thread, as we mentioned, gets signaled and sets the slot to null to
+indicate that the exchange has finished and returns with the value of the other
+thread. 
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  private Object doExchange(Object item, long nanos)
+      throws InterruptedException, TimeoutException {
+    Node me = new Node(item);
+    long lastTime = System.nanoTime();
+    int idx = 0;
+    int backoff = 0;
+    while (true) {
+      AtomicReference<Node> slot = (AtomicReference<Node>)arena[idx];
+      // If this slot is occupied, an item is waiting...
+      Node you = slot.get();
+      if (you != null) {
+        Object v = you.fillHole(item);
+        slot.compareAndSet(you, null);
+        if (v != FAIL) // ... unless it's cancelled
+          return v;
+      }
+      // Try to occupy this slot
+      if (slot.compareAndSet(null, me)) {
+        Object v = ((idx == 0)?
+          me.waitForHole(nanos) :
+          me.waitForHole(randomDelay(backoff)));
+        slot.compareAndSet(me, null);
+        if (v != FAIL)
+          return v;
+        if (Thread.interrupted())
+          throw new InterruptedException();
+        long now = System.nanoTime();
+        nanos -= now - lastTime;
+        lastTime = now;
+        if (nanos <= 0)
+          throw new TimeoutException();
+        me = new Node(item);
+        if (backoff < SIZE - 1)
+          ++backoff;
+        idx = 0; // Restart at top
+      } else // Retry with a random non-top slot <= backoff
+        idx = 1 + random.nextInt(backoff + 1);
+    }
+  }
+  ...
+\end{lstlisting}
+\hfill
+\par
+The algorithm adds some other improvements to the base case already described.
+The main improvement is the backoff logic which comes to play when two threads
+are already exchanging their values in a slot. In that case, the thread will try
+using another slot.
 % ---------------------------------------------------------------------------- %
 \subsection{Experiment Description}
 \par
@@ -21,8 +141,7 @@ spawns $THREADS$ threads. Each thread will exchange its thread id with another
 one and will record this value in the array. For example, suppose that thread 1
 and thread 2 are the participants. In this case thread 2 will store $array[2]=1$
 and thread 1 will store $array[1]=2$. The condition that the test must satisfy
-is $i \neq array[array[i]]$. In this case $1 \neq
-array[array[1]]$. 
+is $i \neq array[array[i]]$. In this case $1 \neq array[array[1]]$. 
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Sample Results}
@@ -41,4 +160,7 @@ OK (1 test)
 % ---------------------------------------------------------------------------- %
 \subsection{Interpretation}
 % ---------------------------------------------------------------------------- %
-We see that the proposal of Scherer et. al works correctly.
+We see that the proposal of Scherer et. al works correctly. As we mentioned
+previously, this algorithm is very important if we want to implement a
+concurrent queue because this exchanger mechanism allows for what is called
+\textit{Elimination}.
