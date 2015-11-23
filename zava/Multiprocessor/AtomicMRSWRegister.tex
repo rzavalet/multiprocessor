@@ -33,47 +33,50 @@ reads the one with the most recent timestamp by scaning the timestamps in its
 corresponding column. This reader also helps subsequent readers by updating all
 cells in its row. Forcing property 3 to be satisfied as well.
 \par
+The \textit{read()} and \textit{write()} methods are shown next:
+\par
+\begin{lstlisting}[style=numbers]
+  public synchronized T read() {
+    int me = ThreadID.get();
+    StampedValue<T> value = a_table[me][me];
+    for (int i = 0; i < a_table.length; i++) {
+      value = StampedValue.max(value, a_table[i][me]);
+    }
+    for (int i = 0; i < a_table.length; i++) {
+      a_table[me][i] = value;
+    }
+    return value.value;
+  }
+
+  public synchronized void write(T v) {
+    int me = ThreadID.get();
+    long stamp  = lastStamp.get() + 1;
+    lastStamp.set(stamp); // remember for next time
+    StampedValue<T> value = new StampedValue<T>(stamp, v);
+    for (int i = 0; i < a_table.length; i++) {
+      a_table[me][i] = value;
+    }
+  }
+\end{lstlisting}
+\hfill
 % -------------------------------------------------------------------------------- %
 \subsection{Experiment Description}
 \par 
 The two test cases presented demonstrates the same as previous examples so we
 will not describe the experiment further. 
 \par
-These are the details of the system we used to run the experiments:
-\begin{itemize}
-\item Processor: Intel Core i5 @2.5 GHz. 2 Cores.
-\item L2 Cache per Core: 256 KB
-\item L3 Cache: 3 MB
-\item System Memory: 16 GB
-\end{itemize}
 % -------------------------------------------------------------------------------- %
 \subsection{Sample Results}
-As in previous examples, we identified that the test fails from time to time.
-Figure \ref{fig:AtomicMRSW00} shows the output when the failure is seen.
 \par
-\par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{AtomicMRSW00.png}
-  \caption{First type of failure}
-  \label{fig:AtomicMRSW00}
-\end{figure}
-\par
-Again, the fix for these failures was to reset the thread ids.
-\par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{AtomicMRSW01.png}
-  \caption{Output after fix}
-  \label{fig:AtomicMRSW01}
-\end{figure}
-\par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{AtomicMRSW02.png}
-  \caption{Output after fix of threadIds}
-  \label{fig:AtomicMRSW03}
-\end{figure}
+For this test, the results were always successful. Here is the sample output:
+\begin{verbatim}
+.sequential read and write
+.parallel read
+
+Time: 0.004
+
+OK (2 tests)
+\end{verbatim}
 \par
 % -------------------------------------------------------------------------------- %
 \subsection{Interpretation}

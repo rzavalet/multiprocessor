@@ -9,15 +9,126 @@ garantees a Wait-Free operation.
 % ---------------------------------------------------------------------------- %
 \subsection{Solution}
 \par
-The purpose of a Wait-Free snapshot is to overcome the problems of the Simple snapshot presented before. Let us remember that such snapshot executes sucesive collect() operations. Once it achieves a \textit{clean double collect}, it returns the snapshot. Otherwise, it keeps trying. 
+The purpose of a Wait-Free snapshot is to overcome the problems of the Simple
+snapshot presented before. Let us remember that such snapshot executes sucesive
+collect() operations. Once it achieves a \textit{clean double collect}, it
+returns the snapshot. Otherwise, it uses the following idea:
 \par
-One of the ideas behind the Wait-Free Snapshot is that when a double collect fails, it is because a update interfered. That means that the updater could take a snapshot right before its update and other threads could use it as their snapshot too. 
+When a double collect fails, it is because a update interfered. That means that
+the updater could take a snapshot right before its update and other threads
+could use it as their snapshot too. 
 \par
+Since this algorithm is a bit more complex, let us explain in more detail how
+the implementation works.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public WFSnapshot(int capacity, T init) {
+    a_table = (StampedSnap<T>[]) new StampedSnap[capacity];
+    for (int i = 0; i < a_table.length; i++) {
+      a_table[i] = new StampedSnap<T>(init);
+    }   
+  }
+\end{lstlisting}
+\hfill
+\par
+Firstly, the algorithm uses an array to store the information.
+The size of the array is, in this case, $n$, where $n$ is the number of
+threads. The way in which this array is constructed is as an array of
+\textit{StampedSnap}s. A StampedSnap is internally an array whose elements are
+of type \textit{T}. A StampedSnap is a subclass of StampedValue which has 3
+fields:
+\par
+\begin{itemize}
+\item \textit{stamp}, which is a counter
+\item \textit{owner}, which contains the thread id
+\item \textit{value}, the actual value in the register
+\end{itemize}
+\par
+Now let us look at an auxiliar operation which is \textit{collect()}. This
+operation returns a copy of the array. Observe that the method creates a new
+array of StampedSnap values and then iterates the existing array to copy each element.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  private StampedSnap<T>[] collect() {
+    StampedSnap<T>[] copy = (StampedSnap<T>[]) new StampedSnap[a_table.length];
+    for (int j = 0; j < a_table.length; j++)
+      copy[j] = a_table[j];
+    return copy;
+  }
+\end{lstlisting}
+\hfill
+\par
+The next method to understand is \textit{scan()}. The method first creates a
+backup or an old copy of the array. Then it takes a second collect. It then
+compares both copies. If both copies are equal, then it means that we have a
+double clean collect. And the result of the scan operation is any of the copies
+just as in the Sequentian Snapshot case.
+\par
+On the other hand, if the copies are different, then there are two cases. For
+this, we have a counter that indicates how many times, the copies have been
+compared and found different. If it is the first time, then we take another
+collect. If in the second collect, the copies are equal, then we fall in the
+case described in the previous paragraph. If the copies are different again,
+then it means that we can take the old copy as a result of the scan. 
+\par
+The justification of this is that if a thread A sees a thread B move twice while
+it is performing repeated collects, then B executed a complete \textit{update()}
+call within the interval of A's scan, and so it is correct for A to use B's
+snapshot.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public T[] scan() {
+    StampedSnap<T>[] oldCopy;
+    StampedSnap<T>[] newCopy;
+    boolean[] moved = new boolean[a_table.length];
+    oldCopy = collect();
+    collect: while (true) {
+      newCopy = collect();
+      for (int j = 0; j < a_table.length; j++) {
+        // did any thread move?
+        if (oldCopy[j].stamp != newCopy[j].stamp) {
+          if (moved[j]) {       // second move
+            return oldCopy[j].snap;
+          } else {
+            moved[j] = true;
+            oldCopy = newCopy;
+            continue collect;
+          }   
+        }   
+      }   
+      // clean collect
+      T[] result = (T[]) new Object[a_table.length];
+      for (int j = 0; j < a_table.length; j++)
+        result[j] = newCopy[j].value;
+      return result;
+    }   
+  }
+\end{lstlisting}
+\hfill
+\par
+Finally, we have the \textit{update()} operation which simply updates the
+register with the new stamp.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public void update(T value) {
+    int me = ThreadID.get();
+    T[] snap = this.scan();
+    StampedSnap<T> oldValue = a_table[me];
+    StampedSnap<T> newValue =
+      new StampedSnap<T>(oldValue.stamp+1, value, snap);
+    a_table[me] = newValue;
+  }
+\end{lstlisting}
+\hfill
 % ---------------------------------------------------------------------------- %
 \subsection{Experiment Description}
 \par
-In this experiment, the test looks a bit different. Let us explain how it is
-different. In this case we have two experiments:
+In this experiment, the test looks a bit different. Let us explain how. In this
+case we have two experiments:
 \par
 \begin{enumerate}
 \item testSequential. We spawn a new thread that updates the register with a
@@ -31,39 +142,28 @@ updates a position in a matrix of size \textit{THREADS}$x$\textit{THREADS} with
 the result of doing a $scan()$ operation. At the end we compare consecutive rows
 in the matrix. The comparison is done entry by entry and we should see that for
 some entries the first entry is greater and for some others it is smaller than
-the second. What we must see is that some times the first entry is that all
-entries are equal and we allow the first to sometimes be either greater or
-smaller than the second one.
+the second. What we must see is that all entries are equal and we allow the
+first to sometimes be either greater or smaller than the second one.
 \end{enumerate}
-\par
-These are the details of the system we used to run the experiments:
-\begin{itemize}
-\item Processor: Intel Core i5 @2.5 GHz. 2 Cores.
-\item L2 Cache per Core: 256 KB
-\item L3 Cache: 3 MB
-\item System Memory: 16 GB
-\end{itemize}
 % ---------------------------------------------------------------------------- %
 \subsection{Sample Results}
 \par
-For this test, we saw that in every try, both test cases passed.
+For this test, we saw that in every try, both test cases passed. Here is the
+output:
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{WFS00.png}
-  \caption{Successful execution of the tests for Wait-Free Snapshot}
-  \label{fig:WFS00}
-\end{figure}
-\par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{WFS01.png}
-  \caption{Successful execution of the tests for Wait-Free Snapshot}
-  \label{fig:WFS01}
-\end{figure}
+\begin{verbatim}
+[oraadm@gdlaa008 Register]$ junit register.WFSnapshotTest
+.sequential
+.parallel
+
+Time: 0.003
+
+OK (2 tests)
+\end{verbatim}
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Interpretation}
 % ---------------------------------------------------------------------------- %
 In this experiment we were able to observe how a Wait-Free Snapshot can be
-constructed. 
+constructed based on the idea of \textit{clean double collects} and on the idea
+of using the updater's collect when the clean double collect method fails.

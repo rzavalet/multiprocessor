@@ -20,7 +20,23 @@ One way to achive this behaviour is using a SRSW Safe register. The code that is
 provided with the book does this by having a boolean SRSW register per thread,
 in other words, it is an array of boolean values. When doing a write, the writer
 iterates over this array and writes the new value. The readers simply access its
-assigned slot in the array (based on the thread id) and return the stored value. 
+assigned slot in the array (based on the thread id) and return the stored
+value. The code for this type of register is shown next:
+\par
+\begin{lstlisting}[style=numbers]
+  public Boolean read() {
+    return s_table[ThreadID.get()];
+  }
+
+  public void write(Boolean x) {
+    for (int i = 0; i < s_table.length; i++)
+      s_table[i] = x;
+  }
+\end{lstlisting}
+\hfill
+\par
+Please note how this type of register does not make use of any synchronization
+mechanism.
 % ------------------------------------------------------------------------------------ %
 \subsection{Experiment Description}
 \par
@@ -31,60 +47,75 @@ the writer wrote.
 \par
 The second test case is slightly more interesting. The writer writes first one
 value and then another one. After that, 8 reader threads are started and they
-read the last written value. According to the rules of a safe register, al
+read the last written value. According to the rules of a safe register, all
 threads must read the same value because the reads and the writes did not
 overlap.
 \par
-These are the details of the system we used to run the experiments:
-\begin{itemize}
-\item Processor: Intel Core i5 @2.5 GHz. 2 Cores.
-\item L2 Cache per Core: 256 KB
-\item L3 Cache: 3 MB
-\item System Memory: 16 GB
-\end{itemize}
 % ------------------------------------------------------------------------------------ %
 \subsection{Sample Results}
-We found out that the tests failed ocassionally. The manifestation of such
-failures were two:
-\begin{enumerate}
-\item The jUnit framework reports a failure in one of the tests as shown in
-figure \ref{fig:SafeBooleanMRSW00}
-\item The jUnit doesn't report a failure, however the test output shows an
-\textit{Out of Bounds exception}. This is shown in figure
-\ref{fig:SafeBooleanMRSW01}
-\end{enumerate}
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{SafeBooleanMRSW00.png}
-  \caption{First type of failure}
-  \label{fig:SafeBooleanMRSW00}
-\end{figure}
+We found out that the tests failed ocassionally. The manifestation of the failure is a 
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{SafeBooleanMRSW01.png}
-  \caption{Second type of failure}
-  \label{fig:SafeBooleanMRSW01}
-\end{figure}
+\textit{indexOutOfBoundsException} as shown above.
+\begin{verbatim}
+[oraadm@gdlaa008 Register]$ junit register.SafeBooleanMRSWRegisterTest
+.sequential read and write
+.parallel read
+Exception in thread "Thread-7" java.lang.ArrayIndexOutOfBoundsException: 8
+        at register.SafeBooleanMRSWRegister.read(SafeBooleanMRSWRegister.java:26)
+        at register.SafeBooleanMRSWRegisterTest$ReadThread.run(SafeBooleanMRSWRegisterTest.java:62)
+
+Time: 0.008
+
+OK (2 tests)
+\end{verbatim}
 \par
 So, the way to fix this problem was to make sure that in each test case
 the threads ids are reset calling the static method $ThreadID.reset()$. With
-this hack, the tests passed (See figure \ref{fig:SafeBooleanMRSW02}).
+this hack, the tests passed.
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{SafeBooleanMRSW02.png}
-  \caption{Output after fix}
-  \label{fig:SafeBooleanMRSW02}
-\end{figure}
+\begin{lstlisting}[style=numbers]
+  /**
+   * Sequential calls.
+   */
+  public void testSequential() {
+    ThreadID.reset(); // We have to reset the thread ids
+    System.out.println("sequential read and write");
+    instance.write(true);
+    boolean result = instance.read();
+    assertEquals(result, true);
+  }
+
+  /**
+   * Parallel reads
+   */
+  public void testParallel() throws Exception {
+    ThreadID.reset(); // We have to reset the thread ids
+    instance.write(false);
+    instance.write(true)
+    System.out.println("parallel read"
+    for (int i = 0; i < THREADS; i++) {
+      thread[i] = new ReadThread(
+    }
+    for (int i = 0; i < THREADS; i ++) {
+      thread[i].start();
+    }
+    for (int i = 0; i < THREADS; i ++) {
+      thread[i].join();
+    }
+  }  
+\end{lstlisting}
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{SafeBooleanMRSW03.png}
-  \caption{Output after fix of threadIds}
-  \label{fig:SafeBooleanMRSW03}
-\end{figure}
+And here is the resulting execution after this fix:
+\begin{verbatim}
+[oraadm@gdlaa008 Register]$ junit register.SafeBooleanMRSWRegisterTest
+.sequential read and write
+.parallel read
+
+Time: 0.004
+
+OK (2 tests)
+\end{verbatim}
 \par
 % ------------------------------------------------------------------------------------ %
 \subsection{Interpretation}
@@ -92,7 +123,7 @@ this hack, the tests passed (See figure \ref{fig:SafeBooleanMRSW02}).
 In this experiment we saw a way of implementing Safe Multi-Reader Single-Writer
 registers. These registers were able of storing boolean values.
 \par
-Unfortunately, none of the test cases excersice the case where we have
-concurrent writes and reads. Hence, this experiment only excersiced one of the
+Unfortunately, none of the test cases exercises the case where we have
+concurrent writes and reads. Hence, this experiment only exercised one of the
 two rules of a safe register.
 % ------------------------------------------------------------------------------------ %

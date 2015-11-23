@@ -1,55 +1,120 @@
+% --------------------------- %
+% Hierarchical Backoff Lock Start
+% --------------------------- %
 \section{\textbf{Hierarchical Backoff Lock}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
-The specific case we are trying to solve here is that of mutual exclusion with long waiting times on architectures that make use of hierarchical caching. Let us describe more deeply the characteristics of this scenario.
+In the following exercises we will be dealing with the idea of Hierarchical
+locks. The motivation of this type of locks are the architecture of modern
+cache-coherent computers where processors are organized as clusters.
+Communication between processors is then categorized in intra-cluster
+comunication and inter-cluster comunication. The former is faster and cheaper
+than the latter. 
 \par
-Firstly, it has already been discussed the difference between \textit{spinning} and \textit{backing-off}. The first case consists on doing an active wait in the case where a $lock()$ operation is not successful. On the other hand, a $backoff$ means that the thread
-who failed to acquire the lock refraing from retrying for some duration giving competing threads a chance to finish. As mentioned in the book, the idea is to avoid bus traffic caused by threads asking over and over again for the state of the lock.
+Given the following background, the idea is  to build locking algorithms that
+work efficiently in these architectures. The problem is then: \textit{how can we
+create locking algorithm for this type of systems?}
 \par
-The term \textit{Hierarchical} comes from the fact that modern cache-coherent architectures organize processors in clusters. These clusters are organized in such a way that intra-cluster communication is faster than inter-cluster communication. So, the idea in this experiment is to find a lock implementation that takes advantage of these access times differences.
-\par
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
-One of the solutions proposed in the book consists on adapting the \textit{test-and-test-and-set} lock that was described in a previous chapter to exploit the characteristics of the cluster. The idea behind this implementation is that backoff times of local threads should be shorter than backoff times of remote threads. 
+The first algorithm that we are going to study is the Hierarchical Backoff Lock.
+This algorithm uses the \textit{test-and-test-and-set} lock that we presented
+before. If a thread from a cluster releases a lock, then it is more likely that
+another thread from the same cluster acquires it. This strategy reduces the
+overal time needed to switch the lock ownership. Let us take a quick look at the
+source code in java:
 \par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public void lock() {
+    int myCluster = ThreadID.getCluster();
+    Backoff localBackoff =
+        new Backoff(LOCAL_MIN_DELAY, LOCAL_MAX_DELAY);
+    Backoff remoteBackoff =
+        new Backoff(REMOTE_MIN_DELAY, REMOTE_MAX_DELAY);
+    while (true) {
+      if (state.compareAndSet(FREE, myCluster)) {
+        return;
+      }   
+      int lockState = state.get();
+      try {
+        if (lockState == myCluster) {
+          localBackoff.backoff();
+        } else {
+          remoteBackoff.backoff();
+        }   
+      } catch (InterruptedException ex) {
+      }   
+    }   
+  }
+  
+  public void unlock() {
+    state.set(FREE);
+  }
+\end{lstlisting}
+\hfill
+\par
+For locking, we create two backoff objects which are the ones that have a method to
+perform the backoff for a random period. Notice that we distinguish between two
+cases: a local backoff and a remote backoff. The delays are as follows:
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  private static final int LOCAL_MIN_DELAY = 8;
+  private static final int LOCAL_MAX_DELAY = 256;
+  private static final int REMOTE_MIN_DELAY = 256;
+  private static final int REMOTE_MAX_DELAY = 1024;
+\end{lstlisting}
+\hfill
+\par
+A remote delay is longer than a local delay. Then we perform a
+\textit{compareAndSet()} operation. If the state of the lock is free, then we
+set its value to the value of our cluster. That indicates that we are holding
+the lock now.
+\par
+If the state was not free, then we perform a backoff. If the lock is being hold
+by another thread in the cluster, then we do a short backoff. Otherwise, we do a
+long backoff.
+\par
+The unlock method simply sets the state to free.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
 To demonstrate that this implementation works, the test that was provided does the following:
 \begin{enumerate}
 \item Initiate a shared counter with a value of $0$
-\item Start $32$ threads
-\item Each thread has to increment the counter by one $32$ times
-\item At the end, the counter must hold a value of $32*32$
+\item Start $8$ threads
+\item Each thread has to increment the counter by one $1024$ times
+\item At the end, the counter must hold a value of $8*1024$
 \end{enumerate}
 \par
-These are the details of the system we used to run the experiments:
-\begin{itemize}
-\item Processor: Intel Core i5 @2.5 GHz. 2 Cores.
-\item L2 Cache per Core: 256 KB
-\item L3 Cache: 3 MB
-\item System Memory: 16 GB
-\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
 \par
-For this test, we saw that in every try, it always passed.
+For this test, we saw that in every try, it always passed. Here is the output:
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=5cm]{HBO00.png}
-  \caption{Successful execution of the tests for Hierarchichal Back-off test}
-  \label{fig:HBO00}
-\end{figure}
+\begin{verbatim}
+[oraadm@gdlaa008 Spin]$ junit spin.HBOLockTest
+.
+Time: 0.262
+
+OK (1 test)
+\end{verbatim}
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{HBO01.png}
-  \caption{Successful execution of the tests  for Hierarchichal Back-off test}
-  \label{fig:HBO01}
-\end{figure}
-\par
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Interpretation}
-It was shown that the algorithm seems to work and allows synchronization of multiple threads trying to access a shared resource.
 \par
-One problem however, has to do with the fact that this locking protocol is not fair in the sense that local threads have more chances of acquiring the lock in the next attempt. 
+In this experimetn we discovered how to implement a locking algorithm in a
+cache-coherent architecture by performing backoffs of different delays depending
+on whether the thread holding the lock is in the same or in a different cluster
+of CPUs. 
 \par
-Another thing that we ought to note is that threads spin in the same memory address which causes invalidation of remote cached copies of this value. This problem will be solved yet with another protocol.
+One problem that we can foresee though, is that this algorithm could cause
+starvation of remote threads because the algorithms give more priority to local
+threads. This is not a desirable property. In the next algorithm we shall see a
+way of overcoming this problem
+% --------------------------- %
+% Hierarchical Backoff Lock End
+% --------------------------- %

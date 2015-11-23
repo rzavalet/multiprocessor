@@ -18,12 +18,12 @@ executed. This can clearly affect our Peterson Algorithm.
 \par
 The second reason that has to do with the contradiction of sequential consistent
 memory is due to the hardware design which in most multiprocessor systems allow
-writes to be written to store buffers. This buffers are written to memory only
+writes to be written to store buffers. These buffers are written to memory only
 when needed. Hence, race conditions arise, where one variable might be read
 before another because the latter was in a store buffer.
 \par
-The generic way to solve this problem is by using instructions called a
-\textit{memory barrier} or \textit{memory fence}. These instructions are able to
+The generic way to solve this problem is by using instructions called 
+\textit{memory barriers} or \textit{memory fences}. These instructions are able to
 prevent reordering operations due to write buffering. The idea is that these
 instructions can be called in specific parts of the code to guarantee our
 proposed order of execution.
@@ -45,8 +45,27 @@ to indicate that we are using the lock. Once we are done, we can set the value
 back to false to allow other threads take the lock.
 \par
 In the java code, the $testAndSet()$ is done with the $getAndSet()$ method. And
-setting the value to false is achieved with the method $set()$.
+setting the value to false is achieved with the method $set()$. The code for
+this is show next:
 \par
+\hfill
+\begin{lstlisting}[style=numbers]
+public class TASLock implements Lock {
+  AtomicBoolean state = new AtomicBoolean(false);
+  public void lock() {
+    while (state.getAndSet(true)) {} // spin
+  }
+  public void unlock() {
+    state.set(false);
+  }
+  ...
+}
+\end{lstlisting}
+\hfill
+\par
+Observe how calling the \textit{lock} consists simply of setting the value of the
+\textit{state} variable to true by using a memory barrier operation. The same
+technique is used for the \textit{unlock()} method.
 % ------------------------------------------------------------------------ %
 \subsection{Experiment Description}
 \par
@@ -59,33 +78,23 @@ the following:
 \item At the end, the counter must hold a value of $8*1024$
 \end{enumerate}
 \par
-These are the details of the system we used to run the experiments:
-\begin{itemize}
-\item Processor: Intel Core i5 @2.5 GHz. 2 Cores.
-\item L2 Cache per Core: 256 KB
-\item L3 Cache: 3 MB
-\item System Memory: 16 GB
-\end{itemize}
 % ------------------------------------------------------------------------ %
 \subsection{Sample Results}
 \par
-For this test, we saw that in every try, it always passed.
+For this test, we saw that in every try, it always passed. Here is the output:
 \par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{TAS00.png}
-  \caption{Successful execution of the TAS Lock test}
-  \label{fig:TAS00}
-\end{figure}
-\par
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=13cm]{TAS01.png}
-  \caption{Successful execution of the tests  for TAS Lock}
-  \label{fig:TAS01}
-\end{figure}
+\begin{verbatim}
+[oraadm@gdlaa008 Spin]$ junit spin.TASLockTest
+.parallel
+
+Time: 0.026
+
+OK (1 test)
+\end{verbatim}
 \par
 % ------------------------------------------------------------------------ %
 \subsection{Interpretation}
 It was shown that the algorithm seems to work and allows synchronization of two
-threads (consensus number was two) to access a shared resource.
+threads (consensus number was two) to access a shared resource. The way of
+achieving this is through the use of the memory barrier functions
+\textit{getAndSet()} and \textit{set()} of the \textit{AtomicBoolean} class.
