@@ -1,0 +1,54 @@
+\section{\textbf{FibTaskTest}}
+
+\subsection{Particular Case (problem)}
+The problem is calculating the sum of the first $n$ Fibonacci numbers,
+in parallel. 
+
+\subsection{Solution}
+The solution merely follows the recursive definition of the Fibonacci
+sequence, whose base cases are 1 (for first and second elements of the
+sequence). Each recursive call of the function creates a new task
+(\C{Future} from java concurrency library). Below the code of the main
+function: \\
+
+\begin{lstlisting}[style=numbers]
+  public Integer call() {
+    try {
+      if (arg > 2) {
+        Future<Integer> left = exec.submit(new FibTask(arg-1));
+        Future<Integer> right = exec.submit(new FibTask(arg-2));
+        return left.get() + right.get();
+      } else {
+        return 1;
+      }
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      return 1;
+    }
+  }
+\end{lstlisting}
+\hfill
+
+Note that \C{Future} class represents asynchronous calculations, and
+that the \C{get} method is blocking (waits for calculation to be
+complete); hence we would effectively create a  tree of tasks until we
+reach the base cases and start evaluating bottom up.
+
+\subsection{Experiment Description}
+The experiment merely request the calculation of the sum up to a known
+number (16), and asserts the expected result (987).
+
+\subsection{Observations and Interpretations}
+The test works as expected in both 2 and 24 cores machines. Below a
+sample output: \\
+
+\begin{verbatim}
+[oraadm@gdlaa008 orig]$ junit steal.FibTaskTest
+.run
+
+Time: 0.128
+
+OK (1 test)
+\end{verbatim}
+\hfill
+

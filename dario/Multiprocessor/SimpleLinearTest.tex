@@ -1,0 +1,81 @@
+\section{\textbf{SimpleLinearTest}}
+
+\subsection{Particular Case (problem)}
+The problem is to implement a bounded priority queue, which are a
+multi-set data structure; each set has an associated priority. The
+contract or interface for a priority queue is essentially two methods:
+\C{add(x,k)} which adds element $x$ to the set of priority $k$, and
+  \C{removeMin} which returns and removes the element with smaller
+  (higher) priority from all the sets. This type of priority queues
+  are called ``bounded'', because the priority of elements is taken from
+  a finite predefined set. 
+
+\subsection{Solution}
+Given that the problem is to implement a bounded priority queue, an
+array shall suffice. So we create an array of sets as big as the range
+of values for the priority. The \C{add} and \C{removeMin} methods are
+straighforward, but they are built on the assumption that the
+auxiliary class \C{Bin} is thread safe (which is the case, as it is
+implemented with locks). Below the relevant snippets of code: \\
+
+\begin{lstlisting}[style=numbers]
+public class SimpleLinear<T> implements PQueue<T> { 
+  int range;
+  Bin<T>[] pqueue; 
+
+  ...
+  
+  public void add(T item, int key) {
+    pqueue[key].put(item);
+  }
+
+  ... 
+  
+  public T removeMin() {
+    for (int i = 0; i < range; i++) { 
+       T item = pqueue[i].get();
+       if (item != null) {
+         return item;
+       }
+    }
+    return null; 
+  }
+}
+\end{lstlisting}
+\hfill
+
+\subsection{Experiment Description}
+The test program consists of the following test cases: \\
+
+\begin{itemize}
+  \item \C{testAdd}: Serial test which adds 512 random numbers in a
+    fixed range (these numbers become the priority), and later validates
+    that they are removed in ascending order with \C{removeMin}. \\
+  \item \C{testParallelAdd}: Same as \C{testAdd}, with the exception
+    that the addition of the elements is done in parallel with 8
+    threads. \\
+  \item \C{testParallelBoth}: Same as \C{testParallelAdd}, except that
+    the removal of items is also performed in parallel with 8 threads.
+\end{itemize}
+
+\subsection{Observations and Interpretations}
+The test runs fine in 2 and 24 core machines, below a sample output:
+\\
+
+\begin{verbatim}
+[oraadm@gdlaa008 orig]$ junit priority.SimpleLinearTest
+.add
+OK.
+...
+OK.
+OK.
+.testParallelBoth
+OK.
+.testParallelAdd
+OK.
+
+Time: 0.116
+
+OK (3 tests)
+\end{verbatim}
+\hfill

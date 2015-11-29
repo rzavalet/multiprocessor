@@ -1,0 +1,47 @@
+\section{\textbf{LockFreeHashSetTest}}
+
+\subsection{Particular Case (problem)}
+The problem we try to solve is that of implementing a lock-free hash
+set.
+
+\subsection{Solution}
+The solution uses a technique called ``Recursive Split-Ordering'',
+where we keep all items on a single lock-free linked list, and we keep
+separately an increasing array of buckets (which are just references
+to different positions of the list). While any element could be found
+in the set by transversing the list, idea is to use hash functions to
+take advantage of the shortcuts that the buckets represent. The
+algorithm takes its name from the fact that the split-ordered-keys on
+the list, are the bitwise reverse representation of their items keys
+(hash codes). 
+
+\subsection{Experiment Description}
+The test is exactly the same as that described for
+\C{CoarseCuckooHashSetTest}. 
+
+\subsection{Observations and Interpretations}
+The test runs fine in 3 and 24 core machines, and similarly to
+\C{CoarseCuckooHashSetTest}, suffers from a design flag on the test
+program itself (remover threads may attempt to delete an element which
+has not been added yet). Below a sample output of its execution: 
+
+\begin{verbatim}
+[oraadm@gdlaa008 orig]$ junit hash.LockFreeHashSetTest
+.sequential add, contains, and remove
+.parallel both
+Exception in thread "Thread-1" junit.framework.AssertionFailedError:
+                DeqThread: duplicate pop
+at junit.framework.Assert.fail(Assert.java:57)
+at junit.framework.TestCase.fail(TestCase.java:227)
+at
+                
+hash.LockFreeHashSetTest$RemoveThread.run(LockFreeHashSetTest.java:143)
+.parallel add
+.parallel remove
+
+Time: 0.037
+
+OK (4 tests)
+\end{verbatim}
+\hfill
+

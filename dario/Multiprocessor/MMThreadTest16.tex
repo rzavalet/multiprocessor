@@ -1,0 +1,70 @@
+\section{\textbf{MMThreadTest}}
+
+\subsection{Particular Case (problem)}
+The problem is that of matrix multiplication, but done in parallel. \\
+
+Note: this exercise is exactly the same as the homonym from chapter
+14; we believe the authors of the book made a mistake and ended up
+with this repetition. Still we are repeating here for the sake of
+completeness.
+
+\subsection{Solution}
+The solution creates one thread per cell on the result matrix, and for
+each one it creates a new worker thread; which in turn calculates the
+cell $(i,j)$ value by computing the dot product of row $i$ of left
+matrix by column $j$ of right matrix (according to the definition of
+the matrix product). Below the most relevant sections of the code: \\
+
+\begin{lstlisting}[style=numbers]
+  public MMThread(double[][] a, double[][]  b) {
+    n = a.length;
+    this.a = a;
+    this.b = b;
+    this.c = new double[n][n];
+  }
+  
+  void multiply() {
+    Worker[][] worker = new Worker[n][n];
+    // create one thread per matrix entry
+    for (int row = 0; row < n; row++) {
+      for (int col = 0; col < n; col++) {
+        worker[row][col] = new Worker(row,col);
+      }
+    }
+    ...
+  }
+
+  class Worker extends Thread {
+    int row, col;
+    Worker(int row, int col) {
+      this.row = row; this.col = col;
+    }
+    public void run() {
+      double dotProduct = 0.0;
+      for (int i = 0; i < n; i++) {
+        dotProduct += a[row][i] * b[i][col];
+      }
+      c[row][col] = dotProduct;
+    }
+  }  
+\end{lstlisting}
+\hfill
+
+\subsection{Experiment Description}
+The test consists of multiplying two identify matrices of dimensions
+$3 \times 3$, and compare the result with one of the operands (it
+should be identity matrix again).
+
+\subsection{Observations and Interpretations}
+The test runs fine on 2 and 24 core machines, below a sample output: \\
+
+\begin{verbatim}
+[oraadm@gdlaa008 orig]$ junit steal.MMThreadTest
+.run
+
+Time: 0.004
+
+OK (1 test)
+\end{verbatim}
+\hfill
+

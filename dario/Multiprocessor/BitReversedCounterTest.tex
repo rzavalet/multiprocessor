@@ -1,0 +1,154 @@
+\section{\textbf{BitReversedCounterTest}}
+
+\subsection{Particular Case (problem)}
+The problem is actually a subproblem of the \C{FineGrainedHeap}
+program, which has a \C{next} variable indicating next slot to use on
+insert. The problem is to ensure that two consecutive paths from root
+to leaves, where insertion takes place, share no common nodes other
+than the root (this is useful to ensure that each insertion thread
+locks a disjoint set of nodes, reducing contention on multi-threaded
+scenarios). 
+
+\subsection{Solution}
+The solution is a bit cryptic, but small enough to fit here. It can be
+proved that the \C{reverseIncrement} method below, produces sequence
+of numbers with the above property. Given time constraints, we did not
+prove such claim (specially cause this test itself, did not exhibit
+concurrency): \\
+
+\begin{lstlisting}[style=numbers]
+  public int reverseIncrement() {
+    if (counter++ == 0) {
+      reverse = highBit = 1;
+      return reverse;
+    }
+    int bit = highBit >> 1;
+    while (bit != 0) {
+      reverse ^= bit;
+      if ((reverse & bit) != 0) break;
+      bit >>= 1;
+    }
+    if (bit == 0)
+      reverse = highBit <<= 1;
+    return reverse;
+  }
+\end{lstlisting}
+\hfill
+
+\subsection{Experiment Description}
+The test does not really make any assertions, and simply call the
+\C{reverseIncrement} and \C{reverseDecrement} methods printing their
+results. 
+
+\subsection{Observations and Interpretations}
+The test did not show any failures or hanging, given that is totally
+sequential and does not really validate anything. Below a sample
+execution output: \\
+
+\begin{verbatim}
+[oraadm@gdlaa008 orig]$ junit priority.BitReversedCounterTest
+.increment
+inc:	0	1
+inc:	1	2
+inc:	2	3
+inc:	3	4
+inc:	4	6
+inc:	5	5
+inc:	6	7
+inc:	7	8
+inc:	8	12
+inc:	9	10
+inc:	10	14
+inc:	11	9
+inc:	12	13
+inc:	13	11
+inc:	14	15
+inc:	15	16
+inc:	16	24
+inc:	17	20
+inc:	18	28
+inc:	19	18
+inc:	20	26
+inc:	21	22
+inc:	22	30
+inc:	23	17
+inc:	24	25
+inc:	25	21
+inc:	26	29
+inc:	27	19
+inc:	28	27
+inc:	29	23
+inc:	30	31
+inc:	31	32
+inc:	32	48
+inc:	33	40
+inc:	34	56
+inc:	35	36
+inc:	36	52
+inc:	37	44
+inc:	38	60
+inc:	39	34
+inc:	40	50
+inc:	41	42
+inc:	42	58
+inc:	43	38
+inc:	44	54
+inc:	45	46
+inc:	46	62
+inc:	47	33
+inc:	48	49
+inc:	49	41
+inc:	50	57
+inc:	51	37
+inc:	52	53
+inc:	53	45
+inc:	54	61
+inc:	55	35
+inc:	56	51
+inc:	57	43
+inc:	58	59
+inc:	59	39
+inc:	60	55
+inc:	61	47
+inc:	62	63
+inc:	63	64
+decrement
+dec:	63
+dec:	47
+dec:	55
+dec:	39
+dec:	59
+dec:	43
+dec:	51
+dec:	35
+dec:	61
+dec:	45
+dec:	53
+dec:	37
+dec:	57
+dec:	41
+dec:	49
+dec:	33
+dec:	62
+dec:	46
+dec:	54
+dec:	38
+dec:	58
+dec:	42
+dec:	50
+dec:	34
+dec:	60
+dec:	44
+dec:	52
+dec:	36
+dec:	56
+dec:	40
+dec:	48
+dec:	32
+
+Time: 0.022
+
+OK (1 test)
+\end{verbatim}
+\hfill
+

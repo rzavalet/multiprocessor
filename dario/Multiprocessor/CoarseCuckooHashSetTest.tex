@@ -1,0 +1,117 @@
+\section{\textbf{CoarseCuckooHashSetTest}}
+
+\subsection{Particular Case (problem)}
+The problem we try to solve is that of concurrent hashing, when we use
+the hash to implement a set data structure. 
+
+\subsection{Solution}
+The solution uses three techniques combined: \\
+
+\begin{itemize}
+  \item cuckoo-hashing: which consists in shifting to the right
+    elements, by performing consecutive swaps on elements having a
+    collision due hash function. \\
+  \item double hashing where we use a couple of hash tables; the first
+    one is based on a simple hash function (modulus of the element's
+    hash code), and the second table is indexed with random numbers
+    generated out of a sequence feed from the hash code of elements.
+    \item coarse access: as the whole structure is being protected by
+      mutual exclusion with a lock.
+\end{itemize}
+\hfill
+
+Below the most representative function, \C{add}, along with the two
+hash functions used: \\
+
+\begin{lstlisting}[style=numbers]
+  private final int hash0(Object x) {
+    return x.hashCode() % size;
+  }
+
+  private final int hash1(Object x) {
+    random.setSeed(x.hashCode());
+    return random.nextInt(size);
+  }
+
+  public boolean add(T x) {
+    lock.lock();
+    try {
+      if (contains(x)) {
+        return false;
+      }
+      for (int i = 0; i < LIMIT; i++) {
+        if ((x = swap(0, hash0(x), x)) == null) {
+          return true;
+        } else if ((x = swap(1, hash1(x), x)) == null) {
+          return true;
+        }
+      }
+      System.out.println("uh-oh");
+      throw new CuckooException();
+    } finally {
+      lock.unlock();
+    }
+  }
+\end{lstlisting}
+\hfill
+
+Something additional to mention about this solution, is that when
+adding a new element we constraint the maximum number of swaps to
+perform (while shifting the elements to the right). In this
+implementation is \C{LIMIT} is 32; if after those attempts we could
+not arrange all elements on its slot we raise an exception.
+
+\subsection{Experiment Description}
+The test program consists of three test cases:
+
+\begin{itemize}
+  \item \C{testSequential}: add 512 elements to the hash set
+    (sequentially), perform a \C{constains} test for each one
+    (sequentially) and finally remove the 512 elements
+    (sequentially). \\ 
+  \item \C{testParallelAdd}: add 512 elements to the hash set
+    (in parallel with 8 threads), perform a \C{constains} test for each one
+    (sequentially) and finally remove the 512 elements
+    (sequentially). \\ 
+  \item \C{testParallelRemove}: add 512 elements to the hash set
+    (sequentially), perform a \C{constains} test for each one
+    (sequentially) and finally remove the 512 elements
+    (in parallel with 8 threads). \\
+  \item \C{testParallelBoth}: adds and removes 512 elements to the
+    hash set in parallel with 8 adder threads, and 8 remover threads;
+    the removers complain if someone else removed its designated range
+    of elements.
+\end{itemize}
+
+\subsection{Observations and Interpretations}
+The tests works fine on both machines (2 and 24 cores respectively),
+with the exception that the parallel test remover threads complain
+when they try to delete an element which does not exist yet (which is
+an expected consequence of the test). A sample output is shown below:
+
+\begin{verbatim}
+[oraadm@gdlaa008 orig]$ junit hash.CoarseCuckooHashSetTest
+
+.sequential add, contains, and remove
+.parallel both
+Exception in thread "Thread-5" Exception in thread "Thread-9"
+                Exception in thread "Thread-11" Exception in thread
+                
+"Thread-1" junit.framework.AssertionFailedError: DeqThread: duplicate
+                
+remove
+at junit.framework.Assert.fail(Assert.java:57)
+at junit.framework.TestCase.fail(TestCase.java:227)
+at
+                
+...
+                
+.parallel add
+.parallel remove
+
+Time: 0.053
+
+OK (4 tests)
+\end{verbatim}
+\hfill
+

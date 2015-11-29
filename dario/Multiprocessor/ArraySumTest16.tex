@@ -1,0 +1,77 @@
+\section{\textbf{ArraySumTest}}
+
+\subsection{Particular Case (problem)}
+The problem we want to solve is that of summing up all the elements of
+an array; but of course, we want to do it in parallel (this is the
+same as the test program of same name from chapter 14).
+
+\subsection{Solution}
+The solution uses the divide and conquer approach, creating a tree of
+tasks (\C{Future} from java concurrency library); which represent
+the processing we do while splitting the arrays in two halves and summing up
+each half recursively. Base case are arrays of a single element. Below
+the heart of the solution, the recursive function which create new tasks
+for subarrays: \\
+
+\begin{lstlisting}[style=numbers]
+    public Integer call() throws InterruptedException, ExecutionException {
+      if (size == 1) {
+        return a[start];
+      } else {
+        int lhsSize = size / 2;
+        int rhsStart = lhsSize + 1;
+        int rhsSize = size - lhsSize;
+        Future<Integer> lhs = exec.submit(new SumTask(a, start, lhsSize));
+        Future<Integer> rhs = exec.submit(new SumTask(a, rhsStart, rhsSize));
+        return rhs.get() + lhs.get();
+      }
+    }
+\end{lstlisting}
+\hfill
+
+Above code is exactly the same as the one from chapter 14; we are not
+sure whether this repetition was intentional, but putting anyway for
+the sake of completeness. 
+
+\subsection{Experiment Description}
+The test merely consists in trying the algorithm with a couple of
+arrays of consecutive positive integers, of respective sizes 3 and
+4. The test validates that the expected sum is 6 and 10 respectively
+(again, same as chapter 14).
+
+\subsection{Observations and Interpretations}
+The test presents failures like the one below, where the array of 3
+elements gave as sum 7 instead of 6: \\
+
+\begin{verbatim}
+[oraadm@gdlaa008 orig]$ junit steal.ArraySumTest
+.F
+Time: 0.01
+There was 1 failure:
+1) testRun(steal.ArraySumTest)junit.framework.AssertionFailedError:
+                expected:<6> but was:<7>
+at steal.ArraySumTest.testRun(ArraySumTest.java:31)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at
+                
+sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+at
+                
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+\end{verbatim}
+\hfill
+
+The problem lied on the program \C{ArraySum.java}, on the assignment
+of variable \C{rhsStart}, which represents the starting point of the
+right subarray. While the original program had $lhsSize + 1$
+as assignment, the proper expression was $lhsSize + start$ (so we take
+into account both the relative start of the initial subarray we got,
+as well as the length of the left sub-subarray). After this fix, the test
+worked fine on both 2 and 24 cores machines. \\
+
+Again, above fix and behavior were the same as homonym program from    
+chapter 14. 
+

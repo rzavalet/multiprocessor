@@ -1,0 +1,73 @@
+\section{\textbf{StripedCuckooHashSetTest}}
+
+\subsection{Particular Case (problem)}
+The problem we try to solve is that of concurrent hashing, when we use
+the hash to implement a set data structure.
+
+\subsection{Solution}
+This solution is a refinement of the cuckoo technique we mentioned for
+other solutions like \C{CoarseCuckooHashSetTest}; providing a matrix
+of reentrant locks, where each cell protects a cell on the hash
+table. The following constructor shows how the locks are initialized: \\
+
+\begin{lstlisting}[style=numbers]
+  public StripedCuckooHashSet(int capacity) {
+    super(capacity);
+    lock  = new ReentrantLock[2][capacity];
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < capacity; j++) {
+        lock[i][j] = new ReentrantLock();
+      }
+    }
+  }
+\end{lstlisting}
+\hfill
+
+This solution extends the solution named \C{PhasedCuckooHashSet}. Part
+of its main differences are the \C{acquire} and \C{release} methods;
+which follow certain order on the locks associated to items, in
+order to avoid deadlocks: \\
+
+\begin{lstlisting}[style=numbers]
+  public final void acquire(T x) {
+    Lock lock0 = lock[0][hash0(x) % lock[0].length];
+    Lock lock1 = lock[1][hash1(x) % lock[1].length];
+    lock0.lock();
+    lock1.lock();
+  }
+
+  public final void release(T x) {
+    Lock lock0 = lock[0][hash0(x) % lock[0].length];
+    Lock lock1 = lock[1][hash1(x) % lock[1].length];
+    lock0.unlock();
+    lock1.unlock();
+    }
+\end{lstlisting}
+\hfill
+    
+\subsection{Experiment Description}
+The test is in essence the same as that described for
+\C{CoarseCuckooHashSetTest}, with some small differences: among them,
+the most relevant is the
+remover thread class used in \C{testParallelBoth}, which does not fail
+anymore if the element it tried to remove was not present; it only
+increments a counter of missed deletions. This minor change prevents
+the test from failing like the others.
+
+\subsection{Observations and Interpretations}
+The test runs fine in 2 and 24 cores, without any assertion error;
+below a sample execution: \\
+
+\begin{verbatim}
+[oraadm@gdlaa008 orig]$ junit hash.StripedCuckooHashSetTest
+.sequential add, contains, and remove
+.parallel both
+.parallel add
+.parallel remove
+
+Time: 0.017
+
+OK (4 tests)
+\end{verbatim}
+\hfill
+
