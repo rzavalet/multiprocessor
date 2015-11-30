@@ -1,0 +1,94 @@
+\section{\textbf{SenseBarrierTest}}
+
+\subsection{Particular Case (problem)}
+The problem we are trying to solve is that of synchronization on a
+multi-threaded environment; and the particular mechanism we want to
+use for that is a barrier (same as \C{DisBarrierTest}).
+
+\subsection{Solution}
+The solution called a ``Sense Barrier'' is well suited for reusing
+barrier structures (given that barriers construction, in general, is
+kind of expensive). The approach introduces the concept of a \C{sense}; which
+is basically a boolean flag used for both the whole barrier structure
+and for each thread. An implementation detail is that the barrier's
+sense is a shared variable among threads (hence declared \C{volatile})
+and the thread's sense is implemented with a \C{ThreadLocal}
+variable. \\
+
+The main idea behind this solution is that the barrier's sense is
+initialized to the negation of the threads' senses; and that a call to
+the \C{await} method will block all threads to wait for the barrier's
+sense to be negated. Exception is the last thread to come, which is
+allowed to actually change the barrier's sense hence unblocking the
+rest of the threads. Prior leaving the
+method each thread also negates its own local sense flag (so the
+contract between barrier and thread senses is kept for next
+usage). The code is small enough to fit here, and is pasted below: \\
+
+\begin{lstlisting}[style=numbers]
+public class SenseBarrier implements Barrier {
+  AtomicInteger count;     // how many threads have arrived
+  int size;                // number of threads
+  volatile boolean sense;  // object's sense
+  ThreadLocal<Boolean> threadSense;
+  
+  public SenseBarrier(int n) {
+    count = new AtomicInteger(n);
+    size = n;
+    sense = false;
+    threadSense = new ThreadLocal<Boolean>() {
+      protected Boolean initialValue() { return !sense; };
+    };
+  }
+
+  public void await() {
+    boolean mySense = threadSense.get();
+    int position = count.getAndDecrement();
+    if (position == 1) { // I'm last
+      count.set(this.size);     // reset counter
+      sense = mySense;          // reverse sense
+    } else {
+      while (sense != mySense) {} // busy-wait
+    }
+    threadSense.set(!mySense);
+  }
+}
+\end{lstlisting}
+\hfill
+
+One specially attractive feature of this approach, that we also saw
+while studying Spin locks in chapter 7, is that the threads are spinning
+on a local variable (which is expected to be cached on their
+respective core). One may think that the while expression is using
+both a local and a global variable, but the global one is likely to be
+cached for most of the time; and its entry in the cache gets
+invalidated only when is time to leave the barrier (after last thread
+changed it), so traffic on the cores' bus only occurs at the end. 
+
+\subsection{Experiment Description}
+The test consists in having a shared array of 8 slots, one per thread
+to be created. Then the test has two phases, both using the barrier;
+the first phase is to wait all threads to write on their assigned slot
+on the array and the second stage is to allow all threads to validate
+that the rest actually finished their writing. These two phases are
+repeated 8 times. \\
+
+The test above is basically the same as that described for
+\C{DisBarrierTest}.
+
+\subsection{Observations and Interpretations}
+Contrary to \C{DisBarrierTest}, this test does not hang on 2, nor on 24
+core machines. This is because the shared variable \C{sense} is
+properly declared as \C{volatile}. Below a sample successful
+execution: \\
+
+\begin{verbatim}
+[oraadm@gdlaa008 orig]$ junit barrier.SenseBarrierTest
+.Testing 8 threads, 8 rounds
+
+Time: 0.012
+
+OK (1 test)
+\end{verbatim}
+\hfill
+

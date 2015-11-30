@@ -16,9 +16,9 @@ The java program is called \C{Tree.java}, although it corresponds to
 the \C{CombiningTree} from the book, which is a binary tree structure
 where each thread is located at a leaf and at most two threads can
 share a leaf. The shared counter is at the root of the tree, and the
-rest of the nodes serve as intermmediate result points. When a couple
+rest of the nodes serve as intermediate result points. When a couple
 of threads collide in their attempt to increment, only one of them
-will serve as the representant and go up in the tree with the mission
+will serve as the representative and go up in the tree with the mission
 of propagating the combined increment (2) up to the shared counter at
 the root of the tree. In its way up, it may encounter further threads
 that collide again with it, making it wait or continue its journey to
@@ -37,7 +37,7 @@ The program consists of a single unit test \C{testGetAndIncrement},
 which creates 8 threads to perform each $2^20$ increments. The program
 uses an auxiliary array called \C{test} to record the individual
 increments done by each thread; assertions are made to ensure that
-none of the attemtps results in a duplicated value, as well as to
+none of the attempts results in a duplicated value, as well as to
 ensure that all threads completed their task.
 
 \subsection{Observations and Interpretations}

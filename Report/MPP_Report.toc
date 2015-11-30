@@ -1,150 +1,250 @@
-\contentsline {chapter}{\numberline {1}Mutual Exclusion}{6}{chapter.1}
-\contentsline {section}{\numberline {5.1}\textbf {LockFreeQueueTest}}{71}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Particular Case (problem)}{71}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Solution}{71}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}Experiment Description}{72}{subsection.5.1.3}
-\contentsline {subsection}{\numberline {5.1.4}Observations and Interpretations}{72}{subsection.5.1.4}
-\contentsline {subsubsection}{Non atomic dequeue: referencing invalid registers}{72}{section*.26}
-\contentsline {subsubsection}{Non atomic dequeue: returning duplicate values}{73}{section*.27}
-\contentsline {subsubsection}{Non atomic auto-increment: loosing values}{74}{section*.28}
-\contentsline {subsection}{\numberline {5.1.5}Proposed changes to fix the problems}{76}{subsection.5.1.5}
-\contentsline {section}{\numberline {1.2}\textbf {Peterson Algorithm}}{17}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Particular Case}{17}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Solution}{17}{subsection.1.2.2}
-\contentsline {subsection}{\numberline {1.2.3}Experiment Description}{17}{subsection.1.2.3}
-\contentsline {subsection}{\numberline {1.2.4}Sample Results}{18}{subsection.1.2.4}
-\contentsline {subsection}{\numberline {1.2.5}Interpretation}{18}{subsection.1.2.5}
-\contentsline {section}{\numberline {1.3}\textbf {Bakery Test}}{20}{section.1.3}
-\contentsline {subsection}{\numberline {1.3.1}Particular Case}{20}{subsection.1.3.1}
-\contentsline {subsection}{\numberline {1.3.2}Solution}{20}{subsection.1.3.2}
-\contentsline {subsection}{\numberline {1.3.3}Experiment Description}{20}{subsection.1.3.3}
-\contentsline {subsection}{\numberline {1.3.4}Sample Results}{21}{subsection.1.3.4}
-\contentsline {subsection}{\numberline {1.3.5}Interpretation}{21}{subsection.1.3.5}
-\contentsline {chapter}{\numberline {2}Foundations of Shared Memory}{22}{chapter.2}
-\contentsline {section}{\numberline {2.1}\textbf {Safe Boolean MRSW Register}}{23}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Particular Case}{23}{subsection.2.1.1}
-\contentsline {subsection}{\numberline {2.1.2}Solution}{23}{subsection.2.1.2}
-\contentsline {subsection}{\numberline {2.1.3}Experiment Description}{23}{subsection.2.1.3}
-\contentsline {subsection}{\numberline {2.1.4}Sample Results}{24}{subsection.2.1.4}
-\contentsline {subsection}{\numberline {2.1.5}Interpretation}{25}{subsection.2.1.5}
-\contentsline {section}{\numberline {2.2}\textbf {RegMRSWRegisterTest}}{26}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Particular Case (problem)}{26}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Solution}{26}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Experiment Description}{27}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}Observations and Interpretations}{27}{subsection.2.2.4}
-\contentsline {section}{\numberline {2.3}\textbf {Atomic MRSW Register}}{28}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Particular Case}{28}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Solution}{28}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Experiment Description}{28}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}Sample Results}{29}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Interpretation}{30}{subsection.2.3.5}
-\contentsline {section}{\numberline {2.4}\textbf {AtomicMRMWRegisterTest}}{31}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Particular Case (problem)}{31}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Solution}{31}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}Experiment Description}{32}{subsection.2.4.3}
-\contentsline {subsection}{\numberline {2.4.4}Observations and Interpretations}{33}{subsection.2.4.4}
-\contentsline {section}{\numberline {2.5}\textbf {SimpleSnapshotTest}}{34}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Particular Case (problem)}{34}{subsection.2.5.1}
-\contentsline {subsection}{\numberline {2.5.2}Solution}{34}{subsection.2.5.2}
-\contentsline {subsection}{\numberline {2.5.3}Experiment Description}{35}{subsection.2.5.3}
-\contentsline {subsection}{\numberline {2.5.4}Observations and Interpretations}{36}{subsection.2.5.4}
-\contentsline {section}{\numberline {2.6}\textbf {Wait-Free Snapshots}}{37}{section.2.6}
-\contentsline {subsection}{\numberline {2.6.1}Particular Case}{37}{subsection.2.6.1}
-\contentsline {subsection}{\numberline {2.6.2}Solution}{37}{subsection.2.6.2}
-\contentsline {subsection}{\numberline {2.6.3}Experiment Description}{37}{subsection.2.6.3}
-\contentsline {subsection}{\numberline {2.6.4}Sample Results}{38}{subsection.2.6.4}
-\contentsline {subsection}{\numberline {2.6.5}Interpretation}{38}{subsection.2.6.5}
-\contentsline {chapter}{\numberline {3}Spin Locks and Contention}{40}{chapter.3}
-\contentsline {section}{\numberline {3.1}Problem Definition}{40}{section.3.1}
-\contentsline {section}{\numberline {3.2}\textbf {Test-And-Set Locks}}{41}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Particular Case}{41}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Solution}{41}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Experiment Description}{42}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Sample Results}{42}{subsection.3.2.4}
-\contentsline {subsection}{\numberline {3.2.5}Interpretation}{42}{subsection.3.2.5}
-\contentsline {section}{\numberline {3.3}\textbf {TTASLockTest}}{44}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Particular Case (problem)}{44}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Solution}{44}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Experiment Description}{44}{subsection.3.3.3}
-\contentsline {subsection}{\numberline {3.3.4}Observations and Interpretations}{45}{subsection.3.3.4}
-\contentsline {section}{\numberline {3.4}\textbf {Hierarchical Backoff Lock}}{46}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Particular Case}{46}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Solution}{46}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Experiment Description}{46}{subsection.3.4.3}
-\contentsline {subsection}{\numberline {3.4.4}Sample Results}{47}{subsection.3.4.4}
-\contentsline {subsection}{\numberline {3.4.5}Interpretation}{47}{subsection.3.4.5}
-\contentsline {section}{\numberline {3.5}\textbf {BackoffLockTest}}{49}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Particular Case (problem)}{49}{subsection.3.5.1}
-\contentsline {subsection}{\numberline {3.5.2}Solution}{49}{subsection.3.5.2}
-\contentsline {subsection}{\numberline {3.5.3}Experiment Description}{51}{subsection.3.5.3}
-\contentsline {subsection}{\numberline {3.5.4}Observations and Interpretations}{51}{subsection.3.5.4}
-\contentsline {section}{\numberline {3.6}\textbf {CLH Queue Lock}}{52}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}Particular Case}{52}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Solution}{52}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Experiment Description}{52}{subsection.3.6.3}
-\contentsline {subsection}{\numberline {3.6.4}Sample Results}{53}{subsection.3.6.4}
-\contentsline {subsection}{\numberline {3.6.5}Interpretation}{53}{subsection.3.6.5}
-\contentsline {section}{\numberline {3.7}\textbf {CompositeLockTest}}{55}{section.3.7}
-\contentsline {subsection}{\numberline {3.7.1}Particular Case (problem)}{55}{subsection.3.7.1}
-\contentsline {subsection}{\numberline {3.7.2}Solution}{55}{subsection.3.7.2}
-\contentsline {subsection}{\numberline {3.7.3}Experiment Description}{55}{subsection.3.7.3}
-\contentsline {subsection}{\numberline {3.7.4}Observations and Interpretations}{56}{subsection.3.7.4}
-\contentsline {section}{\numberline {3.8}\textbf {MCSLockTest}}{57}{section.3.8}
-\contentsline {subsection}{\numberline {3.8.1}Particular Case (problem)}{57}{subsection.3.8.1}
-\contentsline {subsection}{\numberline {3.8.2}Solution}{57}{subsection.3.8.2}
-\contentsline {subsection}{\numberline {3.8.3}Experiment Description}{58}{subsection.3.8.3}
-\contentsline {subsection}{\numberline {3.8.4}Observations and Interpretations}{59}{subsection.3.8.4}
-\contentsline {chapter}{\numberline {4}Monitors and Blocking Synchronization}{63}{chapter.4}
-\contentsline {section}{\numberline {4.1}\textbf {QueueTest}}{64}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Particular Case (problem)}{64}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Solution}{64}{subsection.4.1.2}
-\contentsline {subsection}{\numberline {4.1.3}Experiment Description}{66}{subsection.4.1.3}
-\contentsline {subsection}{\numberline {4.1.4}Observations and Interpretations}{66}{subsection.4.1.4}
-\contentsline {section}{\numberline {4.2}\textbf {Count Down Latch}}{67}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Particular Case}{67}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Solution}{67}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Experiment Description}{67}{subsection.4.2.3}
-\contentsline {subsection}{\numberline {4.2.4}Sample Results}{68}{subsection.4.2.4}
-\contentsline {subsection}{\numberline {4.2.5}Interpretation}{68}{subsection.4.2.5}
-\contentsline {chapter}{\numberline {5}Linked Lists: The Role of Locking}{70}{chapter.5}
-\contentsline {section}{\numberline {5.1}\textbf {LockFreeQueueTest}}{71}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Particular Case (problem)}{71}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Solution}{71}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}Experiment Description}{72}{subsection.5.1.3}
-\contentsline {subsection}{\numberline {5.1.4}Observations and Interpretations}{72}{subsection.5.1.4}
-\contentsline {subsubsection}{Non atomic dequeue: referencing invalid registers}{72}{section*.26}
-\contentsline {subsubsection}{Non atomic dequeue: returning duplicate values}{73}{section*.27}
-\contentsline {subsubsection}{Non atomic auto-increment: loosing values}{74}{section*.28}
-\contentsline {subsection}{\numberline {5.1.5}Proposed changes to fix the problems}{76}{subsection.5.1.5}
-\contentsline {section}{\numberline {5.2}\textbf {LazyListTest}}{81}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Particular Case (problem)}{81}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Solution}{81}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Experiment Description}{83}{subsection.5.2.3}
-\contentsline {subsection}{\numberline {5.2.4}Observations and Interpretations}{83}{subsection.5.2.4}
-\contentsline {chapter}{\numberline {6}Concurrent Queues and the ABA Problem}{85}{chapter.6}
-\contentsline {section}{\numberline {6.4}\textbf {BoundedQueueTest}}{94}{section.6.4}
-\contentsline {subsection}{\numberline {6.4.1}Particular Case (problem)}{94}{subsection.6.4.1}
-\contentsline {subsection}{\numberline {6.4.2}Solution}{94}{subsection.6.4.2}
-\contentsline {subsection}{\numberline {6.4.3}Experiment Description}{95}{subsection.6.4.3}
-\contentsline {subsection}{\numberline {6.4.4}Observations and Interpretations}{95}{subsection.6.4.4}
-\contentsline {section}{\numberline {6.2}\textbf {SynchronousDualQueueTest}}{89}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}Particular Case (problem)}{89}{subsection.6.2.1}
-\contentsline {subsection}{\numberline {6.2.2}Solution}{89}{subsection.6.2.2}
-\contentsline {subsection}{\numberline {6.2.3}Experiment Description}{89}{subsection.6.2.3}
-\contentsline {subsection}{\numberline {6.2.4}Observations and Interpretations}{90}{subsection.6.2.4}
-\contentsline {section}{\numberline {6.3}\textbf {LockFreeQueueRecycleTest}}{92}{section.6.3}
-\contentsline {subsection}{\numberline {6.3.1}Particular Case (problem)}{92}{subsection.6.3.1}
-\contentsline {subsection}{\numberline {6.3.2}Solution}{92}{subsection.6.3.2}
-\contentsline {subsection}{\numberline {6.3.3}Experiment Description}{92}{subsection.6.3.3}
-\contentsline {subsection}{\numberline {6.3.4}Observations and Interpretations}{93}{subsection.6.3.4}
-\contentsline {section}{\numberline {6.4}\textbf {BoundedQueueTest}}{94}{section.6.4}
-\contentsline {subsection}{\numberline {6.4.1}Particular Case (problem)}{94}{subsection.6.4.1}
-\contentsline {subsection}{\numberline {6.4.2}Solution}{94}{subsection.6.4.2}
-\contentsline {subsection}{\numberline {6.4.3}Experiment Description}{95}{subsection.6.4.3}
-\contentsline {subsection}{\numberline {6.4.4}Observations and Interpretations}{95}{subsection.6.4.4}
-\contentsline {chapter}{\numberline {7}Counting, Sorting and Distributed Coordination}{97}{chapter.7}
-\contentsline {section}{\numberline {7.1}\textbf {TreeTest}}{98}{section.7.1}
-\contentsline {subsection}{\numberline {7.1.1}Particular Case (problem)}{98}{subsection.7.1.1}
-\contentsline {subsection}{\numberline {7.1.2}Solution}{98}{subsection.7.1.2}
-\contentsline {subsection}{\numberline {7.1.3}Experiment Description}{98}{subsection.7.1.3}
-\contentsline {subsection}{\numberline {7.1.4}Observations and Interpretations}{99}{subsection.7.1.4}
+\contentsline {chapter}{\numberline {1}Mutual Exclusion}{9}{chapter.1}
+\contentsline {section}{\numberline {1.1}\textbf {LockFreeQueueTest}}{10}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Particular Case (problem)}{10}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Solution}{10}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}Experiment Description}{11}{subsection.1.1.3}
+\contentsline {subsection}{\numberline {1.1.4}Observations and Interpretations}{11}{subsection.1.1.4}
+\contentsline {subsubsection}{Non atomic dequeue: referencing invalid registers}{11}{section*.2}
+\contentsline {subsubsection}{Non atomic dequeue: returning duplicate values}{12}{section*.3}
+\contentsline {subsubsection}{Non atomic auto-increment: loosing values}{13}{section*.4}
+\contentsline {subsection}{\numberline {1.1.5}Proposed changes to fix the problems}{15}{subsection.1.1.5}
+\contentsline {section}{\numberline {1.2}\textbf {Peterson Algorithm}}{20}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Particular Case}{20}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Solution}{20}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Experiment Description}{21}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {1.2.4}Sample Results}{21}{subsection.1.2.4}
+\contentsline {subsection}{\numberline {1.2.5}Interpretation}{21}{subsection.1.2.5}
+\contentsline {section}{\numberline {1.3}\textbf {Bakery Test}}{22}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Particular Case}{22}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Solution}{22}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.3}Experiment Description}{24}{subsection.1.3.3}
+\contentsline {subsection}{\numberline {1.3.4}Sample Results}{24}{subsection.1.3.4}
+\contentsline {subsection}{\numberline {1.3.5}Interpretation}{24}{subsection.1.3.5}
+\contentsline {subsection}{\numberline {1.3.6}Proposed solution}{25}{subsection.1.3.6}
+\contentsline {chapter}{\numberline {2}Foundations of Shared Memory}{26}{chapter.2}
+\contentsline {section}{\numberline {2.1}\textbf {Safe Boolean MRSW Register}}{27}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Particular Case}{27}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Solution}{27}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Experiment Description}{27}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Sample Results}{28}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.5}Interpretation}{29}{subsection.2.1.5}
+\contentsline {section}{\numberline {2.2}\textbf {RegMRSWRegisterTest}}{30}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Particular Case (problem)}{30}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Solution}{30}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Experiment Description}{31}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Observations and Interpretations}{31}{subsection.2.2.4}
+\contentsline {section}{\numberline {2.3}\textbf {Atomic MRSW Register}}{32}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Particular Case}{32}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Solution}{32}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Experiment Description}{33}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Sample Results}{33}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Interpretation}{33}{subsection.2.3.5}
+\contentsline {section}{\numberline {2.4}\textbf {AtomicMRMWRegisterTest}}{34}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Particular Case (problem)}{34}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Solution}{34}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Experiment Description}{35}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.4}Observations and Interpretations}{36}{subsection.2.4.4}
+\contentsline {section}{\numberline {2.5}\textbf {SimpleSnapshotTest}}{37}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Particular Case (problem)}{37}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Solution}{37}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.3}Experiment Description}{38}{subsection.2.5.3}
+\contentsline {subsection}{\numberline {2.5.4}Observations and Interpretations}{39}{subsection.2.5.4}
+\contentsline {section}{\numberline {2.6}\textbf {Wait-Free Snapshots}}{40}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Particular Case}{40}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Solution}{40}{subsection.2.6.2}
+\contentsline {subsection}{\numberline {2.6.3}Experiment Description}{42}{subsection.2.6.3}
+\contentsline {subsection}{\numberline {2.6.4}Sample Results}{43}{subsection.2.6.4}
+\contentsline {subsection}{\numberline {2.6.5}Interpretation}{43}{subsection.2.6.5}
+\contentsline {chapter}{\numberline {3}Spin Locks and Contention}{44}{chapter.3}
+\contentsline {section}{\numberline {3.1}Problem Definition}{44}{section.3.1}
+\contentsline {section}{\numberline {3.2}\textbf {Test-And-Set Locks}}{45}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Particular Case}{45}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Solution}{45}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Experiment Description}{46}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Sample Results}{46}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Interpretation}{47}{subsection.3.2.5}
+\contentsline {section}{\numberline {3.3}\textbf {TTASLockTest}}{48}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Particular Case (problem)}{48}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Solution}{48}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Experiment Description}{48}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Observations and Interpretations}{49}{subsection.3.3.4}
+\contentsline {section}{\numberline {3.4}\textbf {BackoffLockTest}}{50}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Particular Case (problem)}{50}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Solution}{50}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Experiment Description}{52}{subsection.3.4.3}
+\contentsline {subsection}{\numberline {3.4.4}Observations and Interpretations}{52}{subsection.3.4.4}
+\contentsline {section}{\numberline {3.5}\textbf {CLH Queue Lock}}{53}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Particular Case}{53}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Solution}{53}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}Experiment Description}{53}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.4}Sample Results}{54}{subsection.3.5.4}
+\contentsline {subsection}{\numberline {3.5.5}Interpretation}{54}{subsection.3.5.5}
+\contentsline {section}{\numberline {3.6}\textbf {MCSLockTest}}{56}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Particular Case (problem)}{56}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Solution}{56}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Experiment Description}{57}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.4}Observations and Interpretations}{58}{subsection.3.6.4}
+\contentsline {section}{\numberline {3.7}\textbf {CompositeLockTest}}{62}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Particular Case (problem)}{62}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}Solution}{62}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7.3}Experiment Description}{62}{subsection.3.7.3}
+\contentsline {subsection}{\numberline {3.7.4}Observations and Interpretations}{63}{subsection.3.7.4}
+\contentsline {section}{\numberline {3.8}\textbf {Hierarchical Backoff Lock}}{64}{section.3.8}
+\contentsline {subsection}{\numberline {3.8.1}Particular Case}{64}{subsection.3.8.1}
+\contentsline {subsection}{\numberline {3.8.2}Solution}{64}{subsection.3.8.2}
+\contentsline {subsection}{\numberline {3.8.3}Experiment Description}{65}{subsection.3.8.3}
+\contentsline {subsection}{\numberline {3.8.4}Sample Results}{66}{subsection.3.8.4}
+\contentsline {subsection}{\numberline {3.8.5}Interpretation}{66}{subsection.3.8.5}
+\contentsline {chapter}{\numberline {4}Monitors and Blocking Synchronization}{67}{chapter.4}
+\contentsline {section}{\numberline {4.1}\textbf {QueueTest}}{68}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Particular Case (problem)}{68}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Solution}{68}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Experiment Description}{70}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Observations and Interpretations}{70}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}\textbf {Count Down Latch}}{71}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Particular Case}{71}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Solution}{71}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Experiment Description}{72}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}Sample Results}{74}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}Interpretation}{74}{subsection.4.2.5}
+\contentsline {chapter}{\numberline {5}Linked Lists: The Role of Locking}{76}{chapter.5}
+\contentsline {section}{\numberline {5.1}\textbf {Coarse List}}{77}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Particular Case}{77}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Solution}{77}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Experiment Description}{78}{subsection.5.1.3}
+\contentsline {subsection}{\numberline {5.1.4}Sample Results}{79}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {5.1.5}Proposed solution}{80}{subsection.5.1.5}
+\contentsline {subsection}{\numberline {5.1.6}Interpretation}{81}{subsection.5.1.6}
+\contentsline {section}{\numberline {5.2}\textbf {LazyListTest}}{82}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Particular Case (problem)}{82}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Solution}{82}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Experiment Description}{84}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Observations and Interpretations}{84}{subsection.5.2.4}
+\contentsline {section}{\numberline {5.3}\textbf {Lock-Free List}}{86}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Particular Case}{86}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Solution}{86}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Experiment Description}{86}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.4}Sample Results}{86}{subsection.5.3.4}
+\contentsline {subsection}{\numberline {5.3.5}Interpretation}{87}{subsection.5.3.5}
+\contentsline {chapter}{\numberline {6}Concurrent Queues and the ABA Problem}{88}{chapter.6}
+\contentsline {section}{\numberline {6.5}\textbf {BoundedQueueTest}}{98}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}Particular Case (problem)}{98}{subsection.6.5.1}
+\contentsline {subsection}{\numberline {6.5.2}Solution}{98}{subsection.6.5.2}
+\contentsline {subsection}{\numberline {6.5.3}Experiment Description}{99}{subsection.6.5.3}
+\contentsline {subsection}{\numberline {6.5.4}Observations and Interpretations}{99}{subsection.6.5.4}
+\contentsline {section}{\numberline {6.2}\textbf {SynchronousDualQueueTest}}{92}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Particular Case (problem)}{92}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Solution}{92}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Experiment Description}{92}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}Observations and Interpretations}{93}{subsection.6.2.4}
+\contentsline {section}{\numberline {6.3}\textbf {LockFreeQueueRecycleTest}}{95}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Particular Case (problem)}{95}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Solution}{95}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}Experiment Description}{95}{subsection.6.3.3}
+\contentsline {subsection}{\numberline {6.3.4}Observations and Interpretations}{96}{subsection.6.3.4}
+\contentsline {section}{\numberline {6.4}\textbf {LockFreeQueueTest Test}}{97}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Particular Case}{97}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}Solution}{97}{subsection.6.4.2}
+\contentsline {subsection}{\numberline {6.4.3}Experiment Description}{97}{subsection.6.4.3}
+\contentsline {subsection}{\numberline {6.4.4}Sample Results}{97}{subsection.6.4.4}
+\contentsline {subsection}{\numberline {6.4.5}Interpretation}{97}{subsection.6.4.5}
+\contentsline {subsection}{\numberline {6.4.6}Proposed solution}{97}{subsection.6.4.6}
+\contentsline {section}{\numberline {6.5}\textbf {BoundedQueueTest}}{98}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}Particular Case (problem)}{98}{subsection.6.5.1}
+\contentsline {subsection}{\numberline {6.5.2}Solution}{98}{subsection.6.5.2}
+\contentsline {subsection}{\numberline {6.5.3}Experiment Description}{99}{subsection.6.5.3}
+\contentsline {subsection}{\numberline {6.5.4}Observations and Interpretations}{99}{subsection.6.5.4}
+\contentsline {chapter}{\numberline {7}Concurrent Stacks and Elimination}{101}{chapter.7}
+\contentsline {section}{\numberline {7.1}\textbf {Exchanger}}{102}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Particular Case}{102}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Solution}{102}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Experiment Description}{105}{subsection.7.1.3}
+\contentsline {subsection}{\numberline {7.1.4}Sample Results}{105}{subsection.7.1.4}
+\contentsline {subsection}{\numberline {7.1.5}Interpretation}{105}{subsection.7.1.5}
+\contentsline {chapter}{\numberline {8}Counting, Sorting and Distributed Coordination}{106}{chapter.8}
+\contentsline {section}{\numberline {8.1}\textbf {TreeTest}}{107}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Particular Case (problem)}{107}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}Solution}{107}{subsection.8.1.2}
+\contentsline {subsection}{\numberline {8.1.3}Experiment Description}{107}{subsection.8.1.3}
+\contentsline {subsection}{\numberline {8.1.4}Observations and Interpretations}{108}{subsection.8.1.4}
+\contentsline {chapter}{\numberline {9}Concurrent Hashing and Natural Parallelism}{110}{chapter.9}
+\contentsline {section}{\numberline {9.1}\textbf {CoarseCuckooHashSetTest}}{111}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}Particular Case (problem)}{111}{subsection.9.1.1}
+\contentsline {subsection}{\numberline {9.1.2}Solution}{111}{subsection.9.1.2}
+\contentsline {subsection}{\numberline {9.1.3}Experiment Description}{112}{subsection.9.1.3}
+\contentsline {subsection}{\numberline {9.1.4}Observations and Interpretations}{113}{subsection.9.1.4}
+\contentsline {section}{\numberline {9.2}\textbf {LockFreeHashSetTest}}{114}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Particular Case (problem)}{114}{subsection.9.2.1}
+\contentsline {subsection}{\numberline {9.2.2}Solution}{114}{subsection.9.2.2}
+\contentsline {subsection}{\numberline {9.2.3}Experiment Description}{114}{subsection.9.2.3}
+\contentsline {subsection}{\numberline {9.2.4}Observations and Interpretations}{114}{subsection.9.2.4}
+\contentsline {section}{\numberline {9.3}\textbf {StripedCuckooHashSetTest}}{116}{section.9.3}
+\contentsline {subsection}{\numberline {9.3.1}Particular Case (problem)}{116}{subsection.9.3.1}
+\contentsline {subsection}{\numberline {9.3.2}Solution}{116}{subsection.9.3.2}
+\contentsline {subsection}{\numberline {9.3.3}Experiment Description}{117}{subsection.9.3.3}
+\contentsline {subsection}{\numberline {9.3.4}Observations and Interpretations}{117}{subsection.9.3.4}
+\contentsline {chapter}{\numberline {10}Skiplists and Balanced Search}{118}{chapter.10}
+\contentsline {section}{\numberline {10.1}\textbf {ArraySumTest}}{119}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Particular Case (problem)}{119}{subsection.10.1.1}
+\contentsline {subsection}{\numberline {10.1.2}Solution}{119}{subsection.10.1.2}
+\contentsline {subsection}{\numberline {10.1.3}Experiment Description}{119}{subsection.10.1.3}
+\contentsline {subsection}{\numberline {10.1.4}Observations and Interpretations}{119}{subsection.10.1.4}
+\contentsline {section}{\numberline {10.2}\textbf {FibTaskTest}}{121}{section.10.2}
+\contentsline {subsection}{\numberline {10.2.1}Particular Case (problem)}{121}{subsection.10.2.1}
+\contentsline {subsection}{\numberline {10.2.2}Solution}{121}{subsection.10.2.2}
+\contentsline {subsection}{\numberline {10.2.3}Experiment Description}{121}{subsection.10.2.3}
+\contentsline {subsection}{\numberline {10.2.4}Observations and Interpretations}{122}{subsection.10.2.4}
+\contentsline {section}{\numberline {10.3}\textbf {MMThreadTest}}{123}{section.10.3}
+\contentsline {subsection}{\numberline {10.3.1}Particular Case (problem)}{123}{subsection.10.3.1}
+\contentsline {subsection}{\numberline {10.3.2}Solution}{123}{subsection.10.3.2}
+\contentsline {subsection}{\numberline {10.3.3}Experiment Description}{124}{subsection.10.3.3}
+\contentsline {subsection}{\numberline {10.3.4}Observations and Interpretations}{124}{subsection.10.3.4}
+\contentsline {chapter}{\numberline {11}Priority Queues}{125}{chapter.11}
+\contentsline {section}{\numberline {11.1}\textbf {BitReversedCounterTest}}{126}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Particular Case (problem)}{126}{subsection.11.1.1}
+\contentsline {subsection}{\numberline {11.1.2}Solution}{126}{subsection.11.1.2}
+\contentsline {subsection}{\numberline {11.1.3}Experiment Description}{126}{subsection.11.1.3}
+\contentsline {subsection}{\numberline {11.1.4}Observations and Interpretations}{127}{subsection.11.1.4}
+\contentsline {section}{\numberline {11.2}\textbf {SimpleLinearTest}}{129}{section.11.2}
+\contentsline {subsection}{\numberline {11.2.1}Particular Case (problem)}{129}{subsection.11.2.1}
+\contentsline {subsection}{\numberline {11.2.2}Solution}{129}{subsection.11.2.2}
+\contentsline {subsection}{\numberline {11.2.3}Experiment Description}{130}{subsection.11.2.3}
+\contentsline {subsection}{\numberline {11.2.4}Observations and Interpretations}{130}{subsection.11.2.4}
+\contentsline {chapter}{\numberline {12}Futures, Scheduling and Work Distribution}{131}{chapter.12}
+\contentsline {section}{\numberline {12.1}\textbf {ArraySumTest}}{132}{section.12.1}
+\contentsline {subsection}{\numberline {12.1.1}Particular Case (problem)}{132}{subsection.12.1.1}
+\contentsline {subsection}{\numberline {12.1.2}Solution}{132}{subsection.12.1.2}
+\contentsline {subsection}{\numberline {12.1.3}Experiment Description}{132}{subsection.12.1.3}
+\contentsline {subsection}{\numberline {12.1.4}Observations and Interpretations}{133}{subsection.12.1.4}
+\contentsline {section}{\numberline {12.2}\textbf {FibTaskTest}}{134}{section.12.2}
+\contentsline {subsection}{\numberline {12.2.1}Particular Case (problem)}{134}{subsection.12.2.1}
+\contentsline {subsection}{\numberline {12.2.2}Solution}{134}{subsection.12.2.2}
+\contentsline {subsection}{\numberline {12.2.3}Experiment Description}{135}{subsection.12.2.3}
+\contentsline {subsection}{\numberline {12.2.4}Observations and Interpretations}{135}{subsection.12.2.4}
+\contentsline {section}{\numberline {12.3}\textbf {MMThreadTest}}{136}{section.12.3}
+\contentsline {subsection}{\numberline {12.3.1}Particular Case (problem)}{136}{subsection.12.3.1}
+\contentsline {subsection}{\numberline {12.3.2}Solution}{136}{subsection.12.3.2}
+\contentsline {subsection}{\numberline {12.3.3}Experiment Description}{137}{subsection.12.3.3}
+\contentsline {subsection}{\numberline {12.3.4}Observations and Interpretations}{137}{subsection.12.3.4}
+\contentsline {chapter}{\numberline {13}Barriers}{138}{chapter.13}
+\contentsline {section}{\numberline {13.1}\textbf {DisBarrierTest}}{139}{section.13.1}
+\contentsline {subsection}{\numberline {13.1.1}Particular Case (problem)}{139}{subsection.13.1.1}
+\contentsline {subsection}{\numberline {13.1.2}Solution}{139}{subsection.13.1.2}
+\contentsline {subsection}{\numberline {13.1.3}Experiment Description}{141}{subsection.13.1.3}
+\contentsline {subsection}{\numberline {13.1.4}Observations and Interpretations}{141}{subsection.13.1.4}
+\contentsline {section}{\numberline {13.2}\textbf {SenseBarrierTest}}{142}{section.13.2}
+\contentsline {subsection}{\numberline {13.2.1}Particular Case (problem)}{142}{subsection.13.2.1}
+\contentsline {subsection}{\numberline {13.2.2}Solution}{142}{subsection.13.2.2}
+\contentsline {subsection}{\numberline {13.2.3}Experiment Description}{143}{subsection.13.2.3}
+\contentsline {subsection}{\numberline {13.2.4}Observations and Interpretations}{143}{subsection.13.2.4}
+\contentsline {section}{\numberline {13.3}\textbf {TreeBarrierTest}}{145}{section.13.3}
+\contentsline {subsection}{\numberline {13.3.1}Particular Case (problem)}{145}{subsection.13.3.1}
+\contentsline {subsection}{\numberline {13.3.2}Solution}{145}{subsection.13.3.2}
+\contentsline {subsection}{\numberline {13.3.3}Experiment Description}{147}{subsection.13.3.3}
+\contentsline {subsection}{\numberline {13.3.4}Observations and Interpretations}{147}{subsection.13.3.4}
+\contentsline {chapter}{\numberline {14}Transactional Memory}{148}{chapter.14}
+\contentsline {section}{\numberline {14.1}\textbf {ListTest (ofree)}}{149}{section.14.1}
+\contentsline {subsection}{\numberline {14.1.1}Particular Case (problem)}{149}{subsection.14.1.1}
+\contentsline {subsection}{\numberline {14.1.2}Solution}{149}{subsection.14.1.2}
+\contentsline {subsection}{\numberline {14.1.3}Experiment Description}{150}{subsection.14.1.3}
+\contentsline {subsection}{\numberline {14.1.4}Observations and Interpretations}{150}{subsection.14.1.4}

@@ -14,7 +14,7 @@ contract or interface for a priority queue is essentially two methods:
 Given that the problem is to implement a bounded priority queue, an
 array shall suffice. So we create an array of sets as big as the range
 of values for the priority. The \C{add} and \C{removeMin} methods are
-straighforward, but they are built on the assumption that the
+straightforward, but they are built on the assumption that the
 auxiliary class \C{Bin} is thread safe (which is the case, as it is
 implemented with locks). Below the relevant snippets of code: \\
 

@@ -7,7 +7,7 @@ only a couple of values; while multi-valued can range over a big set,
 like integers.}
 multiple-reader multiple-writer register. Let us 
 briefly recall that atomic registers are the most powerful ones, when
-compated with the 
+compared with the 
 other two categories: safe and regular. Informally, atomic registers
 behave like one would expect when reads overlap writes: the reads
 always ``see'' the last written value; while regular registers allows
@@ -75,7 +75,7 @@ test cases:
 \subsection{Observations and Interpretations}
 The test performs well on 2 and 24 core machines, without any race
 conditions nor abnormal behaviors. This partly because, the test is
-not really exercising the multi-write capacility, nor the interlacing
+not really exercising the multi-write capability, nor the interlacing
 of writes and reads. We believe the authors just copied paste a
 previous test (probably one that just cared about single reader and
 multiple writers), and forgot to update. Due time constraints we did

@@ -21,13 +21,13 @@ belong to the set or not (this prevents transvering the list to detect
 if the node is reachable, as the new bit introduces such invariant: if
 a transversing thread does not find a node or it is marked in this
 bit, then the corresponding item does not belong to the set. This
-behaviour implies that \C{contains} method does a single wait-free
+behavior implies that \C{contains} method does a single wait-free
 transversal of the list. \\
 
 For adding an element to the list, \C{add} method traverses the list,
 locks the target's predecessor and successor nodes, and inserts the
 new node in between. The \C{remove}   
-method is lazy (hece the name of the solution), as it splits its task in
+method is lazy (hence the name of the solution), as it splits its task in
 two parts: first marks the node in the new bit, logically removing it;
 and second, update its predecessor's next field, physically removing
 it. \\
@@ -93,7 +93,7 @@ with a few differences.
 
 \begin{itemize}
 \item The data structure here is a set, rather than a queue.
-\item The exceptiont that it uses 8 threads instead of two for each
+\item The exception that it uses 8 threads instead of two for each
   operation (\C{add} / \C{remove}).
 \item The threads that remove elements do not care only in
   successfully removing certain number of times (like with the queue);

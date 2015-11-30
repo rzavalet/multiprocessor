@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.10.13)  2 NOV 2015 00:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.10.13)  29 NOV 2015 19:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -353,25 +353,29 @@ Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix
 LaTeX Warning: Unused global option(s):
     [letter].
 
-(./MPP_Report.aux (./sections/LockFreeQueueTest.aux) (./sections/Peterson.aux
-
-LaTeX Warning: Label `fig:peterson' multiply defined.
-
-
-LaTeX Warning: Label `fig:peterson@cref' multiply defined.
-
-) (./sections/Bakery.aux) (./sections/SafeBooleanMRSW.aux)
+(./MPP_Report.aux (./sections/LockFreeQueueTest.aux) (./sections/Peterson.aux)
+(./sections/Bakery.aux) (./sections/SafeBooleanMRSW.aux)
 (./sections/RegMRSWRegisterTest.aux) (./sections/AtomicMRSWRegister.aux)
 (./sections/AtomicMRMWRegisterTest.aux) (./sections/SimpleSnapshotTest.aux)
 (./sections/WFSnapshot.aux) (./sections/TASLockTest.aux)
-(./sections/TTASLockTest.aux) (./sections/HBOLockTest.aux)
-(./sections/BackoffLockTest.aux) (./sections/CLHLockTest.aux)
-(./sections/CompositeLockTest.aux) (./sections/MCSLockTest.aux)
+(./sections/TTASLockTest.aux) (./sections/BackoffLockTest.aux)
+(./sections/CLHLockTest.aux) (./sections/MCSLockTest.aux)
+(./sections/CompositeLockTest.aux) (./sections/HBOLockTest.aux)
 (./sections/QueueTest.aux) (./sections/CountDownLatch.aux)
-(./sections/LockFreeQueueTest.aux) (./sections/LazyListTest.aux)
-(./sections/BoundedQueueTest.aux) (./sections/SynchronousDualQueueTest.aux)
-(./sections/LockFreeQueueRecycleTest.aux) (./sections/BoundedQueueTest.aux)
-(./sections/TreeTest.aux))
+(./sections/CoarseList.aux) (./sections/LazyListTest.aux)
+(./sections/LockFreeList.aux) (./sections/BoundedQueueTest.aux)
+(./sections/SynchronousDualQueueTest.aux)
+(./sections/LockFreeQueueRecycleTest.aux)
+(./sections/LockFreeQueueTest_revisited.aux) (./sections/BoundedQueueTest.aux)
+(./sections/Exchanger.aux) (./sections/TreeTest.aux)
+(./sections/CoarseCuckooHashSetTest.aux) (./sections/LockFreeHashSetTest.aux)
+(./sections/StripedCuckooHashSetTest.aux) (./sections/ArraySumTest.aux)
+(./sections/FibTaskTest.aux) (./sections/MMThreadTest.aux)
+(./sections/BitReversedCounterTest.aux) (./sections/SimpleLinearTest.aux)
+(./sections/ArraySumTest16.aux) (./sections/FibTaskTest16.aux)
+(./sections/MMThreadTest16.aux) (./sections/DisBarrierTest.aux)
+(./sections/SenseBarrierTest.aux) (./sections/TreeBarrierTest.aux)
+(./sections/ListTest-ofree.aux))
 \openout1 = `MPP_Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
@@ -442,7 +446,7 @@ LaTeX Info: Redefining \nameref on input line 51.
 \openout4 = `MPP_Report.out'.
 
 
-<images/Oracle_Logo.pdf, id=582, 532.2657pt x 75.59897pt>
+<images/Oracle_Logo.pdf, id=996, 532.2657pt x 75.59897pt>
 File: images/Oracle_Logo.pdf Graphic file (type pdf)
 
 <use images/Oracle_Logo.pdf>
@@ -468,16 +472,17 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.32 ...ine {2.2.2}Solution}{22}{subsection.2.2.2}
+l.32 ...ular Case (problem)}{30}{subsection.2.2.1}
                                                    [1
 
-] [2] [3] [4])
+] [2] [3] [4] [5] [6]
+[7])
 \tf@toc=\write5
 \openout5 = `MPP_Report.toc'.
 
- [5]
+ [8]
 Chapter 1.
-[6
+[9
 
 ]
 \openout2 = `./sections/LockFreeQueueTest.aux'.
@@ -493,17 +498,17 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 15.
- [7
+ [10
 
 ]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 50.
- [8] [9]
+ [11] [12]
 Underfull \hbox (badness 10000) in paragraph at lines 153--159
 
  []
 
-[10]
+[13]
 Underfull \hbox (badness 10000) in paragraph at lines 185--191
 
  []
@@ -518,7 +523,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 197--205
 
  []
 
-[11]
+[14]
 Underfull \hbox (badness 10000) in paragraph at lines 244--253
 
  []
@@ -528,12 +533,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 254--263
 
  []
 
-[12]
+[15]
 Underfull \hbox (badness 10000) in paragraph at lines 264--273
 
  []
 
-[13]
+[16]
 Underfull \hbox (badness 10000) in paragraph at lines 315--324
 
  []
@@ -543,12 +548,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 325--328
 
  []
 
-[14] [15]
+[17] [18]
 Underfull \hbox (badness 10000) in paragraph at lines 385--392
 
  []
 
-) [16]
+) [19]
 \openout2 = `./sections/Peterson.aux'.
 
  (./sections/Peterson.tex
@@ -557,89 +562,48 @@ Overfull \hbox (10.96251pt too wide) in paragraph at lines 26--29
 hieve a starvation-
  []
 
-[17
+[20
 
 
-] <images/Peterson.png, id=944, 623.32875pt x 192.72pt>
-File: images/Peterson.png Graphic file (type png)
-
-<use images/Peterson.png>
-Package pdftex.def Info: images/Peterson.png used on input line 56.
-(pdftex.def)             Requested size: 369.88582pt x 114.3625pt.
-
-<images/Peterson01.png, id=946, 456.70625pt x 204.765pt>
-File: images/Peterson01.png Graphic file (type png)
-
-<use images/Peterson01.png>
-Package pdftex.def Info: images/Peterson01.png used on input line 63.
-(pdftex.def)             Requested size: 284.52756pt x 127.57161pt.
-) [18 <./images/Peterson.png> <./images/Peterson01.png>] [19]
+]) [21]
 \openout2 = `./sections/Bakery.aux'.
 
  (./sections/Bakery.tex
-<images/Bakery00.png, id=965, 628.3475pt x 111.41624pt>
-File: images/Bakery00.png Graphic file (type png)
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 51.
 
-<use images/Bakery00.png>
-Package pdftex.def Info: images/Bakery00.png used on input line 54.
-(pdftex.def)             Requested size: 369.88582pt x 65.5854pt.
- [20
+(/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 51.
+
+Overfull \hbox (18.00415pt too wide) in paragraph at lines 52--53
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+
+ []
+
+[22
 
 
 ]
-<images/Bakery01.png, id=971, 308.15125pt x 220.825pt>
-File: images/Bakery01.png Graphic file (type png)
+Overfull \hbox (24.00421pt too wide) in paragraph at lines 80--81
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
 
-<use images/Bakery01.png>
-Package pdftex.def Info: images/Bakery01.png used on input line 61.
-(pdftex.def)             Requested size: 142.26378pt x 101.948pt.
-) [21 <./images/Bakery00.png> <./images/Bakery01.png>]
+[23] [24]) [25]
 Chapter 2.
-[22
+[26
 
 
 ]
 \openout2 = `./sections/SafeBooleanMRSW.aux'.
 
- (./sections/SafeBooleanMRSW.tex [23
+ (./sections/SafeBooleanMRSW.tex [27
 
 ]
-<images/SafeBooleanMRSW00.png, id=990, 984.67876pt x 254.9525pt>
-File: images/SafeBooleanMRSW00.png Graphic file (type png)
-
-<use images/SafeBooleanMRSW00.png>
-Package pdftex.def Info: images/SafeBooleanMRSW00.png used on input line 59.
-(pdftex.def)             Requested size: 369.88582pt x 95.77032pt.
-
-<images/SafeBooleanMRSW01.png, id=991, 1123.19624pt x 251.94125pt>
-File: images/SafeBooleanMRSW01.png Graphic file (type png)
-
-<use images/SafeBooleanMRSW01.png>
-Package pdftex.def Info: images/SafeBooleanMRSW01.png used on input line 66.
-(pdftex.def)             Requested size: 369.88582pt x 82.96786pt.
-
-<images/SafeBooleanMRSW02.png, id=993, 692.5875pt x 257.96375pt>
-File: images/SafeBooleanMRSW02.png Graphic file (type png)
-
-<use images/SafeBooleanMRSW02.png>
-Package pdftex.def Info: images/SafeBooleanMRSW02.png used on input line 77.
-(pdftex.def)             Requested size: 369.88582pt x 137.77109pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<images/SafeBooleanMRSW03.png, id=994, 799.98875pt x 253.94875pt>
-File: images/SafeBooleanMRSW03.png Graphic file (type png)
-
-<use images/SafeBooleanMRSW03.png>
-Package pdftex.def Info: images/SafeBooleanMRSW03.png used on input line 84.
-(pdftex.def)             Requested size: 369.88582pt x 117.41844pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[24 <./images/SafeBooleanMRSW00.png> <./images/SafeBooleanMRSW01.png>])
-[25 <./images/SafeBooleanMRSW02.png> <./images/SafeBooleanMRSW03.png>]
+LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 78.
+ [28]) [29]
 \openout2 = `./sections/RegMRSWRegisterTest.aux'.
 
 
@@ -653,13 +617,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 17--28
 
  []
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 30.
-(/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 30.
- [26
+[30
 
 
 ]
@@ -667,47 +625,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--72
 
  []
 
-) [27]
+) [31]
 \openout2 = `./sections/AtomicMRSWRegister.aux'.
 
- (./sections/AtomicMRSWRegister.tex [28
+ (./sections/AtomicMRSWRegister.tex [32
 
 
-]
-<images/AtomicMRSW00.png, id=1051, 1037.8775pt x 255.95625pt>
-File: images/AtomicMRSW00.png Graphic file (type png)
-
-<use images/AtomicMRSW00.png>
-Package pdftex.def Info: images/AtomicMRSW00.png used on input line 57.
-(pdftex.def)             Requested size: 369.88582pt x 91.21855pt.
-
-<images/AtomicMRSW01.png, id=1052, 696.6025pt x 253.94875pt>
-File: images/AtomicMRSW01.png Graphic file (type png)
-
-<use images/AtomicMRSW01.png>
-Package pdftex.def Info: images/AtomicMRSW01.png used on input line 66.
-(pdftex.def)             Requested size: 369.88582pt x 134.84406pt.
-
-<images/AtomicMRSW02.png, id=1053, 806.01125pt x 297.11pt>
-File: images/AtomicMRSW02.png Graphic file (type png)
-
-<use images/AtomicMRSW02.png>
-Package pdftex.def Info: images/AtomicMRSW02.png used on input line 73.
-(pdftex.def)             Requested size: 369.88582pt x 136.34584pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[29 <./images/AtomicMRSW00.png> <./images/AtomicMRSW01.png>]) [30 <./images/Ato
-micMRSW02.png>]
+]) [33]
 \openout2 = `./sections/AtomicMRMWRegisterTest.aux'.
 
- (./sections/AtomicMRMWRegisterTest.tex
+
+(./sections/AtomicMRMWRegisterTest.tex
 Underfull \hbox (badness 10000) in paragraph at lines 18--29
 
  []
 
-[31
+[34
 
 
 ]
@@ -720,7 +653,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--84
 
  []
 
-[32]) [33]
+[35]) [36]
 \openout2 = `./sections/SimpleSnapshotTest.aux'.
 
  (./sections/SimpleSnapshotTest.tex
@@ -738,7 +671,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--45
 
  []
 
-[34
+[37
 
 
 ]
@@ -751,93 +684,43 @@ Overfull \hbox (102.005pt too wide) in paragraph at lines 61--62
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[35]
+[38]
 Underfull \hbox (badness 10000) in paragraph at lines 104--106
 
  []
 
-) [36]
+) [39]
 \openout2 = `./sections/WFSnapshot.aux'.
 
- (./sections/WFSnapshot.tex [37
+ (./sections/WFSnapshot.tex [40
 
 
 ]
-<images/WFS00.png, id=1170, 713.66624pt x 296.10625pt>
-File: images/WFS00.png Graphic file (type png)
- <use images/WFS00.png>
-Package pdftex.def Info: images/WFS00.png used on input line 53.
-(pdftex.def)             Requested size: 369.88582pt x 153.4701pt.
+Overfull \hbox (84.00482pt too wide) in paragraph at lines 55--56
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
 
-<images/WFS01.png, id=1171, 794.97pt x 299.1175pt>
-File: images/WFS01.png Graphic file (type png)
- <use images/WFS01.png>
-Package pdftex.def Info: images/WFS01.png used on input line 60.
-(pdftex.def)             Requested size: 369.88582pt x 139.17947pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [38 <./images/WFS00.png>] [39 <./images/WFS01.png>]
+[41] [42]) [43]
 Chapter 3.
-(./sections/SpinLocks.tex) [40
+(./sections/SpinLocks.tex) [44
 
 
 ]
 \openout2 = `./sections/TASLockTest.aux'.
 
- (./sections/TASLockTest.tex [41
+ (./sections/TASLockTest.tex [45
 
-]
-<images/TAS00.png, id=1194, 667.49374pt x 304.13625pt>
-File: images/TAS00.png Graphic file (type png)
- <use images/TAS00.png>
-Package pdftex.def Info: images/TAS00.png used on input line 76.
-(pdftex.def)             Requested size: 369.88582pt x 168.53772pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<images/TAS01.png, id=1195, 639.38875pt x 181.67876pt>
-File: images/TAS01.png Graphic file (type png)
- <use images/TAS01.png>
-Package pdftex.def Info: images/TAS01.png used on input line 83.
-(pdftex.def)             Requested size: 369.88582pt x 105.10207pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [42] [43 <./images/TAS00.png> <./images/TAS01.png>]
+] [46]) [47]
 \openout2 = `./sections/TTASLockTest.aux'.
 
 
-(./sections/TTASLockTest.tex [44
+(./sections/TTASLockTest.tex [48
 
 
-]) [45]
-\openout2 = `./sections/HBOLockTest.aux'.
-
- (./sections/HBOLockTest.tex [46
-
-
-]
-<images/HBO00.png, id=1245, 296.10625pt x 306.14375pt>
-File: images/HBO00.png Graphic file (type png)
- <use images/HBO00.png>
-Package pdftex.def Info: images/HBO00.png used on input line 38.
-(pdftex.def)             Requested size: 142.26378pt x 147.08746pt.
-
-<images/HBO01.png, id=1246, 617.30624pt x 108.405pt>
-File: images/HBO01.png Graphic file (type png)
- <use images/HBO01.png>
-Package pdftex.def Info: images/HBO01.png used on input line 45.
-(pdftex.def)             Requested size: 369.88582pt x 64.95747pt.
-
-[47 <./images/HBO00.png> <./images/HBO01.png>]) [48]
+]) [49]
 \openout2 = `./sections/BackoffLockTest.aux'.
 
-
-(./sections/BackoffLockTest.tex
+ (./sections/BackoffLockTest.tex
 Underfull \hbox (badness 10000) in paragraph at lines 12--14
 
  []
@@ -852,54 +735,34 @@ Underfull \hbox (badness 10000) in paragraph at lines 41--54
 
  []
 
-[49
+[50
 
 
-]
-LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 84.
- [50]
+] [51]
 Underfull \hbox (badness 10000) in paragraph at lines 115--118
 
  []
 
-) [51]
+) [52]
 \openout2 = `./sections/CLHLockTest.aux'.
 
- (./sections/CLHLockTest.tex [52
+ (./sections/CLHLockTest.tex [53
 
 
 ]
-<images/CLH00.png, id=1339, 285.065pt x 303.1325pt>
+<images/CLH00.png, id=1993, 285.065pt x 303.1325pt>
 File: images/CLH00.png Graphic file (type png)
  <use images/CLH00.png>
 Package pdftex.def Info: images/CLH00.png used on input line 35.
 (pdftex.def)             Requested size: 142.26378pt x 151.2791pt.
 
-<images/CLH01.png, id=1340, 620.3175pt x 110.4125pt>
+<images/CLH01.png, id=1995, 620.3175pt x 110.4125pt>
 File: images/CLH01.png Graphic file (type png)
  <use images/CLH01.png>
 Package pdftex.def Info: images/CLH01.png used on input line 42.
 (pdftex.def)             Requested size: 369.88582pt x 65.83691pt.
 )
-[53 <./images/CLH00.png> <./images/CLH01.png>] [54]
-\openout2 = `./sections/CompositeLockTest.aux'.
-
-
-(./sections/CompositeLockTest.tex
-Underfull \hbox (badness 10000) in paragraph at lines 13--19
-
- []
-
-[55
-
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 45--46
-
- []
-
-) [56]
+[54 <./images/CLH00.png> <./images/CLH01.png>] [55]
 \openout2 = `./sections/MCSLockTest.aux'.
 
  (./sections/MCSLockTest.tex
@@ -907,7 +770,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
  []
 
-[57
+[56
 
 
 ]
@@ -915,7 +778,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--74
 
  []
 
-[58] [59]
+[57] [58]
 Underfull \hbox (badness 10000) in paragraph at lines 160--163
 
  []
@@ -935,7 +798,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 183--187
 
  []
 
-[60]
+[59]
 Underfull \hbox (badness 10000) in paragraph at lines 230--236
 
  []
@@ -945,14 +808,36 @@ Underfull \hbox (badness 10000) in paragraph at lines 237--239
 
  []
 
-[61]
+[60]
 Underfull \hbox (badness 10000) in paragraph at lines 256--263
 
  []
 
-) [62]
+) [61]
+\openout2 = `./sections/CompositeLockTest.aux'.
+
+ (./sections/CompositeLockTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 13--19
+
+ []
+
+[62
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 45--46
+
+ []
+
+) [63]
+\openout2 = `./sections/HBOLockTest.aux'.
+
+ (./sections/HBOLockTest.tex [64
+
+
+] [65]) [66]
 Chapter 4.
-[63
+[67
 
 
 ]
@@ -968,113 +853,62 @@ Underfull \hbox (badness 10000) in paragraph at lines 31--34
 
  []
 
-[64
+[68
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 50--55
 
  []
 
-[65]
+[69]
 Underfull \hbox (badness 10000) in paragraph at lines 106--112
 
  []
 
-) [66]
+) [70]
 \openout2 = `./sections/CountDownLatch.aux'.
 
  (./sections/CountDownLatch.tex
-Overfull \hbox (0.35706pt too wide) in paragraph at lines 6--6
+Overfull \hbox (0.35706pt too wide) in paragraph at lines 11--15
 []\OT1/cmr/m/n/12 The con-cept of mon-i-tor con-sists on en-cap-su-lat-ing thre
 e com-po-nents: data,
  []
 
-[67
+[71
 
 
-] <images/CountDown00.png, id=1496, 652.4375pt x 306.14375pt>
-File: images/CountDown00.png Graphic file (type png)
-
-<use images/CountDown00.png>
-Package pdftex.def Info: images/CountDown00.png used on input line 34.
-(pdftex.def)             Requested size: 369.88582pt x 173.56946pt.
-
-<images/CountDown01.png, id=1497, 435.6275pt x 289.08pt>
-File: images/CountDown01.png Graphic file (type png)
-
-<use images/CountDown01.png>
-Package pdftex.def Info: images/CountDown01.png used on input line 41.
-(pdftex.def)             Requested size: 227.62204pt x 151.04585pt.
+] [72]
+Overfull \hbox (60.00458pt too wide) in paragraph at lines 110--111
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Overfull \hbox (60.00458pt too wide) in paragraph at lines 145--146
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
 
-) [68 <./images/CountDown00.png>] [69 <./images/CountDown01.png>]
+[73]
+Overfull \hbox (54.00452pt too wide) in paragraph at lines 160--161
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+) [74] [75]
 Chapter 5.
-[70
+[76
 
 
 ]
-\openout2 = `./sections/LockFreeQueueTest.aux'.
+\openout2 = `./sections/CoarseList.aux'.
 
- (./sections/LockFreeQueueTest.tex
-Underfull \hbox (badness 10000) in paragraph at lines 8--13
-
+ (./sections/CoarseList.tex
+Overfull \hbox (2.5288pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/n/12 struc-ture by mul-ti-ple threads si-mul-ta-ne-ously. While al-l
+ow-ing mul-ti-ple threads
  []
 
-[71
+[77
 
-] [72] [73]
-Underfull \hbox (badness 10000) in paragraph at lines 153--159
-
- []
-
-[74]
-Underfull \hbox (badness 10000) in paragraph at lines 185--191
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 192--196
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 197--205
-
- []
-
-[75]
-Underfull \hbox (badness 10000) in paragraph at lines 244--253
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 254--263
-
- []
-
-[76]
-Underfull \hbox (badness 10000) in paragraph at lines 264--273
-
- []
-
-[77]
-Underfull \hbox (badness 10000) in paragraph at lines 315--324
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 325--328
-
- []
-
-[78] [79]
-Underfull \hbox (badness 10000) in paragraph at lines 385--392
-
- []
-
-) [80]
+] [78] [79] [80]) [81]
 \openout2 = `./sections/LazyListTest.aux'.
 
  (./sections/LazyListTest.tex
@@ -1097,7 +931,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--45
 
  []
 
-[81
+[82
 
 
 ]
@@ -1105,7 +939,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 46--48
 
  []
 
-[82]
+[83]
 Underfull \hbox (badness 10000) in paragraph at lines 120--122
 
  []
@@ -1115,17 +949,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 131--141
 
  []
 
-[83]) [84]
+[84]) [85]
+\openout2 = `./sections/LockFreeList.aux'.
+
+ (./sections/LockFreeList.tex [86
+
+
+]) [87]
 Chapter 6.
-[85
+[88
 
 
 ]
 \openout2 = `./sections/BoundedQueueTest.aux'.
 
- (./sections/BoundedQueueTest.tex [86
+ (./sections/BoundedQueueTest.tex [89
 
-] [87]) [88]
+] [90]) [91]
 \openout2 = `./sections/SynchronousDualQueueTest.aux'.
 
 
@@ -1134,7 +974,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--17
 
  []
 
-[89
+[92
 
 
 ]
@@ -1147,7 +987,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 70--77
 
  []
 
-[90]) [91]
+[93]) [94]
 \openout2 = `./sections/LockFreeQueueRecycleTest.aux'.
 
  (./sections/LockFreeQueueRecycleTest.tex
@@ -1155,18 +995,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--18
 
  []
 
-[92
+[95
 
 
-]) [93]
+]) [96]
+\openout2 = `./sections/LockFreeQueueTest_revisited.aux'.
+
+ (./sections/LockFreeQueueTest_revisited.tex) [97
+
+
+]
 \openout2 = `./sections/BoundedQueueTest.aux'.
 
- (./sections/BoundedQueueTest.tex [94
+
+(./sections/BoundedQueueTest.tex [98
 
 
-] [95]) [96]
+] [99]) [100]
 Chapter 7.
-[97
+[101
+
+
+]
+\openout2 = `./sections/Exchanger.aux'.
+
+ (./sections/Exchanger.tex [102
+
+] [103]
+Overfull \hbox (24.00421pt too wide) in paragraph at lines 96--97
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+LaTeX Font Info:    Font shape `OML/cmr/m/it' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 124.
+[104]) [105]
+Chapter 8.
+[106
 
 
 ]
@@ -1177,7 +1041,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--26
 
  []
 
-[98
+[107
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 55--58
@@ -1194,46 +1058,459 @@ Underfull \hbox (badness 10000) in paragraph at lines 80--82
 
  []
 
-[99]
+[108]
 Underfull \hbox (badness 10000) in paragraph at lines 108--115
 
  []
 
-) [100]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 168.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 168.
+) [109]
+Chapter 9.
+[110
+
+
+]
+\openout2 = `./sections/CoarseCuckooHashSetTest.aux'.
+
+ (./sections/CoarseCuckooHashSetTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--14
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--25
+
+ []
+
+[111
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 68--72
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--76
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--80
+
+ []
+
+[112]) [113]
+\openout2 = `./sections/LockFreeHashSetTest.aux'.
+
+ (./sections/LockFreeHashSetTest.tex) [114
+
+
+] [115]
+\openout2 = `./sections/StripedCuckooHashSetTest.aux'.
+
+
+(./sections/StripedCuckooHashSetTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--30
+
+ []
+
+[116
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 58--60
+
+ []
+
+) [117]
+Chapter 10.
+[118
+
+
+]
+\openout2 = `./sections/ArraySumTest.aux'.
+
+ (./sections/ArraySumTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--14
+
+ []
+
+
+Overfull \hbox (60.00458pt too wide) in paragraph at lines 16--17
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (54.00452pt too wide) in paragraph at lines 23--24
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (72.0047pt too wide) in paragraph at lines 24--25
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--39
+
+ []
+
+[119
+
+]) [120]
+\openout2 = `./sections/FibTaskTest.aux'.
+
+ (./sections/FibTaskTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--13
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--44
+
+ []
+
+[121
+
+
+]) [122]
+\openout2 = `./sections/MMThreadTest.aux'.
+
+ (./sections/MMThreadTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 7--12
+
+ []
+
+[123
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 54--55
+
+ []
+
+) [124]
+Chapter 11.
+[125
+
+
+]
+\openout2 = `./sections/BitReversedCounterTest.aux'.
+
+ (./sections/BitReversedCounterTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 13--18
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--47
+
+ []
+
+[126
+
+] [127]) [128]
+\openout2 = `./sections/SimpleLinearTest.aux'.
+
+ (./sections/SimpleLinearTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 14--20
+
+ []
+
+[129
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 48--49
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--54
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--57
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+
+ []
+
+) [130]
+Chapter 12.
+[131
+
+
+]
+\openout2 = `./sections/ArraySumTest16.aux'.
+
+ (./sections/ArraySumTest16.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--15
+
+ []
+
+
+Overfull \hbox (60.00458pt too wide) in paragraph at lines 17--18
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (54.00452pt too wide) in paragraph at lines 24--25
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (72.0047pt too wide) in paragraph at lines 25--26
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 43--45
+
+ []
+
+[132
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 67--74
+
+ []
+
+) [133]
+\openout2 = `./sections/FibTaskTest16.aux'.
+
+ (./sections/FibTaskTest16.tex
+Underfull \hbox (badness 10000) in paragraph at lines 4--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--19
+
+ []
+
+[134
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 48--50
+
+ []
+
+) [135]
+\openout2 = `./sections/MMThreadTest16.aux'.
+
+ (./sections/MMThreadTest16.tex
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--17
+
+ []
+
+[136
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
+
+ []
+
+) [137]
+Chapter 13.
+[138
+
+
+]
+\openout2 = `./sections/DisBarrierTest.aux'.
+
+ (./sections/DisBarrierTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--18
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--28
+
+ []
+
+[139
+
+] [140]
+Underfull \hbox (badness 10000) in paragraph at lines 96--99
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 115--122
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--125
+
+ []
+
+) [141]
+\openout2 = `./sections/SenseBarrierTest.aux'.
+
+ (./sections/SenseBarrierTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--27
+
+ []
+
+[142
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 69--75
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 80--84
+
+ []
+
+[143]) [144]
+\openout2 = `./sections/TreeBarrierTest.aux'.
+
+ (./sections/TreeBarrierTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 11--24
+
+ []
+
+[145
+
+
+] [146]
+Underfull \hbox (badness 10000) in paragraph at lines 100--106
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--118
+
+ []
+
+) [147]
+Chapter 14.
+[148
+
+
+]
+\openout2 = `./sections/ListTest-ofree.aux'.
+
+ (./sections/ListTest-ofree.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--16
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--29
+
+ []
+
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--35
+
+ []
+
+[149
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 56--58
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--79
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--91
+
+ []
+
+[150]
+Underfull \hbox (badness 10000) in paragraph at lines 97--100
+
+ []
+
+) [151]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 257.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 257.
  (./MPP_Report.aux (./sections/LockFreeQueueTest.aux)
 (./sections/Peterson.aux) (./sections/Bakery.aux)
 (./sections/SafeBooleanMRSW.aux) (./sections/RegMRSWRegisterTest.aux)
 (./sections/AtomicMRSWRegister.aux) (./sections/AtomicMRMWRegisterTest.aux)
 (./sections/SimpleSnapshotTest.aux) (./sections/WFSnapshot.aux)
 (./sections/TASLockTest.aux) (./sections/TTASLockTest.aux)
-(./sections/HBOLockTest.aux) (./sections/BackoffLockTest.aux)
-(./sections/CLHLockTest.aux) (./sections/CompositeLockTest.aux)
-(./sections/MCSLockTest.aux) (./sections/QueueTest.aux)
-(./sections/CountDownLatch.aux) (./sections/LockFreeQueueTest.aux)
-(./sections/LazyListTest.aux) (./sections/BoundedQueueTest.aux)
-(./sections/SynchronousDualQueueTest.aux)
-(./sections/LockFreeQueueRecycleTest.aux) (./sections/BoundedQueueTest.aux)
-(./sections/TreeTest.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 168.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 168.
+(./sections/BackoffLockTest.aux) (./sections/CLHLockTest.aux)
+(./sections/MCSLockTest.aux) (./sections/CompositeLockTest.aux)
+(./sections/HBOLockTest.aux) (./sections/QueueTest.aux)
+(./sections/CountDownLatch.aux) (./sections/CoarseList.aux)
+(./sections/LazyListTest.aux) (./sections/LockFreeList.aux)
+(./sections/BoundedQueueTest.aux) (./sections/SynchronousDualQueueTest.aux)
+(./sections/LockFreeQueueRecycleTest.aux)
+(./sections/LockFreeQueueTest_revisited.aux) (./sections/BoundedQueueTest.aux)
+(./sections/Exchanger.aux) (./sections/TreeTest.aux)
+(./sections/CoarseCuckooHashSetTest.aux) (./sections/LockFreeHashSetTest.aux)
+(./sections/StripedCuckooHashSetTest.aux) (./sections/ArraySumTest.aux)
+(./sections/FibTaskTest.aux) (./sections/MMThreadTest.aux)
+(./sections/BitReversedCounterTest.aux) (./sections/SimpleLinearTest.aux)
+(./sections/ArraySumTest16.aux) (./sections/FibTaskTest16.aux)
+(./sections/MMThreadTest16.aux) (./sections/DisBarrierTest.aux)
+(./sections/SenseBarrierTest.aux) (./sections/TreeBarrierTest.aux)
+(./sections/ListTest-ofree.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 257.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 257.
 Package rerunfilecheck Info: File `MPP_Report.out' has not changed.
-(rerunfilecheck)             Checksum: C8DC3F280482F9948E5A98CE54695E89;10321.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 168.
+(rerunfilecheck)             Checksum: 57F5A6A811169FF555AF3AD254526065;17876.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 257.
  ) 
 Here is how much of TeX's memory you used:
- 11871 strings out of 495020
- 190396 string characters out of 6181323
- 290350 words of memory out of 5000000
- 13856 multiletter control sequences out of 15000+600000
+ 13026 strings out of 495020
+ 208597 string characters out of 6181323
+ 295350 words of memory out of 5000000
+ 14039 multiletter control sequences out of 15000+600000
  13876 words of font info for 53 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 36i,8n,40p,553b,1796s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,8n,40p,553b,1830s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -1247,10 +1524,10 @@ amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on MPP_Report.pdf (101 pages, 775484 bytes).
+Output written on MPP_Report.pdf (152 pages, 522154 bytes).
 PDF statistics:
- 2154 PDF objects out of 2487 (max. 8388607)
- 1974 compressed objects within 20 object streams
- 925 named destinations out of 1000 (max. 500000)
- 1263 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3737 PDF objects out of 4296 (max. 8388607)
+ 3528 compressed objects within 36 object streams
+ 1788 named destinations out of 2073 (max. 500000)
+ 1992 words of extra memory for PDF output out of 10000 (max. 10000000)
 

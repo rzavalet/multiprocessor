@@ -105,7 +105,7 @@ for the number of threads (8 instead of 2) and data (64 instead of
 \subsection{Observations and Interpretations}
 Although the test does not exhibit any issue on 2 nor in 24 cores, we
 would feel safer replacing the \C{signal} calls by \C{signalAll}, just
-to totally discard the potencial problem of lost wake-ups explained on
+to totally discard the potential problem of lost wake-ups explained on
 the book (this is what we did for our second proposal to fix
 \C{LockFreeQueueTest}, indeed). A sample successful execution is shown
 below: \\ 

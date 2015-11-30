@@ -250,7 +250,7 @@ triggers the hanging on the spinning loop for \C{lock} method; the
 \C{locked} flag is volatile, so a write to it would propagate right
 away and invalidate other's caches; but since the thread doing the
 \C{unlock} never exits the loop, it can not perform such
-write. Putting as volatile both attribues of class \C{Qnode} solves
+write. Putting as volatile both attributes of class \C{Qnode} solves
 this issue; we ran  the test 10,000 times without a hang. 
 
 An interesting observation made while discussing this exercise on the

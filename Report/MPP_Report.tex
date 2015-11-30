@@ -70,7 +70,7 @@
 {Dario Bahena Tapia - Ricardo Zavaleta Vazquez - Isai Barajas Cicourel}
 
 % Date
-{\small October 2015}
+{\small December 2015}
 
 \end{center}
 \end{titlepage}
@@ -148,10 +148,9 @@
 \chapter{Concurrent Queues and the ABA Problem}
 \include{./sections/BoundedQueueTest}
 \include{./sections/SynchronousDualQueueTest}
-\include{./sections/LockFreeQueueTest}
-%\include{./sections/LockFreeQueueTest_revisited}
 %\include{./sections/SynchronousQueueTest}
 \include{./sections/LockFreeQueueRecycleTest}
+\include{./sections/LockFreeQueueTest_revisited}
 \include{./sections/BoundedQueueTest}
 % --------------------------- %
 % Concurrent Queues End
@@ -179,9 +178,13 @@
 % --------------------------- %
 % ch 13 Concurrent Hashing and Natural Parallelism Start
 % --------------------------- %
-\chapter{Concurrent Hasing and Natural Parallelism}
+\chapter{Concurrent Hashing and Natural Parallelism}
+\include{./sections/CoarseCuckooHashSetTest}
+\include{./sections/LockFreeHashSetTest}
 %\include{./sections/RefinableCuckooHashSetTest}
+\include{./sections/StripedCuckooHashSetTest}
 %\include{./sections/StripedHashSetTest}
+
 % --------------------------- %
 % ch 13 Concurrent Hashing and Natural Parallelism End
 % --------------------------- %
@@ -190,8 +193,11 @@
 % ch 14 Skiplists and Balanced Search
 % --------------------------- %
 \chapter{Skiplists and Balanced Search}
+\include{./sections/ArraySumTest}
 %\include{./sections/BDEQueueTest}
+\include{./sections/FibTaskTest}
 %\include{./sections/FibThreadTest}
+\include{./sections/MMThreadTest}
 %\include{./sections/PolynomialTaskTest}
 % --------------------------- %
 % ch 14 Skiplists and Balanced Search
@@ -201,7 +207,9 @@
 % ch 15 Priority Queues
 % --------------------------- %
 \chapter{Priority Queues}
+\include{./sections/BitReversedCounterTest}
 %\include{./sections/FineGrainedHeapTest}
+\include{./sections/SimpleLinearTest}
 %\include{./sections/SimpleTreeTest}
 % --------------------------- %
 % ch 15 Priority Queues
@@ -211,9 +219,12 @@
 % ch 16 Futures, Scheduling and Work Distribution
 % --------------------------- %
 \chapter{Futures, Scheduling and Work Distribution}
+\include{./sections/ArraySumTest16}
 %\include{./sections/BDEQueueTest_Revisited}
+\include{./sections/FibTaskTest16}
 %\include{./sections/FibThreadTest_Revisited}
 %\include{./sections/PolynomialTaskTest_Revisited}
+\include{./sections/MMThreadTest16}
 % --------------------------- %
 % ch 16 Futures, Scheduling and Work Distribution
 % --------------------------- %
@@ -222,8 +233,11 @@
 % ch 17 Barriers
 % --------------------------- %
 \chapter{Barriers}
+\include{./sections/DisBarrierTest}
 %\include{./sections/GTreeBarrierTest}
+\include{./sections/SenseBarrierTest}
 %\include{./sections/StaticTreeBarrierTest}
+\include{./sections/TreeBarrierTest}
 % --------------------------- %
 % ch 17 Barriers
 % --------------------------- %
@@ -233,6 +247,7 @@
 % --------------------------- %
 \chapter{Transactional Memory}
 %\include{./sections/ListTest_locking}
+\include{./sections/ListTest-ofree}
 %\include{./sections/SkipListSetTest}
 % --------------------------- %
 % ch 18 Transactional Memory

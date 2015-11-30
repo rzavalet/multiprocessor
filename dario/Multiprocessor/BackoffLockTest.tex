@@ -3,7 +3,7 @@
 \subsection{Particular Case (problem)}
 This is part of the chapter 7, where we are dealing with the generic
 issue of building real-life lock implementations that solve the
-multual exclusion problem. The particular subproblem is doing that
+mutual exclusion problem. The particular subproblem is doing that
 with spinning locks (those which repeatedly try to acquire the lock);
 and the very concrete sub-subproblem here is how to reduce the
 contention out of the \C{TTASLock}.
@@ -36,7 +36,7 @@ resource (many threads trying to acquire it). Insisting on acquiring
 the lock on high contention scenarios is a bad idea; we will add a lot
 of traffic to the bus used by cores to communicate (as primitive
 \C{getAndSet} forces reads to be consistent) and the chances of
-getting it are scarce (too much competion). \\
+getting it are scarce (too much competition). \\
 
 The solution then, is to wait some time before retrying; how much?
 Well, the more we fail to acquire the lock the more we wait next time.
@@ -45,8 +45,8 @@ what is called ``adaptive exponential backoff''. Each time we fail to
 acquire the lock, a random number is generated within a given range
 and the thread sleeps that time \footnote{This sample uses
   milliseconds, a common unit when dealing with multi-thread
-  programming}. Everytime we do this waiting, the range is enlarged
-twice (meaning that on average the random number is twice larged);
+  programming}. Every time we do this waiting, the range is enlarged
+twice (meaning that on average the random number is twice large);
 this is done up to a maximum established (1024 in this case). 
 Code is presented below for reference (note that we also have a lower
 bound for the minimum amount of time to wait; being 32 milliseconds
