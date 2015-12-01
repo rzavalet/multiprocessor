@@ -165,83 +165,97 @@
 \BOOKMARK [2][-]{subsection.8.1.3}{Experiment Description}{section.8.1}% 165
 \BOOKMARK [2][-]{subsection.8.1.4}{Observations and Interpretations}{section.8.1}% 166
 \BOOKMARK [0][-]{chapter.9}{Concurrent Hashing and Natural Parallelism}{}% 167
-\BOOKMARK [1][-]{section.9.1}{CoarseCuckooHashSetTest}{chapter.9}% 168
-\BOOKMARK [2][-]{subsection.9.1.1}{Particular Case \(problem\)}{section.9.1}% 169
+\BOOKMARK [1][-]{section.9.1}{CoarseHashSetTest Test}{chapter.9}% 168
+\BOOKMARK [2][-]{subsection.9.1.1}{Particular Case}{section.9.1}% 169
 \BOOKMARK [2][-]{subsection.9.1.2}{Solution}{section.9.1}% 170
 \BOOKMARK [2][-]{subsection.9.1.3}{Experiment Description}{section.9.1}% 171
-\BOOKMARK [2][-]{subsection.9.1.4}{Observations and Interpretations}{section.9.1}% 172
-\BOOKMARK [1][-]{section.9.2}{LockFreeHashSetTest}{chapter.9}% 173
-\BOOKMARK [2][-]{subsection.9.2.1}{Particular Case \(problem\)}{section.9.2}% 174
-\BOOKMARK [2][-]{subsection.9.2.2}{Solution}{section.9.2}% 175
-\BOOKMARK [2][-]{subsection.9.2.3}{Experiment Description}{section.9.2}% 176
-\BOOKMARK [2][-]{subsection.9.2.4}{Observations and Interpretations}{section.9.2}% 177
-\BOOKMARK [1][-]{section.9.3}{StripedCuckooHashSetTest}{chapter.9}% 178
-\BOOKMARK [2][-]{subsection.9.3.1}{Particular Case \(problem\)}{section.9.3}% 179
-\BOOKMARK [2][-]{subsection.9.3.2}{Solution}{section.9.3}% 180
-\BOOKMARK [2][-]{subsection.9.3.3}{Experiment Description}{section.9.3}% 181
-\BOOKMARK [2][-]{subsection.9.3.4}{Observations and Interpretations}{section.9.3}% 182
-\BOOKMARK [0][-]{chapter.10}{Skiplists and Balanced Search}{}% 183
-\BOOKMARK [1][-]{section.10.1}{ArraySumTest}{chapter.10}% 184
-\BOOKMARK [2][-]{subsection.10.1.1}{Particular Case \(problem\)}{section.10.1}% 185
-\BOOKMARK [2][-]{subsection.10.1.2}{Solution}{section.10.1}% 186
-\BOOKMARK [2][-]{subsection.10.1.3}{Experiment Description}{section.10.1}% 187
-\BOOKMARK [2][-]{subsection.10.1.4}{Observations and Interpretations}{section.10.1}% 188
-\BOOKMARK [1][-]{section.10.2}{FibTaskTest}{chapter.10}% 189
-\BOOKMARK [2][-]{subsection.10.2.1}{Particular Case \(problem\)}{section.10.2}% 190
-\BOOKMARK [2][-]{subsection.10.2.2}{Solution}{section.10.2}% 191
-\BOOKMARK [2][-]{subsection.10.2.3}{Experiment Description}{section.10.2}% 192
-\BOOKMARK [2][-]{subsection.10.2.4}{Observations and Interpretations}{section.10.2}% 193
-\BOOKMARK [1][-]{section.10.3}{MMThreadTest}{chapter.10}% 194
-\BOOKMARK [2][-]{subsection.10.3.1}{Particular Case \(problem\)}{section.10.3}% 195
-\BOOKMARK [2][-]{subsection.10.3.2}{Solution}{section.10.3}% 196
-\BOOKMARK [2][-]{subsection.10.3.3}{Experiment Description}{section.10.3}% 197
-\BOOKMARK [2][-]{subsection.10.3.4}{Observations and Interpretations}{section.10.3}% 198
-\BOOKMARK [0][-]{chapter.11}{Priority Queues}{}% 199
-\BOOKMARK [1][-]{section.11.1}{BitReversedCounterTest}{chapter.11}% 200
-\BOOKMARK [2][-]{subsection.11.1.1}{Particular Case \(problem\)}{section.11.1}% 201
-\BOOKMARK [2][-]{subsection.11.1.2}{Solution}{section.11.1}% 202
-\BOOKMARK [2][-]{subsection.11.1.3}{Experiment Description}{section.11.1}% 203
-\BOOKMARK [2][-]{subsection.11.1.4}{Observations and Interpretations}{section.11.1}% 204
-\BOOKMARK [1][-]{section.11.2}{SimpleLinearTest}{chapter.11}% 205
-\BOOKMARK [2][-]{subsection.11.2.1}{Particular Case \(problem\)}{section.11.2}% 206
-\BOOKMARK [2][-]{subsection.11.2.2}{Solution}{section.11.2}% 207
-\BOOKMARK [2][-]{subsection.11.2.3}{Experiment Description}{section.11.2}% 208
-\BOOKMARK [2][-]{subsection.11.2.4}{Observations and Interpretations}{section.11.2}% 209
-\BOOKMARK [0][-]{chapter.12}{Futures, Scheduling and Work Distribution}{}% 210
-\BOOKMARK [1][-]{section.12.1}{ArraySumTest}{chapter.12}% 211
-\BOOKMARK [2][-]{subsection.12.1.1}{Particular Case \(problem\)}{section.12.1}% 212
-\BOOKMARK [2][-]{subsection.12.1.2}{Solution}{section.12.1}% 213
-\BOOKMARK [2][-]{subsection.12.1.3}{Experiment Description}{section.12.1}% 214
-\BOOKMARK [2][-]{subsection.12.1.4}{Observations and Interpretations}{section.12.1}% 215
-\BOOKMARK [1][-]{section.12.2}{FibTaskTest}{chapter.12}% 216
-\BOOKMARK [2][-]{subsection.12.2.1}{Particular Case \(problem\)}{section.12.2}% 217
-\BOOKMARK [2][-]{subsection.12.2.2}{Solution}{section.12.2}% 218
-\BOOKMARK [2][-]{subsection.12.2.3}{Experiment Description}{section.12.2}% 219
-\BOOKMARK [2][-]{subsection.12.2.4}{Observations and Interpretations}{section.12.2}% 220
-\BOOKMARK [1][-]{section.12.3}{MMThreadTest}{chapter.12}% 221
-\BOOKMARK [2][-]{subsection.12.3.1}{Particular Case \(problem\)}{section.12.3}% 222
-\BOOKMARK [2][-]{subsection.12.3.2}{Solution}{section.12.3}% 223
-\BOOKMARK [2][-]{subsection.12.3.3}{Experiment Description}{section.12.3}% 224
-\BOOKMARK [2][-]{subsection.12.3.4}{Observations and Interpretations}{section.12.3}% 225
-\BOOKMARK [0][-]{chapter.13}{Barriers}{}% 226
-\BOOKMARK [1][-]{section.13.1}{DisBarrierTest}{chapter.13}% 227
-\BOOKMARK [2][-]{subsection.13.1.1}{Particular Case \(problem\)}{section.13.1}% 228
-\BOOKMARK [2][-]{subsection.13.1.2}{Solution}{section.13.1}% 229
-\BOOKMARK [2][-]{subsection.13.1.3}{Experiment Description}{section.13.1}% 230
-\BOOKMARK [2][-]{subsection.13.1.4}{Observations and Interpretations}{section.13.1}% 231
-\BOOKMARK [1][-]{section.13.2}{SenseBarrierTest}{chapter.13}% 232
-\BOOKMARK [2][-]{subsection.13.2.1}{Particular Case \(problem\)}{section.13.2}% 233
-\BOOKMARK [2][-]{subsection.13.2.2}{Solution}{section.13.2}% 234
-\BOOKMARK [2][-]{subsection.13.2.3}{Experiment Description}{section.13.2}% 235
-\BOOKMARK [2][-]{subsection.13.2.4}{Observations and Interpretations}{section.13.2}% 236
-\BOOKMARK [1][-]{section.13.3}{TreeBarrierTest}{chapter.13}% 237
-\BOOKMARK [2][-]{subsection.13.3.1}{Particular Case \(problem\)}{section.13.3}% 238
-\BOOKMARK [2][-]{subsection.13.3.2}{Solution}{section.13.3}% 239
-\BOOKMARK [2][-]{subsection.13.3.3}{Experiment Description}{section.13.3}% 240
-\BOOKMARK [2][-]{subsection.13.3.4}{Observations and Interpretations}{section.13.3}% 241
-\BOOKMARK [0][-]{chapter.14}{Transactional Memory}{}% 242
-\BOOKMARK [1][-]{section.14.1}{ListTest \(ofree\)}{chapter.14}% 243
-\BOOKMARK [2][-]{subsection.14.1.1}{Particular Case \(problem\)}{section.14.1}% 244
-\BOOKMARK [2][-]{subsection.14.1.2}{Solution}{section.14.1}% 245
-\BOOKMARK [2][-]{subsection.14.1.3}{Experiment Description}{section.14.1}% 246
-\BOOKMARK [2][-]{subsection.14.1.4}{Observations and Interpretations}{section.14.1}% 247
+\BOOKMARK [2][-]{subsection.9.1.4}{Sample Results}{section.9.1}% 172
+\BOOKMARK [2][-]{subsection.9.1.5}{Interpretation}{section.9.1}% 173
+\BOOKMARK [2][-]{subsection.9.1.6}{Proposed solution}{section.9.1}% 174
+\BOOKMARK [1][-]{section.9.2}{StripedHashSetTest Test}{chapter.9}% 175
+\BOOKMARK [2][-]{subsection.9.2.1}{Particular Case}{section.9.2}% 176
+\BOOKMARK [2][-]{subsection.9.2.2}{Solution}{section.9.2}% 177
+\BOOKMARK [2][-]{subsection.9.2.3}{Experiment Description}{section.9.2}% 178
+\BOOKMARK [2][-]{subsection.9.2.4}{Sample Results}{section.9.2}% 179
+\BOOKMARK [2][-]{subsection.9.2.5}{Interpretation}{section.9.2}% 180
+\BOOKMARK [2][-]{subsection.9.2.6}{Proposed solution}{section.9.2}% 181
+\BOOKMARK [1][-]{section.9.3}{CoarseCuckooHashSetTest}{chapter.9}% 182
+\BOOKMARK [2][-]{subsection.9.3.1}{Particular Case \(problem\)}{section.9.3}% 183
+\BOOKMARK [2][-]{subsection.9.3.2}{Solution}{section.9.3}% 184
+\BOOKMARK [2][-]{subsection.9.3.3}{Experiment Description}{section.9.3}% 185
+\BOOKMARK [2][-]{subsection.9.3.4}{Observations and Interpretations}{section.9.3}% 186
+\BOOKMARK [1][-]{section.9.4}{LockFreeHashSetTest}{chapter.9}% 187
+\BOOKMARK [2][-]{subsection.9.4.1}{Particular Case \(problem\)}{section.9.4}% 188
+\BOOKMARK [2][-]{subsection.9.4.2}{Solution}{section.9.4}% 189
+\BOOKMARK [2][-]{subsection.9.4.3}{Experiment Description}{section.9.4}% 190
+\BOOKMARK [2][-]{subsection.9.4.4}{Observations and Interpretations}{section.9.4}% 191
+\BOOKMARK [1][-]{section.9.5}{StripedCuckooHashSetTest}{chapter.9}% 192
+\BOOKMARK [2][-]{subsection.9.5.1}{Particular Case \(problem\)}{section.9.5}% 193
+\BOOKMARK [2][-]{subsection.9.5.2}{Solution}{section.9.5}% 194
+\BOOKMARK [2][-]{subsection.9.5.3}{Experiment Description}{section.9.5}% 195
+\BOOKMARK [2][-]{subsection.9.5.4}{Observations and Interpretations}{section.9.5}% 196
+\BOOKMARK [0][-]{chapter.10}{Skiplists and Balanced Search}{}% 197
+\BOOKMARK [1][-]{section.10.1}{ArraySumTest}{chapter.10}% 198
+\BOOKMARK [2][-]{subsection.10.1.1}{Particular Case \(problem\)}{section.10.1}% 199
+\BOOKMARK [2][-]{subsection.10.1.2}{Solution}{section.10.1}% 200
+\BOOKMARK [2][-]{subsection.10.1.3}{Experiment Description}{section.10.1}% 201
+\BOOKMARK [2][-]{subsection.10.1.4}{Observations and Interpretations}{section.10.1}% 202
+\BOOKMARK [1][-]{section.10.2}{FibTaskTest}{chapter.10}% 203
+\BOOKMARK [2][-]{subsection.10.2.1}{Particular Case \(problem\)}{section.10.2}% 204
+\BOOKMARK [2][-]{subsection.10.2.2}{Solution}{section.10.2}% 205
+\BOOKMARK [2][-]{subsection.10.2.3}{Experiment Description}{section.10.2}% 206
+\BOOKMARK [2][-]{subsection.10.2.4}{Observations and Interpretations}{section.10.2}% 207
+\BOOKMARK [1][-]{section.10.3}{MMThreadTest}{chapter.10}% 208
+\BOOKMARK [2][-]{subsection.10.3.1}{Particular Case \(problem\)}{section.10.3}% 209
+\BOOKMARK [2][-]{subsection.10.3.2}{Solution}{section.10.3}% 210
+\BOOKMARK [2][-]{subsection.10.3.3}{Experiment Description}{section.10.3}% 211
+\BOOKMARK [2][-]{subsection.10.3.4}{Observations and Interpretations}{section.10.3}% 212
+\BOOKMARK [0][-]{chapter.11}{Priority Queues}{}% 213
+\BOOKMARK [1][-]{section.11.1}{BitReversedCounterTest}{chapter.11}% 214
+\BOOKMARK [2][-]{subsection.11.1.1}{Particular Case \(problem\)}{section.11.1}% 215
+\BOOKMARK [2][-]{subsection.11.1.2}{Solution}{section.11.1}% 216
+\BOOKMARK [2][-]{subsection.11.1.3}{Experiment Description}{section.11.1}% 217
+\BOOKMARK [2][-]{subsection.11.1.4}{Observations and Interpretations}{section.11.1}% 218
+\BOOKMARK [1][-]{section.11.2}{SimpleLinearTest}{chapter.11}% 219
+\BOOKMARK [2][-]{subsection.11.2.1}{Particular Case \(problem\)}{section.11.2}% 220
+\BOOKMARK [2][-]{subsection.11.2.2}{Solution}{section.11.2}% 221
+\BOOKMARK [2][-]{subsection.11.2.3}{Experiment Description}{section.11.2}% 222
+\BOOKMARK [2][-]{subsection.11.2.4}{Observations and Interpretations}{section.11.2}% 223
+\BOOKMARK [0][-]{chapter.12}{Futures, Scheduling and Work Distribution}{}% 224
+\BOOKMARK [1][-]{section.12.1}{ArraySumTest}{chapter.12}% 225
+\BOOKMARK [2][-]{subsection.12.1.1}{Particular Case \(problem\)}{section.12.1}% 226
+\BOOKMARK [2][-]{subsection.12.1.2}{Solution}{section.12.1}% 227
+\BOOKMARK [2][-]{subsection.12.1.3}{Experiment Description}{section.12.1}% 228
+\BOOKMARK [2][-]{subsection.12.1.4}{Observations and Interpretations}{section.12.1}% 229
+\BOOKMARK [1][-]{section.12.2}{FibTaskTest}{chapter.12}% 230
+\BOOKMARK [2][-]{subsection.12.2.1}{Particular Case \(problem\)}{section.12.2}% 231
+\BOOKMARK [2][-]{subsection.12.2.2}{Solution}{section.12.2}% 232
+\BOOKMARK [2][-]{subsection.12.2.3}{Experiment Description}{section.12.2}% 233
+\BOOKMARK [2][-]{subsection.12.2.4}{Observations and Interpretations}{section.12.2}% 234
+\BOOKMARK [1][-]{section.12.3}{MMThreadTest}{chapter.12}% 235
+\BOOKMARK [2][-]{subsection.12.3.1}{Particular Case \(problem\)}{section.12.3}% 236
+\BOOKMARK [2][-]{subsection.12.3.2}{Solution}{section.12.3}% 237
+\BOOKMARK [2][-]{subsection.12.3.3}{Experiment Description}{section.12.3}% 238
+\BOOKMARK [2][-]{subsection.12.3.4}{Observations and Interpretations}{section.12.3}% 239
+\BOOKMARK [0][-]{chapter.13}{Barriers}{}% 240
+\BOOKMARK [1][-]{section.13.1}{DisBarrierTest}{chapter.13}% 241
+\BOOKMARK [2][-]{subsection.13.1.1}{Particular Case \(problem\)}{section.13.1}% 242
+\BOOKMARK [2][-]{subsection.13.1.2}{Solution}{section.13.1}% 243
+\BOOKMARK [2][-]{subsection.13.1.3}{Experiment Description}{section.13.1}% 244
+\BOOKMARK [2][-]{subsection.13.1.4}{Observations and Interpretations}{section.13.1}% 245
+\BOOKMARK [1][-]{section.13.2}{SenseBarrierTest}{chapter.13}% 246
+\BOOKMARK [2][-]{subsection.13.2.1}{Particular Case \(problem\)}{section.13.2}% 247
+\BOOKMARK [2][-]{subsection.13.2.2}{Solution}{section.13.2}% 248
+\BOOKMARK [2][-]{subsection.13.2.3}{Experiment Description}{section.13.2}% 249
+\BOOKMARK [2][-]{subsection.13.2.4}{Observations and Interpretations}{section.13.2}% 250
+\BOOKMARK [1][-]{section.13.3}{TreeBarrierTest}{chapter.13}% 251
+\BOOKMARK [2][-]{subsection.13.3.1}{Particular Case \(problem\)}{section.13.3}% 252
+\BOOKMARK [2][-]{subsection.13.3.2}{Solution}{section.13.3}% 253
+\BOOKMARK [2][-]{subsection.13.3.3}{Experiment Description}{section.13.3}% 254
+\BOOKMARK [2][-]{subsection.13.3.4}{Observations and Interpretations}{section.13.3}% 255
+\BOOKMARK [0][-]{chapter.14}{Transactional Memory}{}% 256
+\BOOKMARK [1][-]{section.14.1}{ListTest \(ofree\)}{chapter.14}% 257
+\BOOKMARK [2][-]{subsection.14.1.1}{Particular Case \(problem\)}{section.14.1}% 258
+\BOOKMARK [2][-]{subsection.14.1.2}{Solution}{section.14.1}% 259
+\BOOKMARK [2][-]{subsection.14.1.3}{Experiment Description}{section.14.1}% 260
+\BOOKMARK [2][-]{subsection.14.1.4}{Observations and Interpretations}{section.14.1}% 261

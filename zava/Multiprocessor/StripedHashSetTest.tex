@@ -5,14 +5,53 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+In this exercise we deal with the problem of building a hash data structure that
+can be accessed by multiple threads without losing performance. 
+\par
+In the coarse version of our hash, we saw that any access to the data structure
+ended up being serial. So, in other words, in this experiment we want to
+understand how to create a hash that allows more concurrent accesses.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+A solution for this problem is the \textit{Striped Hash}. The main
+characteristic of this implementation is that the data structure contains an
+array of locks. Each lock protect specific sections of the hash table. Here is
+the implementation of the \textit{acquire()} and \textit{release()} methods:
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   * Synchronize before adding, removing, or testing for item
+   * @param x item involved
+   */
+  public final void acquire(T x) {
+    int myBucket = Math.abs(x.hashCode() % locks.length);
+    locks[myBucket].lock();
+  }
+
+  /**
+   * synchronize after adding, removing, or testing for item
+   * @param x item involved
+   */
+  public void release(T x) {
+    int myBucket = Math.abs(x.hashCode() % locks.length);
+    locks[myBucket].unlock();
+  }
+\end{lstlisting}
+\hfill
+\par
+Note that when we acquire or release a lock, first we need to choose which lock
+we should work with. 
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+The proposed experiment is exactly the same as the one described in the previous
+experiment. As mentioned before, there are four variants:
+\textit{testSequential}, \textit{testParallelEnq}, \textit{testParallelRemove}
+and \textit{testParallelBoth}.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}

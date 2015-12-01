@@ -168,83 +168,97 @@
 \contentsline {subsection}{\numberline {8.1.3}Experiment Description}{107}{subsection.8.1.3}
 \contentsline {subsection}{\numberline {8.1.4}Observations and Interpretations}{108}{subsection.8.1.4}
 \contentsline {chapter}{\numberline {9}Concurrent Hashing and Natural Parallelism}{110}{chapter.9}
-\contentsline {section}{\numberline {9.1}\textbf {CoarseCuckooHashSetTest}}{111}{section.9.1}
-\contentsline {subsection}{\numberline {9.1.1}Particular Case (problem)}{111}{subsection.9.1.1}
+\contentsline {section}{\numberline {9.1}\textbf {CoarseHashSetTest Test}}{111}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}Particular Case}{111}{subsection.9.1.1}
 \contentsline {subsection}{\numberline {9.1.2}Solution}{111}{subsection.9.1.2}
-\contentsline {subsection}{\numberline {9.1.3}Experiment Description}{112}{subsection.9.1.3}
-\contentsline {subsection}{\numberline {9.1.4}Observations and Interpretations}{113}{subsection.9.1.4}
-\contentsline {section}{\numberline {9.2}\textbf {LockFreeHashSetTest}}{114}{section.9.2}
-\contentsline {subsection}{\numberline {9.2.1}Particular Case (problem)}{114}{subsection.9.2.1}
-\contentsline {subsection}{\numberline {9.2.2}Solution}{114}{subsection.9.2.2}
-\contentsline {subsection}{\numberline {9.2.3}Experiment Description}{114}{subsection.9.2.3}
-\contentsline {subsection}{\numberline {9.2.4}Observations and Interpretations}{114}{subsection.9.2.4}
-\contentsline {section}{\numberline {9.3}\textbf {StripedCuckooHashSetTest}}{116}{section.9.3}
-\contentsline {subsection}{\numberline {9.3.1}Particular Case (problem)}{116}{subsection.9.3.1}
-\contentsline {subsection}{\numberline {9.3.2}Solution}{116}{subsection.9.3.2}
-\contentsline {subsection}{\numberline {9.3.3}Experiment Description}{117}{subsection.9.3.3}
-\contentsline {subsection}{\numberline {9.3.4}Observations and Interpretations}{117}{subsection.9.3.4}
-\contentsline {chapter}{\numberline {10}Skiplists and Balanced Search}{118}{chapter.10}
-\contentsline {section}{\numberline {10.1}\textbf {ArraySumTest}}{119}{section.10.1}
-\contentsline {subsection}{\numberline {10.1.1}Particular Case (problem)}{119}{subsection.10.1.1}
-\contentsline {subsection}{\numberline {10.1.2}Solution}{119}{subsection.10.1.2}
-\contentsline {subsection}{\numberline {10.1.3}Experiment Description}{119}{subsection.10.1.3}
-\contentsline {subsection}{\numberline {10.1.4}Observations and Interpretations}{119}{subsection.10.1.4}
-\contentsline {section}{\numberline {10.2}\textbf {FibTaskTest}}{121}{section.10.2}
-\contentsline {subsection}{\numberline {10.2.1}Particular Case (problem)}{121}{subsection.10.2.1}
-\contentsline {subsection}{\numberline {10.2.2}Solution}{121}{subsection.10.2.2}
-\contentsline {subsection}{\numberline {10.2.3}Experiment Description}{121}{subsection.10.2.3}
-\contentsline {subsection}{\numberline {10.2.4}Observations and Interpretations}{122}{subsection.10.2.4}
-\contentsline {section}{\numberline {10.3}\textbf {MMThreadTest}}{123}{section.10.3}
-\contentsline {subsection}{\numberline {10.3.1}Particular Case (problem)}{123}{subsection.10.3.1}
-\contentsline {subsection}{\numberline {10.3.2}Solution}{123}{subsection.10.3.2}
-\contentsline {subsection}{\numberline {10.3.3}Experiment Description}{124}{subsection.10.3.3}
-\contentsline {subsection}{\numberline {10.3.4}Observations and Interpretations}{124}{subsection.10.3.4}
-\contentsline {chapter}{\numberline {11}Priority Queues}{125}{chapter.11}
-\contentsline {section}{\numberline {11.1}\textbf {BitReversedCounterTest}}{126}{section.11.1}
-\contentsline {subsection}{\numberline {11.1.1}Particular Case (problem)}{126}{subsection.11.1.1}
-\contentsline {subsection}{\numberline {11.1.2}Solution}{126}{subsection.11.1.2}
-\contentsline {subsection}{\numberline {11.1.3}Experiment Description}{126}{subsection.11.1.3}
-\contentsline {subsection}{\numberline {11.1.4}Observations and Interpretations}{127}{subsection.11.1.4}
-\contentsline {section}{\numberline {11.2}\textbf {SimpleLinearTest}}{129}{section.11.2}
-\contentsline {subsection}{\numberline {11.2.1}Particular Case (problem)}{129}{subsection.11.2.1}
-\contentsline {subsection}{\numberline {11.2.2}Solution}{129}{subsection.11.2.2}
-\contentsline {subsection}{\numberline {11.2.3}Experiment Description}{130}{subsection.11.2.3}
-\contentsline {subsection}{\numberline {11.2.4}Observations and Interpretations}{130}{subsection.11.2.4}
-\contentsline {chapter}{\numberline {12}Futures, Scheduling and Work Distribution}{131}{chapter.12}
-\contentsline {section}{\numberline {12.1}\textbf {ArraySumTest}}{132}{section.12.1}
-\contentsline {subsection}{\numberline {12.1.1}Particular Case (problem)}{132}{subsection.12.1.1}
-\contentsline {subsection}{\numberline {12.1.2}Solution}{132}{subsection.12.1.2}
-\contentsline {subsection}{\numberline {12.1.3}Experiment Description}{132}{subsection.12.1.3}
-\contentsline {subsection}{\numberline {12.1.4}Observations and Interpretations}{133}{subsection.12.1.4}
-\contentsline {section}{\numberline {12.2}\textbf {FibTaskTest}}{134}{section.12.2}
-\contentsline {subsection}{\numberline {12.2.1}Particular Case (problem)}{134}{subsection.12.2.1}
-\contentsline {subsection}{\numberline {12.2.2}Solution}{134}{subsection.12.2.2}
-\contentsline {subsection}{\numberline {12.2.3}Experiment Description}{135}{subsection.12.2.3}
-\contentsline {subsection}{\numberline {12.2.4}Observations and Interpretations}{135}{subsection.12.2.4}
-\contentsline {section}{\numberline {12.3}\textbf {MMThreadTest}}{136}{section.12.3}
-\contentsline {subsection}{\numberline {12.3.1}Particular Case (problem)}{136}{subsection.12.3.1}
-\contentsline {subsection}{\numberline {12.3.2}Solution}{136}{subsection.12.3.2}
-\contentsline {subsection}{\numberline {12.3.3}Experiment Description}{137}{subsection.12.3.3}
-\contentsline {subsection}{\numberline {12.3.4}Observations and Interpretations}{137}{subsection.12.3.4}
-\contentsline {chapter}{\numberline {13}Barriers}{138}{chapter.13}
-\contentsline {section}{\numberline {13.1}\textbf {DisBarrierTest}}{139}{section.13.1}
-\contentsline {subsection}{\numberline {13.1.1}Particular Case (problem)}{139}{subsection.13.1.1}
-\contentsline {subsection}{\numberline {13.1.2}Solution}{139}{subsection.13.1.2}
-\contentsline {subsection}{\numberline {13.1.3}Experiment Description}{141}{subsection.13.1.3}
-\contentsline {subsection}{\numberline {13.1.4}Observations and Interpretations}{141}{subsection.13.1.4}
-\contentsline {section}{\numberline {13.2}\textbf {SenseBarrierTest}}{142}{section.13.2}
-\contentsline {subsection}{\numberline {13.2.1}Particular Case (problem)}{142}{subsection.13.2.1}
-\contentsline {subsection}{\numberline {13.2.2}Solution}{142}{subsection.13.2.2}
-\contentsline {subsection}{\numberline {13.2.3}Experiment Description}{143}{subsection.13.2.3}
-\contentsline {subsection}{\numberline {13.2.4}Observations and Interpretations}{143}{subsection.13.2.4}
-\contentsline {section}{\numberline {13.3}\textbf {TreeBarrierTest}}{145}{section.13.3}
-\contentsline {subsection}{\numberline {13.3.1}Particular Case (problem)}{145}{subsection.13.3.1}
-\contentsline {subsection}{\numberline {13.3.2}Solution}{145}{subsection.13.3.2}
-\contentsline {subsection}{\numberline {13.3.3}Experiment Description}{147}{subsection.13.3.3}
-\contentsline {subsection}{\numberline {13.3.4}Observations and Interpretations}{147}{subsection.13.3.4}
-\contentsline {chapter}{\numberline {14}Transactional Memory}{148}{chapter.14}
-\contentsline {section}{\numberline {14.1}\textbf {ListTest (ofree)}}{149}{section.14.1}
-\contentsline {subsection}{\numberline {14.1.1}Particular Case (problem)}{149}{subsection.14.1.1}
-\contentsline {subsection}{\numberline {14.1.2}Solution}{149}{subsection.14.1.2}
-\contentsline {subsection}{\numberline {14.1.3}Experiment Description}{150}{subsection.14.1.3}
-\contentsline {subsection}{\numberline {14.1.4}Observations and Interpretations}{150}{subsection.14.1.4}
+\contentsline {subsection}{\numberline {9.1.3}Experiment Description}{111}{subsection.9.1.3}
+\contentsline {subsection}{\numberline {9.1.4}Sample Results}{111}{subsection.9.1.4}
+\contentsline {subsection}{\numberline {9.1.5}Interpretation}{111}{subsection.9.1.5}
+\contentsline {subsection}{\numberline {9.1.6}Proposed solution}{111}{subsection.9.1.6}
+\contentsline {section}{\numberline {9.2}\textbf {StripedHashSetTest Test}}{112}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Particular Case}{112}{subsection.9.2.1}
+\contentsline {subsection}{\numberline {9.2.2}Solution}{112}{subsection.9.2.2}
+\contentsline {subsection}{\numberline {9.2.3}Experiment Description}{113}{subsection.9.2.3}
+\contentsline {subsection}{\numberline {9.2.4}Sample Results}{113}{subsection.9.2.4}
+\contentsline {subsection}{\numberline {9.2.5}Interpretation}{113}{subsection.9.2.5}
+\contentsline {subsection}{\numberline {9.2.6}Proposed solution}{113}{subsection.9.2.6}
+\contentsline {section}{\numberline {9.3}\textbf {CoarseCuckooHashSetTest}}{114}{section.9.3}
+\contentsline {subsection}{\numberline {9.3.1}Particular Case (problem)}{114}{subsection.9.3.1}
+\contentsline {subsection}{\numberline {9.3.2}Solution}{114}{subsection.9.3.2}
+\contentsline {subsection}{\numberline {9.3.3}Experiment Description}{115}{subsection.9.3.3}
+\contentsline {subsection}{\numberline {9.3.4}Observations and Interpretations}{116}{subsection.9.3.4}
+\contentsline {section}{\numberline {9.4}\textbf {LockFreeHashSetTest}}{117}{section.9.4}
+\contentsline {subsection}{\numberline {9.4.1}Particular Case (problem)}{117}{subsection.9.4.1}
+\contentsline {subsection}{\numberline {9.4.2}Solution}{117}{subsection.9.4.2}
+\contentsline {subsection}{\numberline {9.4.3}Experiment Description}{117}{subsection.9.4.3}
+\contentsline {subsection}{\numberline {9.4.4}Observations and Interpretations}{117}{subsection.9.4.4}
+\contentsline {section}{\numberline {9.5}\textbf {StripedCuckooHashSetTest}}{119}{section.9.5}
+\contentsline {subsection}{\numberline {9.5.1}Particular Case (problem)}{119}{subsection.9.5.1}
+\contentsline {subsection}{\numberline {9.5.2}Solution}{119}{subsection.9.5.2}
+\contentsline {subsection}{\numberline {9.5.3}Experiment Description}{120}{subsection.9.5.3}
+\contentsline {subsection}{\numberline {9.5.4}Observations and Interpretations}{120}{subsection.9.5.4}
+\contentsline {chapter}{\numberline {10}Skiplists and Balanced Search}{121}{chapter.10}
+\contentsline {section}{\numberline {10.1}\textbf {ArraySumTest}}{122}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Particular Case (problem)}{122}{subsection.10.1.1}
+\contentsline {subsection}{\numberline {10.1.2}Solution}{122}{subsection.10.1.2}
+\contentsline {subsection}{\numberline {10.1.3}Experiment Description}{122}{subsection.10.1.3}
+\contentsline {subsection}{\numberline {10.1.4}Observations and Interpretations}{122}{subsection.10.1.4}
+\contentsline {section}{\numberline {10.2}\textbf {FibTaskTest}}{124}{section.10.2}
+\contentsline {subsection}{\numberline {10.2.1}Particular Case (problem)}{124}{subsection.10.2.1}
+\contentsline {subsection}{\numberline {10.2.2}Solution}{124}{subsection.10.2.2}
+\contentsline {subsection}{\numberline {10.2.3}Experiment Description}{124}{subsection.10.2.3}
+\contentsline {subsection}{\numberline {10.2.4}Observations and Interpretations}{125}{subsection.10.2.4}
+\contentsline {section}{\numberline {10.3}\textbf {MMThreadTest}}{126}{section.10.3}
+\contentsline {subsection}{\numberline {10.3.1}Particular Case (problem)}{126}{subsection.10.3.1}
+\contentsline {subsection}{\numberline {10.3.2}Solution}{126}{subsection.10.3.2}
+\contentsline {subsection}{\numberline {10.3.3}Experiment Description}{127}{subsection.10.3.3}
+\contentsline {subsection}{\numberline {10.3.4}Observations and Interpretations}{127}{subsection.10.3.4}
+\contentsline {chapter}{\numberline {11}Priority Queues}{128}{chapter.11}
+\contentsline {section}{\numberline {11.1}\textbf {BitReversedCounterTest}}{129}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Particular Case (problem)}{129}{subsection.11.1.1}
+\contentsline {subsection}{\numberline {11.1.2}Solution}{129}{subsection.11.1.2}
+\contentsline {subsection}{\numberline {11.1.3}Experiment Description}{129}{subsection.11.1.3}
+\contentsline {subsection}{\numberline {11.1.4}Observations and Interpretations}{130}{subsection.11.1.4}
+\contentsline {section}{\numberline {11.2}\textbf {SimpleLinearTest}}{132}{section.11.2}
+\contentsline {subsection}{\numberline {11.2.1}Particular Case (problem)}{132}{subsection.11.2.1}
+\contentsline {subsection}{\numberline {11.2.2}Solution}{132}{subsection.11.2.2}
+\contentsline {subsection}{\numberline {11.2.3}Experiment Description}{133}{subsection.11.2.3}
+\contentsline {subsection}{\numberline {11.2.4}Observations and Interpretations}{133}{subsection.11.2.4}
+\contentsline {chapter}{\numberline {12}Futures, Scheduling and Work Distribution}{134}{chapter.12}
+\contentsline {section}{\numberline {12.1}\textbf {ArraySumTest}}{135}{section.12.1}
+\contentsline {subsection}{\numberline {12.1.1}Particular Case (problem)}{135}{subsection.12.1.1}
+\contentsline {subsection}{\numberline {12.1.2}Solution}{135}{subsection.12.1.2}
+\contentsline {subsection}{\numberline {12.1.3}Experiment Description}{135}{subsection.12.1.3}
+\contentsline {subsection}{\numberline {12.1.4}Observations and Interpretations}{136}{subsection.12.1.4}
+\contentsline {section}{\numberline {12.2}\textbf {FibTaskTest}}{137}{section.12.2}
+\contentsline {subsection}{\numberline {12.2.1}Particular Case (problem)}{137}{subsection.12.2.1}
+\contentsline {subsection}{\numberline {12.2.2}Solution}{137}{subsection.12.2.2}
+\contentsline {subsection}{\numberline {12.2.3}Experiment Description}{138}{subsection.12.2.3}
+\contentsline {subsection}{\numberline {12.2.4}Observations and Interpretations}{138}{subsection.12.2.4}
+\contentsline {section}{\numberline {12.3}\textbf {MMThreadTest}}{139}{section.12.3}
+\contentsline {subsection}{\numberline {12.3.1}Particular Case (problem)}{139}{subsection.12.3.1}
+\contentsline {subsection}{\numberline {12.3.2}Solution}{139}{subsection.12.3.2}
+\contentsline {subsection}{\numberline {12.3.3}Experiment Description}{140}{subsection.12.3.3}
+\contentsline {subsection}{\numberline {12.3.4}Observations and Interpretations}{140}{subsection.12.3.4}
+\contentsline {chapter}{\numberline {13}Barriers}{141}{chapter.13}
+\contentsline {section}{\numberline {13.1}\textbf {DisBarrierTest}}{142}{section.13.1}
+\contentsline {subsection}{\numberline {13.1.1}Particular Case (problem)}{142}{subsection.13.1.1}
+\contentsline {subsection}{\numberline {13.1.2}Solution}{142}{subsection.13.1.2}
+\contentsline {subsection}{\numberline {13.1.3}Experiment Description}{144}{subsection.13.1.3}
+\contentsline {subsection}{\numberline {13.1.4}Observations and Interpretations}{144}{subsection.13.1.4}
+\contentsline {section}{\numberline {13.2}\textbf {SenseBarrierTest}}{145}{section.13.2}
+\contentsline {subsection}{\numberline {13.2.1}Particular Case (problem)}{145}{subsection.13.2.1}
+\contentsline {subsection}{\numberline {13.2.2}Solution}{145}{subsection.13.2.2}
+\contentsline {subsection}{\numberline {13.2.3}Experiment Description}{146}{subsection.13.2.3}
+\contentsline {subsection}{\numberline {13.2.4}Observations and Interpretations}{146}{subsection.13.2.4}
+\contentsline {section}{\numberline {13.3}\textbf {TreeBarrierTest}}{148}{section.13.3}
+\contentsline {subsection}{\numberline {13.3.1}Particular Case (problem)}{148}{subsection.13.3.1}
+\contentsline {subsection}{\numberline {13.3.2}Solution}{148}{subsection.13.3.2}
+\contentsline {subsection}{\numberline {13.3.3}Experiment Description}{150}{subsection.13.3.3}
+\contentsline {subsection}{\numberline {13.3.4}Observations and Interpretations}{150}{subsection.13.3.4}
+\contentsline {chapter}{\numberline {14}Transactional Memory}{151}{chapter.14}
+\contentsline {section}{\numberline {14.1}\textbf {ListTest (ofree)}}{152}{section.14.1}
+\contentsline {subsection}{\numberline {14.1.1}Particular Case (problem)}{152}{subsection.14.1.1}
+\contentsline {subsection}{\numberline {14.1.2}Solution}{152}{subsection.14.1.2}
+\contentsline {subsection}{\numberline {14.1.3}Experiment Description}{153}{subsection.14.1.3}
+\contentsline {subsection}{\numberline {14.1.4}Observations and Interpretations}{153}{subsection.14.1.4}
