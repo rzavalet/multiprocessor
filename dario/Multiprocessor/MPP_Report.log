@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.10.13)  28 NOV 2015 23:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.10.13)  29 NOV 2015 18:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -230,7 +230,9 @@ LaTeX Warning: Unused global option(s):
 (./TreeTest.aux) (./CoarseCuckooHashSetTest.aux) (./LockFreeHashSetTest.aux)
 (./StripedCuckooHashSetTest.aux) (./ArraySumTest.aux) (./FibTaskTest.aux)
 (./MMThreadTest.aux) (./BitReversedCounterTest.aux) (./SimpleLinearTest.aux)
-(./ArraySumTest16.aux) (./FibTaskTest16.aux) (./MMThreadTest16.aux))
+(./ArraySumTest16.aux) (./FibTaskTest16.aux) (./MMThreadTest16.aux)
+(./DisBarrierTest.aux) (./SenseBarrierTest.aux) (./TreeBarrierTest.aux)
+(./ListTest-ofree.aux))
 \openout1 = `MPP_Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
@@ -297,7 +299,7 @@ LaTeX Info: Redefining \nameref on input line 41.
 
 \c@lstlisting=\count116
 
-<images/Oracle_Logo.pdf, id=522, 532.2657pt x 75.59897pt>
+<images/Oracle_Logo.pdf, id=602, 532.2657pt x 75.59897pt>
 File: images/Oracle_Logo.pdf Graphic file (type pdf)
 
 <use images/Oracle_Logo.pdf>
@@ -972,8 +974,140 @@ Underfull \hbox (badness 10000) in paragraph at lines 59--60
  []
 
 ) [73]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 97.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 97.
+\openout2 = `DisBarrierTest.aux'.
+
+ (./DisBarrierTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--18
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--28
+
+ []
+
+[74
+
+
+] [75]
+Underfull \hbox (badness 10000) in paragraph at lines 96--99
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 115--122
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--125
+
+ []
+
+) [76]
+\openout2 = `SenseBarrierTest.aux'.
+
+ (./SenseBarrierTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--27
+
+ []
+
+[77
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 69--75
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 80--84
+
+ []
+
+[78]) [79]
+\openout2 = `TreeBarrierTest.aux'.
+
+ (./TreeBarrierTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 11--24
+
+ []
+
+[80
+
+
+] [81]
+Underfull \hbox (badness 10000) in paragraph at lines 100--106
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--118
+
+ []
+
+) [82]
+\openout2 = `ListTest-ofree.aux'.
+
+ (./ListTest-ofree.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--16
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--29
+
+ []
+
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--35
+
+ []
+
+[83
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 56--58
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--79
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--91
+
+ []
+
+[84]
+Underfull \hbox (badness 10000) in paragraph at lines 97--100
+
+ []
+
+) [85]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 101.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 101.
  (./MPP_Report.aux (./LockFreeQueueTest.aux)
 (./AtomicMRMWRegisterTest.aux) (./RegMRSWRegisterTest.aux)
 (./SimpleSnapshotTest.aux) (./BackoffLockTest.aux) (./CompositeLockTest.aux)
@@ -983,18 +1117,20 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 97.
 (./CoarseCuckooHashSetTest.aux) (./LockFreeHashSetTest.aux)
 (./StripedCuckooHashSetTest.aux) (./ArraySumTest.aux) (./FibTaskTest.aux)
 (./MMThreadTest.aux) (./BitReversedCounterTest.aux) (./SimpleLinearTest.aux)
-(./ArraySumTest16.aux) (./FibTaskTest16.aux) (./MMThreadTest16.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 97.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 97.
+(./ArraySumTest16.aux) (./FibTaskTest16.aux) (./MMThreadTest16.aux)
+(./DisBarrierTest.aux) (./SenseBarrierTest.aux) (./TreeBarrierTest.aux)
+(./ListTest-ofree.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 101.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 101.
 Package rerunfilecheck Info: File `MPP_Report.out' has not changed.
-(rerunfilecheck)             Checksum: 9E32B05A0F5A6CCAEDD91424F41C7D94;9090.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 97.
+(rerunfilecheck)             Checksum: 7F59E6608E625BD6F7E6E9BB7EBBE1D0;10509.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 101.
  ) 
 Here is how much of TeX's memory you used:
- 8218 strings out of 495020
- 122455 string characters out of 6181323
- 220771 words of memory out of 5000000
- 10310 multiletter control sequences out of 15000+600000
+ 8501 strings out of 495020
+ 126731 string characters out of 6181323
+ 223771 words of memory out of 5000000
+ 10368 multiletter control sequences out of 15000+600000
  9662 words of font info for 34 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  30i,8n,40p,248b,1681s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1002,18 +1138,19 @@ Here is how much of TeX's memory you used:
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
-i10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on MPP_Report.pdf (74 pages, 335340 bytes).
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on MPP_Report.pdf (86 pages, 374512 bytes).
 PDF statistics:
- 1788 PDF objects out of 2073 (max. 8388607)
- 1681 compressed objects within 17 object streams
- 897 named destinations out of 1000 (max. 500000)
- 1038 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2132 PDF objects out of 2487 (max. 8388607)
+ 2008 compressed objects within 21 object streams
+ 1094 named destinations out of 1200 (max. 500000)
+ 1198 words of extra memory for PDF output out of 10000 (max. 10000000)
 

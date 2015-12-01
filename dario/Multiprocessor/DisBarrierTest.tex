@@ -1,0 +1,132 @@
+\section{\textbf{DisBarrierTest}}
+
+\subsection{Particular Case (problem)}
+The problem we are trying to solve is that of synchronization on a
+multi-threaded environment; and the particular mechanism we want to
+use for that is a barrier. 
+
+\subsection{Solution}
+The particular type of barrier proposed for this exercise is called a
+Dissemination Barrier, and it has a nice tree structure. Imagine that
+in order to implement the barrier, you need to perform ``r'' rounds;
+where each rounds means that all the threads involved communicated
+with other two threads (everyone sent a message to one predefined
+thread and waited to receive a message from another predefined
+thread). We use the communication word loosely here, as in a shared
+memory computer it will simply mean writing or reading from a shared
+variable. \\ 
+
+Now, each round is essentially some sort of permutation; is like you
+align the $n$ threads in one line, duplicate that line and do a
+shuffle on it, then you pair its elements with the original line. It
+turns out (can be proved), that if you do $ceil(log_2(n))$ rounds and
+on each round $k$ use the formula $(i+2^k) \bmod n$ for thread
+communication (where $i$ is the slot associated to each thread on an
+array), then all the threads can safely assumed that everybody has
+finished its call to \C{await} and they can move on. The
+implementation is compact enough to fit here, so here it goes: \\ 
+
+\begin{lstlisting}[style=numbers]
+public class DisBarrier implements Barrier {  
+  int size;
+  int logSize;
+  Node[][] node;
+  ThreadLocal<Boolean> mySense;
+  ThreadLocal<Integer> myParity;
+  
+  public DisBarrier(int capacity) {
+    size = capacity;
+    logSize = 0;
+    while (capacity != 1) {
+      this.logSize++;
+      capacity >>= 1;
+    }
+    node = new Node[logSize][size];
+    for (int r = 0; r < logSize; r++) {
+      for (int i = 0; i < size; i++) {
+        node[r][i] = new Node();
+      }
+    }
+    int distance = 1;
+    for (int r = 0; r < logSize; r++) {
+      for (int i = 0; i < size; i++) {
+        node[r][i].partner = node[r][(i + distance) % size];
+      }
+      distance *= 2;
+    }
+    this.mySense = new ThreadLocal<Boolean>() {
+      protected Boolean initialValue() { return true; };
+    };
+    this.myParity = new ThreadLocal<Integer>() {
+      protected Integer initialValue() { return 0; };
+    };
+  }
+  
+  public void await() {
+    int parity = myParity.get();
+      boolean sense = mySense.get();
+      int i = ThreadID.get();
+    for (int r = 0; r < logSize; r++) {
+      node[r][i].partner.flag[parity] = sense;
+      while (node[r][i].flag[parity] != sense) {}
+    }
+    if (parity == 1) {
+      mySense.set(!sense);
+    }
+    myParity.set(1 - parity);
+  }
+  
+  private static class Node {
+    boolean[] flag = {false, false};  // signal when done
+    Node partner;                     // partner node
+  }
+}
+\end{lstlisting}
+\hfill
+
+\subsection{Experiment Description}
+The test consists in having a shared array of 8 slots, one per thread
+to be created. Then the test has two phases, both using the barrier;
+the first phase is to wait all threads to write on their assigned slot
+on the array and the second stage is to allow all threads to validate
+that the rest actually finished their writing. These two phases are
+repeated 8 times. 
+
+\subsection{Observations and Interpretations}
+The test hangs time to time, on the 24 cores machine (with 2 cores
+machine, issue was more difficult to reproduce);  the hanging threads
+have an stack like this: \\  
+
+\begin{verbatim}
+"Thread-5" prio=10 tid=0x00007f1bc0174800 nid=0x8414 runnable [0x00007f1b6bb59000]
+java.lang.Thread.State: RUNNABLE
+at barrier.DisBarrier.await(DisBarrier.java:59)
+at barrier.DisBarrierTest$TestThread.run(DisBarrierTest.java:79)
+\end{verbatim}
+\hfill
+
+The stack above refers to the following wait cycle from the \C{await} method: \\
+
+\begin{lstlisting}[style=nonumbers]
+      while (node[r][i].flag[parity] != sense) {}
+\end{lstlisting}
+\hfill
+
+The problem then implies that the thread in charge of writing to the
+flag of the hanging thread, never made the write ... well, that is the
+appearance but in reality what happened is that the flag variable was
+not declared as volatile, therefore there is no guarantee about when
+that new value will be propagated from caches to main memory, and from
+there to the hanging thread core's cache. Thus, even when the write
+was actually done the other thread could not see it: \\ 
+
+As with other tests from chapter 2, we can solve this issue simply by
+declaring the flag as volatile: \\
+
+\begin{lstlisting}[style=nonumbers]
+volatile boolean[] flag = {false, false}
+\end{lstlisting}
+\hfill
+
+With above fix the test no longer hangs on both 2 and 24 core machines. 
+

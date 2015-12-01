@@ -1,0 +1,131 @@
+\section{\textbf{TreeBarrierTest}}
+
+\subsection{Particular Case (problem)}
+The problem we are trying to solve is that of synchronization on a
+multi-threaded environment; and the particular mechanism we want to
+use for that is a barrier (same as other cases from same chapter
+17). The subproblem we care about here, is to reduce the contention
+generated on the last phase of solutions like \C{SenseBarrierTest}.
+
+\subsection{Solution}
+This solution is a natural extension of the ``Sense Barrier'' seen for
+exercise \C{SenseBarrierTest}; where the barrier as a whole is split
+into a several smaller sense barriers, and they are placed as the
+leaves of a tree (each leaf node is setup with same amount of
+elements, and this size is also called the \C{radix}). Then inside
+each leaf node, we will suffer smaller 
+contention than with a single sense barrier (simply cause the number
+of threads to be unblocked is smaller). A key difference with the single
+sense barrier approach though, is that the children nodes need to call
+\C{await} method on the parent; this effectively means that all calls
+will eventually reach the root node (and that is the way to know all
+the threads have reached a consensus, and they can move on). The
+relevant parts of code are shown below: \\
+
+\begin{lstlisting}[style=numbers]
+public class TreeBarrier implements Barrier {
+  int radix;    // tree fan-in
+  Node[] leaf;  // array of leaf nodes
+  int leaves;   // used to build tree
+  ThreadLocal<Boolean> threadSense; // thread-local sense
+  public TreeBarrier(int n, int r) {
+    radix = r;
+    leaves = 0;
+    this.leaf = new Node[n / r];
+    int depth = 0;
+    threadSense = new ThreadLocal<Boolean>() {
+      protected Boolean initialValue() { return true; };
+    };
+    // compute tree depth
+    while (n > 1) {
+      depth++;
+      n = n / r;
+    }
+    Node root = new Node();
+    build(root, depth - 1);
+  }
+
+  void build(Node parent, int depth) {
+    // are we at a leaf node?
+    if (depth == 0) {
+      leaf[leaves++] = parent;
+    } else {
+      for (int i = 0; i < radix; i++) {
+        Node child = new Node(parent);
+        build(child, depth - 1);
+      }
+    }
+  }
+
+  public void await() {
+    int me = ThreadID.get();
+    Node myLeaf = leaf[me / radix];
+    myLeaf.await();
+  }
+  
+  private class Node {
+    AtomicInteger count;
+    Node parent;
+    volatile boolean sense;
+    // construct root node
+    public Node() {
+      sense = false;
+      parent = null;
+      count = new AtomicInteger(radix);
+    }
+    public Node(Node parent) {
+      this();
+      this.parent = parent;
+    }
+    public void await() {
+      boolean mySense = threadSense.get();
+      int position = count.getAndDecrement();
+      if (position == 1) {    // I'm last
+        if (parent != null) { // root?
+          parent.await();
+        }
+        count.set(radix);     // reset counter
+        sense = mySense;
+      } else {
+        while (sense != mySense) {};
+      }
+      threadSense.set(!mySense);
+    }
+  }
+}
+\end{lstlisting}
+\hfill
+
+\subsection{Experiment Description}
+The test consists in having a shared array of slots, as big as the
+number of threads to use. Then the test has two phases, both using the
+barrier; the first phase is to wait all threads to write on their
+assigned slot on the array and the second stage is to allow all
+threads to validate that the rest actually finished their
+writing. These two phases are repeated 8 times. \\
+
+The test above is basically the same as that described for
+\C{DisBarrierTest} and \C{SenseBarrierTest}; except that we have a
+couple of tests instead of one (each one tries a different radix
+\footnote{The \C{radix} parameter controls the
+  size of the leaf nodes, which represent smaller sense barriers}
+and number of threads; the combinations of these two parameters are
+$threads=8$,$radix=2$ and $threads=27$,$radix=3$ respectively.
+
+\subsection{Observations and Interpretations}
+The test runs fine in 2 and 24 core machines, a sample execution is
+shown below: \\
+
+\begin{verbatim}
+[oraadm@gdlaa008 orig]$ junit barrier.TreeBarrierTest
+.Testing 27 threads, 8 rounds
+finished radix 3
+.Testing 8 threads, 8 rounds
+finished radix 2
+
+Time: 0.023
+
+OK (2 tests)
+\end{verbatim}
+\hfill
+

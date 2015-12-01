@@ -28,7 +28,7 @@ This solution has some nice properties:
 
 \subsection{Experiment Description}
 The test creates 16 threads, grouping them on enqueuers and dequeuers;
-for each group it divides the worlkoad (512) evenly. Then each thread
+for each group it divides the workload (512) evenly. Then each thread
 proceeds to either enqueue or dequeue, as many times as its share of
 the workload indicated (512/8). There are some assertions to ensure
 that we do not repeat values (each dequeuer marks an array at the

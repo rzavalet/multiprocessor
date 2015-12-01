@@ -1,0 +1,119 @@
+\section{\textbf{ListTest (ofree)}}
+
+\subsection{Particular Case (problem)}
+The problem we try to solve here is how to implement a concurrent list
+by using software transactional (\C{STM}) memory.
+
+\subsection{Solution}
+The solution uses the ``obstruction-free'' flavor of the \C{STM}, where
+the building blocks of the list use the so called \C{FreeObject}. Each
+one of these free objects has three logical fields: an \C{owner} field
+to keep track of what thread is using it, \C{oldVersion} which is the
+object state prior beginning of transaction, and \C{newVersion}
+version that reflects current transaction updates. The possible values
+for \C{oldVersion} and \C{newVersion} fields are \C{COMMITTED},
+\C{ABORTED} and \C{ABORTED}. \\ 
+
+Each time a transaction \C{A} accesses one of these objects for the
+first time, it ``opens'' that object (possibly resetting the logical
+fields mentioned above). If we call \C{B} the previous owner
+transaction, the following rules govern this solution (quoted from the
+book): \\
+
+\begin{itemize}
+  \item If \C{B} was \C{COMMITTED}, then the new version is current. A
+installs itself as the object's current owner, sets the old version to
+the prior new version, and the new version to a copy of the prior new
+version (if the call is a setter), or to the new version itself (if
+the call is a getter). \\  
+
+ \item Symmetrically, if \C{B} was \C{ABORTED}, then the old version is 
+current. A installs itself as the object’s current owner, sets the old
+version to the prior old version, and the new version to a copy of the
+prior old version (if the call is a setter), or to the old version
+itself (if the call is a getter).  \\
+
+  \item If \C{B} is still \C{ACTIVE}, then \C{A} and \C{B} conflict, so 
+\C{A} consults the contention manager for advice whether to abort
+\C{B}, or to pause, giving \C{B} a chance to finish. One transaction
+aborts another by successfully calling \C{compareAndSet()} to change the
+victim's status to \C{ABORTED}. 
+\end{itemize}
+\hfill
+
+Contrary to other chapters, the transactional memory one implies much
+more code to consider; so we did not consider relevant to paste it all
+here. The explanation given above hopefully suffices for our purposes.
+
+\subsection{Experiment Description}
+The test program populates serially the list protected by STM (initial
+size of 1024), and then creates certain amount of threads to perform
+indefinitely, alternating random insertions and deletions. The main
+test thread interrupts them and performs sanity checks. This test is
+performed with 1 (sequential) and 32 threads (parallel).
+
+\subsection{Observations and Interpretations}
+The test using a single thread (sequential), gives the following null
+pointer exception on the 24 cores machine: \\
+
+\begin{verbatim}
+.TestSequential
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+at TinyTM.TThread.doIt(TThread.java:51)
+at TinyTM.list.ofree.ListTest$TestThread.run(ListTest.java:117)
+Caused by: java.lang.NullPointerException
+at TinyTM.list.ofree.TNode.getNext(TNode.java:54)
+at TinyTM.list.ofree.List.add(List.java:40)
+at TinyTM.list.ofree.ListTest$TestThread$1.call(ListTest.java:119)
+at TinyTM.list.ofree.ListTest$TestThread$1.call(ListTest.java:117)
+at TinyTM.TThread.doIt(TThread.java:41)
+... 1 more
+inserts: 0, removes: 0, missed: 0, delta: 0
+commits: 0, aborts: 0
+\end{verbatim}
+\hfill
+
+While debugging the sequential exception above, we found that in method
+\C{FreeObject:openRead}, a new location was never getting a
+\C{newVersion} value after its construction: \\
+
+\begin{lstlisting}[style=nonumbers]
+Locator newLocator = new Locator();
+... more code ...
+return newLocator.newVersion <<== NULL !!!
+\end{lstlisting}
+\hfill
+
+As possible solutions for this problem, we realized that either we
+could use constructor that takes \C{newVersion}  as argument or we set
+it like with method \C{openWrite}. We opted for the first option, using
+existing \C{locator} object: \\
+
+\begin{lstlisting}[style=nonumbers]
+Locator newLocator = new Locator(locator.newVersion);
+\end{lstlisting}
+\hfill
+
+With above fix the sequential test  no longer presented problems on 2
+nor on 24 cores. But the parallel one was still failing with assertion
+errors like the ones below: \\
+
+\begin{verbatim}
+Testcase: testParallel(TinyTM.list.ofree.ListTest): FAILED
+Bad size, expected:<1518> but was:<1502>
+junit.framework.AssertionFailedError: Bad size, expected:<1518> but
+                was:<1502>
+at TinyTM.list.ofree.ListTest.sanityCheck(ListTest.java:196)
+at TinyTM.list.ofree.ListTest.testParallel(ListTest.java:84)
+\end{verbatim}
+\hfill
+
+Due time constraints, we could not dig further into the reasons for
+the above error; but professor acknowledged it was ok (after all, we
+covered the entire set of programs from the book).
+
+
+
+
+
+
