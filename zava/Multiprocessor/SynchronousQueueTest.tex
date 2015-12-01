@@ -5,18 +5,164 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+In this exercise we are dealing again with a first-in-first-out (FIFO) data
+structure, ie a Queue. The difference with respect of the previous examples is
+that in this case we have multiple producers and multiple consumers
+\textit{rendezvous}ing with one another. In other words, a producer that puts
+an item in the queue blocks until that item is removed by a consumer.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+The following is a naive implementation of a Synchronous queue. Notice that it
+contains the following fields:
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public class SynchronousQueue<T> {
+    T item = null;
+    boolean enqueuing;
+    Lock lock;
+    Condition condition;
+	...
+	}
+\end{lstlisting}
+\hfill
+\par
+Let us talk about them:
+\begin{itemize}
+\item item. The first item in the queue (the one to be dequeued)
+\item enqueuing. Used to sync the enqueuers
+\item lock. Used for mutual exclusion
+\item condition. Used to block partial methods
+\end{itemize}
+\par
+Now, let us talk about how the enqueue and the dequeue actually work:
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+    public T deq() throws InterruptedException {
+      lock.lock();
+      try {
+        while (item == null) {
+          condition.await();
+        }
+        T t = item;
+        item = null;
+        condition.signalAll();
+        return t;
+      } finally {
+        lock.unlock();
+      }
+    }
+
+    public void enq(T value) throws InterruptedException {
+      if (value == null) throw new NullPointerException();
+      try {
+        while (enqueuing) { // another enqueuer's turn
+          condition.await();
+        }
+        enqueuing = true; // my turn starts
+        item = value;
+        condition.signalAll();
+        while (item != null) {
+          condition.await();
+        }
+        enqueuing = false;  // my turn ends
+        condition.signalAll();
+      } finally {
+        lock.unlock();
+      }
+    }
+  }
+\end{lstlisting}
+\hfill
+\par
+The enqueue method first has to check whether another enqueuer is enqueueng an
+element. If that is the case, then the enqueuer has to wait till the enqueuer
+is paired with a dequeuer. After that, it will set the flag \textit{enqueuing}
+to true, sets the item and signals any other thread that is waiting for this
+one to finish its enqueue. 
+\par
+Once the enqueuer has put its value in the queue, it waits till someone
+consumes its value (\textit{item} becomes \textit{null}). Then the enqueuer
+sets the \textit{enqueuing} flag back to false and finishes.
+\par
+On the other hand, the dequeuer threads after acquiring the lock, they have to
+wait till an element is put in the queue. When it finds this is true, then they
+take the item and signal other threads to indicate they have finished
+dequeuing.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+This exercise consists of only one test and it works as follow:
+\par
+It creates $2*8$ threads. Each of the threads will enqueue $512/8$ elements to
+the queue. At the same time, $8$ threads will try to dequeue the elements. When
+dequeueing, the test will put a value of \textit{true} in the slot
+$arr[value]$. The test expects that each slot should not be set to
+\textit{true} twice.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
 \par
+To start with, we notice that they consistently failes with the following error:
+\par
+\begin{verbatim}
+[oraadm@gdlaa008 Queue]$ junit queue.SynchronousQueueTest
+.parallel both
+Exception in thread "Thread-10" Exception in thread "Thread-6" Exception in thread "Thread-2" Exception in th
+read "Thread-0" Exception in thread "Thread-8" Exception in thread "Thread-4" Exception in thread "Thread-14"
+ Exception in thread "Thread-12" java.lang.IllegalMonitorStateException
+        at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:155)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1260)
+        at java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:460)
+        at queue.SynchronousQueue.enq(SynchronousQueue.java:63)
+        at queue.SynchronousQueueTest$EnqThread.run(SynchronousQueueTest.java:61)
+java.lang.IllegalMonitorStateException
+        at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:155)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1260)
+        at java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:460)
+        at queue.SynchronousQueue.enq(SynchronousQueue.java:63)
+        at queue.SynchronousQueueTest$EnqThread.run(SynchronousQueueTest.java:61)
+java.lang.IllegalMonitorStateException
+        at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:155)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1260)
+        at java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:460)
+        at queue.SynchronousQueue.enq(SynchronousQueue.java:63)
+        at queue.SynchronousQueueTest$EnqThread.run(SynchronousQueueTest.java:61)
+java.lang.IllegalMonitorStateException
+        at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:155)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1260)
+        at java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:460)
+        at queue.SynchronousQueue.enq(SynchronousQueue.java:63)
+        at queue.SynchronousQueueTest$EnqThread.run(SynchronousQueueTest.java:61)
+java.lang.IllegalMonitorStateException
+        at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:155)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1260)
+        at java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:460)
+        at queue.SynchronousQueue.enq(SynchronousQueue.java:63)
+        at queue.SynchronousQueueTest$EnqThread.run(SynchronousQueueTest.java:61)
+java.lang.IllegalMonitorStateException
+        at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:155)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1260)
+        at java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:460)
+        at queue.SynchronousQueue.enq(SynchronousQueue.java:63)
+        at queue.SynchronousQueueTest$EnqThread.run(SynchronousQueueTest.java:61)
+java.lang.IllegalMonitorStateException
+        at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:155)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1260)
+        at java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:460)
+        at queue.SynchronousQueue.enq(SynchronousQueue.java:63)
+        at queue.SynchronousQueueTest$EnqThread.run(SynchronousQueueTest.java:61)
+java.lang.IllegalMonitorStateException
+        at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:155)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1260)
+        at java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:460)
+        at queue.SynchronousQueue.enq(SynchronousQueue.java:63)
+        at queue.SynchronousQueueTest$EnqThread.run(SynchronousQueueTest.java:61)
+\end{verbatim}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Interpretation}

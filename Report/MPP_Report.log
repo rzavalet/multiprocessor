@@ -1,15 +1,32 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  30 NOV 2015 20:13
+=======
+<<<<<<< Updated upstream
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Cygwin) (preloaded format=pdflatex 2015.11.29)  30 NOV 2015 20:29
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Cygwin) (preloaded format=pdflatex 2015.11.29)  29 NOV 2015 23:12
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **MPP_Report.tex
 (./MPP_Report.tex
+<<<<<<< HEAD
 LaTeX2e <2014/05/01>
 Babel <3.9k> and hyphenation patterns for 78 languages loaded.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/size12.clo
 File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+=======
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+(/usr/share/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 )
 \c@part=\count79
 \c@chapter=\count80
@@ -24,6 +41,7 @@ File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/algorithms/algorithmic.sty
 Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 
@@ -32,6 +50,16 @@ Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
+=======
+(/usr/share/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+
+(/usr/share/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \KV@toks@=\toks14
 )
 \c@ALC@unique=\count88
@@ -41,10 +69,17 @@ Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
 \ALC@tlm=\skip43
 \algorithmicindent=\skip44
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+=======
+(/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks15
 \symAMSa=\mathgroup4
@@ -52,14 +87,22 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2014/04/23 v1.1a Standard LaTeX Color (DPC)
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/color.cfg
+=======
+(/usr/share/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+
+(/usr/share/texmf-dist/tex/latex/latexconfig/color.cfg
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 137.
+Package color Info: Driver file: pdftex.def on input line 142.
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
@@ -67,14 +110,30 @@ File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
 (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+=======
+(/usr/share/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count92
 ))
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/color.cfg
+=======
+(/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/share/texmf-dist/tex/latex/latexconfig/color.cfg
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -89,14 +148,22 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsgen.sty
+=======
+(/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+
+(/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks16
 \ex@=\dimen103
 ))
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -107,17 +174,36 @@ Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/graphics.cfg
+=======
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf-dist/tex/latex/latexconfig/graphics.cfg
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
+Package graphics Info: Driver file: pdftex.def on input line 94.
 )
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/caption/caption3.sty
+=======
+(/usr/share/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/share/texmf-dist/tex/latex/caption/caption3.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
 \captionmargin=\dimen106
@@ -130,7 +216,11 @@ Package caption3 Info: TeX engine: e-TeX on input line 57.
 )
 \c@ContinuedFloat=\count93
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/listings/listings.sty
+=======
+(/usr/share/texmf-dist/tex/latex/listings/listings.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \lst@mode=\count94
 \lst@gtempboxa=\box26
 \lst@token=\toks17
@@ -144,19 +234,34 @@ Package caption3 Info: TeX engine: e-TeX on input line 57.
 \lst@lineno=\count99
 \lst@maxwidth=\dimen116
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2014/03/04 1.5c (Carsten Heinz)
+=======
+(/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \c@lstnumber=\count100
 \lst@skipnumbers=\count101
 \lst@framebox=\box27
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2014/03/04 1.5c listings configuration
+=======
+(/usr/share/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2014/09/06 1.5e listings configuration
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 ))
 Package: listings 2014/03/04 1.5c (Carsten Heinz)
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2014/04/23 v1.8e multicolumn formatting (FMi)
+=======
+(/usr/share/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \c@tracingmulticols=\count102
 \mult@box=\box28
 \multicol@leftmargin=\dimen117
@@ -204,6 +309,7 @@ Package: multicol 2014/04/23 v1.8e multicolumn formatting (FMi)
 \colbreak@box=\box53
 \mc@col@check@num=\count110
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
@@ -212,6 +318,16 @@ Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+=======
+(/usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
@@ -252,6 +368,7 @@ Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
@@ -259,18 +376,35 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+=======
+(/usr/share/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/share/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+(/usr/share/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
 \@linkdim=\dimen126
 \Hy@linkcounter=\count111
 \Hy@pagecounter=\count112
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/pd1enc.def
+=======
+(/usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 )
 \Hy@SavedSpaceFactor=\count113
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+=======
+(/usr/share/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Hyper figures OFF on input line 4443.
@@ -282,7 +416,11 @@ Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
 \c@Hy@tempcnt=\count114
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/url/url.sty
+=======
+(/usr/share/texmf-dist/tex/latex/url/url.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
@@ -307,19 +445,31 @@ LaTeX Info: Redefining \pageref on input line 6369.
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/hpdftex.def
+=======
+(/usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
 \Fld@listcount=\count119
 \c@bookmark@seq@number=\count120
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+=======
+(/usr/share/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
 \Hy@SectionHShift=\skip47
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/cleveref/cleveref.sty
+=======
+(/usr/share/texmf-dist/tex/latex/cleveref/cleveref.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Package: cleveref 2013/12/28 v0.19 Intelligent cross-referencing
 Package cleveref Info: `hyperref' support loaded on input line 2230.
 LaTeX Info: Redefining \cref on input line 2230.
@@ -334,10 +484,17 @@ LaTeX Info: Redefining \labelcref on input line 2230.
 LaTeX Info: Redefining \labelcpageref on input line 2230.
 Package cleveref Info: `listings' support loaded on input line 2950.
 )
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/03/04 1.5c listings language file
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+=======
+(/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
+(/usr/share/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Package: fancyvrb 2008/02/07
 
 Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
@@ -363,12 +520,17 @@ LaTeX Warning: Unused global option(s):
 (./sections/CompositeLockTest.aux) (./sections/HBOLockTest.aux)
 (./sections/QueueTest.aux) (./sections/CountDownLatch.aux)
 (./sections/CoarseList.aux) (./sections/LazyListTest.aux)
-(./sections/LockFreeList.aux) (./sections/BoundedQueueTest.aux)
-(./sections/SynchronousDualQueueTest.aux)
-(./sections/LockFreeQueueRecycleTest.aux)
+(./sections/LockFreeList.aux) (./sections/LockFreeQueueTest_revisited.aux)
+(./sections/BoundedQueueTest.aux) (./sections/SynchronousDualQueueTest.aux)
+(./sections/SynchronousQueueTest.aux) (./sections/LockFreeQueueRecycleTest.aux)
+<<<<<<< Updated upstream
 (./sections/LockFreeQueueTest_revisited.aux) (./sections/BoundedQueueTest.aux)
 (./sections/Exchanger.aux) (./sections/TreeTest.aux)
+<<<<<<< HEAD
 (./sections/CoarseHashSetTest.aux) (./sections/StripedHashSetTest.aux)
+=======
+(./sections/BalancerTest.aux) (./sections/CoarseHashSetTest.aux)
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 (./sections/CoarseCuckooHashSetTest.aux) (./sections/LockFreeHashSetTest.aux)
 (./sections/StripedCuckooHashSetTest.aux) (./sections/ArraySumTest.aux)
 (./sections/FibTaskTest.aux) (./sections/MMThreadTest.aux)
@@ -377,6 +539,11 @@ LaTeX Warning: Unused global option(s):
 (./sections/MMThreadTest16.aux) (./sections/DisBarrierTest.aux)
 (./sections/SenseBarrierTest.aux) (./sections/TreeBarrierTest.aux)
 (./sections/ListTest-ofree.aux))
+=======
+(./sections/BoundedQueueTest.aux) (./sections/Exchanger.aux)
+(./sections/TreeTest.aux) (./sections/BalancerTest.aux)
+(./sections/CoarseHashSetTest.aux))
+>>>>>>> Stashed changes
 \openout1 = `MPP_Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
@@ -394,7 +561,11 @@ LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
 LaTeX Font Info:    ... okay on input line 51.
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
+=======
+(/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count124
 \scratchdimen=\dimen130
@@ -407,10 +578,17 @@ LaTeX Font Info:    ... okay on input line 51.
 \MPnumerator=\count128
 \makeMPintoPDFobject=\count129
 \everyMPtoPDFconversion=\toks19
+<<<<<<< HEAD
 ) (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/grfext.sty
+=======
+) (/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texmf-dist/tex/latex/oberdiek/grfext.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 )
 Package grfext Info: Graphics extension search list:
@@ -418,7 +596,11 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+=======
+(/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
@@ -430,10 +612,17 @@ Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box56
 Package hyperref Info: Link coloring OFF on input line 51.
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+=======
+(/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count131
@@ -447,7 +636,15 @@ LaTeX Info: Redefining \nameref on input line 51.
 \openout4 = `MPP_Report.out'.
 
 
+<<<<<<< HEAD
 <images/Oracle_Logo.pdf, id=1053, 532.2657pt x 75.59897pt>
+=======
+<<<<<<< Updated upstream
+<images/Oracle_Logo.pdf, id=1109, 532.2657pt x 75.59897pt>
+=======
+<images/Oracle_Logo.pdf, id=779, 532.2657pt x 75.59897pt>
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: images/Oracle_Logo.pdf Graphic file (type pdf)
 
 <use images/Oracle_Logo.pdf>
@@ -463,19 +660,28 @@ Overfull \hbox (36.79134pt too wide) in paragraph at lines 62--63
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./image
 s/Oracle_Logo.pdf>] (./MPP_Report.toc
 LaTeX Font Info:    Try loading font information for U+msa on input line 2.
+<<<<<<< HEAD
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
+=======
+ (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 2.
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
+=======
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.32 ...ular Case (problem)}{30}{subsection.2.2.1}
+<<<<<<< Updated upstream
+l.32 ...ular Case (problem)}{23}{subsection.2.2.1}
                                                    [1
 
 ] [2] [3] [4] [5] [6]
@@ -486,6 +692,19 @@ l.32 ...ular Case (problem)}{30}{subsection.2.2.1}
  [8]
 Chapter 1.
 [9
+=======
+l.32 ...ular Case (problem)}{28}{subsection.2.2.1}
+                                                   [1
+
+] [2] [3] [4] [5])
+\tf@toc=\write5
+\openout5 = `MPP_Report.toc'.
+
+
+[6]
+Chapter 1.
+[7
+>>>>>>> Stashed changes
 
 ]
 \openout2 = `./sections/LockFreeQueueTest.aux'.
@@ -496,23 +715,44 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--13
  []
 
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 15.
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+=======
+(/usr/share/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 15.
+<<<<<<< Updated upstream
  [10
+=======
+ [8
+>>>>>>> Stashed changes
 
 ]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 50.
+<<<<<<< HEAD
  [11]
 [12]
+=======
+<<<<<<< Updated upstream
+ [11] [12]
+=======
+ [9] [10]
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Underfull \hbox (badness 10000) in paragraph at lines 153--159
 
  []
 
+<<<<<<< Updated upstream
 [13]
+=======
+[11]
+>>>>>>> Stashed changes
 Underfull \hbox (badness 10000) in paragraph at lines 185--191
 
  []
@@ -527,7 +767,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 197--205
 
  []
 
+<<<<<<< Updated upstream
 [14]
+=======
+[12]
+>>>>>>> Stashed changes
 Underfull \hbox (badness 10000) in paragraph at lines 244--253
 
  []
@@ -537,12 +781,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 254--263
 
  []
 
+<<<<<<< Updated upstream
 [15]
+=======
+[13]
+>>>>>>> Stashed changes
 Underfull \hbox (badness 10000) in paragraph at lines 264--273
 
  []
 
+<<<<<<< Updated upstream
 [16]
+=======
+[14]
+>>>>>>> Stashed changes
 Underfull \hbox (badness 10000) in paragraph at lines 315--324
 
  []
@@ -552,12 +804,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 325--328
 
  []
 
+<<<<<<< Updated upstream
 [17] [18]
+=======
+[15] [16]
+>>>>>>> Stashed changes
 Underfull \hbox (badness 10000) in paragraph at lines 385--392
 
  []
 
+<<<<<<< Updated upstream
 ) [19]
+=======
+) [17]
+>>>>>>> Stashed changes
 \openout2 = `./sections/Peterson.aux'.
 
  (./sections/Peterson.tex
@@ -566,17 +826,29 @@ Overfull \hbox (10.96251pt too wide) in paragraph at lines 26--29
 hieve a starvation-
  []
 
+<<<<<<< Updated upstream
 [20
 
 
 ]) [21]
+=======
+[18
+
+
+]) [19]
+>>>>>>> Stashed changes
 \openout2 = `./sections/Bakery.aux'.
 
  (./sections/Bakery.tex
 LaTeX Font Info:    Try loading font information for OML+cmr on input line 51.
 
+<<<<<<< HEAD
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+=======
+(/usr/share/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 51.
@@ -586,7 +858,11 @@ Overfull \hbox (18.00415pt too wide) in paragraph at lines 52--53
 
  []
 
+<<<<<<< Updated upstream
 [22
+=======
+[20
+>>>>>>> Stashed changes
 
 
 ]
@@ -594,20 +870,34 @@ Overfull \hbox (24.00421pt too wide) in paragraph at lines 80--81
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
+<<<<<<< Updated upstream
 [23] [24]) [25]
 Chapter 2.
 [26
+=======
+[21] [22]) [23]
+Chapter 2.
+[24
+>>>>>>> Stashed changes
 
 
 ]
 \openout2 = `./sections/SafeBooleanMRSW.aux'.
 
+<<<<<<< Updated upstream
  (./sections/SafeBooleanMRSW.tex [27
+=======
+ (./sections/SafeBooleanMRSW.tex [25
+>>>>>>> Stashed changes
 
 ]
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 78.
+<<<<<<< Updated upstream
  [28]) [29]
+=======
+ [26]) [27]
+>>>>>>> Stashed changes
 \openout2 = `./sections/RegMRSWRegisterTest.aux'.
 
 
@@ -621,7 +911,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 17--28
 
  []
 
+<<<<<<< Updated upstream
 [30
+=======
+[28
+>>>>>>> Stashed changes
 
 
 ]
@@ -629,6 +923,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--72
 
  []
 
+<<<<<<< Updated upstream
 ) [31]
 \openout2 = `./sections/AtomicMRSWRegister.aux'.
 
@@ -636,6 +931,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--72
 
 
 ]) [33]
+=======
+) [29]
+\openout2 = `./sections/AtomicMRSWRegister.aux'.
+
+ (./sections/AtomicMRSWRegister.tex [30
+
+
+]) [31]
+>>>>>>> Stashed changes
 \openout2 = `./sections/AtomicMRMWRegisterTest.aux'.
 
 
@@ -644,7 +948,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 18--29
 
  []
 
+<<<<<<< Updated upstream
 [34
+=======
+[32
+>>>>>>> Stashed changes
 
 
 ]
@@ -657,7 +965,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--84
 
  []
 
+<<<<<<< Updated upstream
 [35]) [36]
+=======
+[33]) [34]
+>>>>>>> Stashed changes
 \openout2 = `./sections/SimpleSnapshotTest.aux'.
 
  (./sections/SimpleSnapshotTest.tex
@@ -675,7 +987,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--45
 
  []
 
+<<<<<<< Updated upstream
 [37
+=======
+[35
+>>>>>>> Stashed changes
 
 
 ]
@@ -688,15 +1004,26 @@ Overfull \hbox (102.005pt too wide) in paragraph at lines 61--62
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
+<<<<<<< Updated upstream
 [38]
+=======
+[36]
+>>>>>>> Stashed changes
 Underfull \hbox (badness 10000) in paragraph at lines 104--106
 
  []
 
+<<<<<<< Updated upstream
 ) [39]
 \openout2 = `./sections/WFSnapshot.aux'.
 
  (./sections/WFSnapshot.tex [40
+=======
+) [37]
+\openout2 = `./sections/WFSnapshot.aux'.
+
+ (./sections/WFSnapshot.tex [38
+>>>>>>> Stashed changes
 
 
 ]
@@ -704,14 +1031,21 @@ Overfull \hbox (84.00482pt too wide) in paragraph at lines 55--56
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
+<<<<<<< Updated upstream
 [41] [42]) [43]
 Chapter 3.
 (./sections/SpinLocks.tex) [44
+=======
+[39] [40]) [41]
+Chapter 3.
+(./sections/SpinLocks.tex) [42
+>>>>>>> Stashed changes
 
 
 ]
 \openout2 = `./sections/TASLockTest.aux'.
 
+<<<<<<< Updated upstream
  (./sections/TASLockTest.tex [45
 
 ] [46]) [47]
@@ -722,6 +1056,18 @@ Chapter 3.
 
 
 ]) [49]
+=======
+ (./sections/TASLockTest.tex [43
+
+] [44]) [45]
+\openout2 = `./sections/TTASLockTest.aux'.
+
+
+(./sections/TTASLockTest.tex [46
+
+
+]) [47]
+>>>>>>> Stashed changes
 \openout2 = `./sections/BackoffLockTest.aux'.
 
  (./sections/BackoffLockTest.tex
@@ -739,14 +1085,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 41--54
 
  []
 
+<<<<<<< Updated upstream
 [50
 
 
 ] [51]
+=======
+[48
+
+
+] [49]
+>>>>>>> Stashed changes
 Underfull \hbox (badness 10000) in paragraph at lines 115--118
 
  []
 
+<<<<<<< Updated upstream
 ) [52]
 \openout2 = `./sections/CLHLockTest.aux'.
 
@@ -754,19 +1108,45 @@ Underfull \hbox (badness 10000) in paragraph at lines 115--118
 
 
 ]
+<<<<<<< HEAD
 <images/CLH00.png, id=2064, 285.065pt x 303.1325pt>
+=======
+<images/CLH00.png, id=2134, 285.065pt x 303.1325pt>
+=======
+) [50]
+\openout2 = `./sections/CLHLockTest.aux'.
+
+ (./sections/CLHLockTest.tex [51
+
+
+]
+<images/CLH00.png, id=1714, 285.065pt x 303.1325pt>
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: images/CLH00.png Graphic file (type png)
  <use images/CLH00.png>
 Package pdftex.def Info: images/CLH00.png used on input line 35.
 (pdftex.def)             Requested size: 142.26378pt x 151.2791pt.
 
+<<<<<<< HEAD
 <images/CLH01.png, id=2066, 620.3175pt x 110.4125pt>
+=======
+<<<<<<< Updated upstream
+<images/CLH01.png, id=2136, 620.3175pt x 110.4125pt>
+=======
+<images/CLH01.png, id=1716, 620.3175pt x 110.4125pt>
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 File: images/CLH01.png Graphic file (type png)
  <use images/CLH01.png>
 Package pdftex.def Info: images/CLH01.png used on input line 42.
 (pdftex.def)             Requested size: 369.88582pt x 65.83691pt.
 )
+<<<<<<< Updated upstream
 [54 <./images/CLH00.png> <./images/CLH01.png>] [55]
+=======
+[52 <./images/CLH00.png> <./images/CLH01.png>] [53]
+>>>>>>> Stashed changes
 \openout2 = `./sections/MCSLockTest.aux'.
 
  (./sections/MCSLockTest.tex
@@ -774,7 +1154,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
  []
 
+<<<<<<< Updated upstream
 [56
+=======
+[54
+>>>>>>> Stashed changes
 
 
 ]
@@ -782,7 +1166,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--74
 
  []
 
+<<<<<<< Updated upstream
 [57] [58]
+=======
+[55] [56]
+>>>>>>> Stashed changes
 Underfull \hbox (badness 10000) in paragraph at lines 160--163
 
  []
@@ -802,7 +1190,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 183--187
 
  []
 
+<<<<<<< Updated upstream
 [59]
+=======
+[57]
+>>>>>>> Stashed changes
 Underfull \hbox (badness 10000) in paragraph at lines 230--236
 
  []
@@ -812,11 +1204,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 237--239
 
  []
 
+<<<<<<< Updated upstream
 [60]
+=======
+[58]
+>>>>>>> Stashed changes
 Underfull \hbox (badness 10000) in paragraph at lines 256--263
 
  []
 
+<<<<<<< Updated upstream
 ) [61]
 \openout2 = `./sections/CompositeLockTest.aux'.
 
@@ -846,13 +1243,19 @@ Chapter 4.
 
 ]
 \openout2 = `./sections/QueueTest.aux'.
+=======
+) [59]
+\openout2 = `./sections/CompositeLockTest.aux'.
+>>>>>>> Stashed changes
 
- (./sections/QueueTest.tex
-Underfull \hbox (badness 10000) in paragraph at lines 17--24
+ (./sections/CompositeLockTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 13--19
 
  []
 
+[60
 
+<<<<<<< Updated upstream
 Underfull \hbox (badness 10000) in paragraph at lines 31--34
 
  []
@@ -965,11 +1368,22 @@ Chapter 6.
 
 
 ]
+\openout2 = `./sections/LockFreeQueueTest_revisited.aux'.
+
+ (./sections/LockFreeQueueTest_revisited.tex [89
+
+]
+Overfull \hbox (48.00444pt too wide) in paragraph at lines 61--62
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[90]) [91]
 \openout2 = `./sections/BoundedQueueTest.aux'.
 
- (./sections/BoundedQueueTest.tex [89
+ (./sections/BoundedQueueTest.tex [92
 
-] [90]) [91]
+
+] [93]) [94]
 \openout2 = `./sections/SynchronousDualQueueTest.aux'.
 
 
@@ -978,7 +1392,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--17
 
  []
 
-[92
+[95
 
 
 ]
@@ -991,50 +1405,61 @@ Underfull \hbox (badness 10000) in paragraph at lines 70--77
 
  []
 
-[93]) [94]
+[96]) [97]
+\openout2 = `./sections/SynchronousQueueTest.aux'.
+
+ (./sections/SynchronousQueueTest.tex [98
+
+
+] [99] [100]) [101]
 \openout2 = `./sections/LockFreeQueueRecycleTest.aux'.
 
- (./sections/LockFreeQueueRecycleTest.tex
+
+(./sections/LockFreeQueueRecycleTest.tex
 Underfull \hbox (badness 10000) in paragraph at lines 10--18
 
  []
 
-[95
+[102
 
 
-]) [96]
+]) [103]
 \openout2 = `./sections/LockFreeQueueTest_revisited.aux'.
 
- (./sections/LockFreeQueueTest_revisited.tex) [97
+ (./sections/LockFreeQueueTest_revisited.tex [104
 
 
 ]
+Overfull \hbox (48.00444pt too wide) in paragraph at lines 61--62
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[105]) [106]
 \openout2 = `./sections/BoundedQueueTest.aux'.
 
+ (./sections/BoundedQueueTest.tex [107
 
-(./sections/BoundedQueueTest.tex [98
 
-
-] [99]) [100]
+] [108]) [109]
 Chapter 7.
-[101
+[110
 
 
 ]
 \openout2 = `./sections/Exchanger.aux'.
 
- (./sections/Exchanger.tex [102
+ (./sections/Exchanger.tex [111
 
-] [103]
+] [112]
 Overfull \hbox (24.00421pt too wide) in paragraph at lines 96--97
 [][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 LaTeX Font Info:    Font shape `OML/cmr/m/it' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 124.
-[104]) [105]
+[113]) [114]
 Chapter 8.
-[106
+[115
 
 
 ]
@@ -1045,7 +1470,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--26
 
  []
 
-[107
+[116
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 55--58
@@ -1062,19 +1487,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 80--82
 
  []
 
-[108]
+[117]
 Underfull \hbox (badness 10000) in paragraph at lines 108--115
 
  []
 
-) [109]
+) [118]
+\openout2 = `./sections/BalancerTest.aux'.
+
+ (./sections/BalancerTest.tex [119
+
+
+]) [120]
 Chapter 9.
-[110
+[121
 
 
 ]
 \openout2 = `./sections/CoarseHashSetTest.aux'.
 
+<<<<<<< HEAD
  (./sections/CoarseHashSetTest.tex) [111
 
 ]
@@ -1085,6 +1517,11 @@ Chapter 9.
 
 
 ]) [113]
+=======
+ (./sections/CoarseHashSetTest.tex [122
+
+] [123]) [124]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \openout2 = `./sections/CoarseCuckooHashSetTest.aux'.
 
 
@@ -1103,7 +1540,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 23--25
 
  []
 
+<<<<<<< HEAD
 [114
+=======
+[125
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
@@ -1121,6 +1562,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--80
 
  []
 
+<<<<<<< HEAD
 [115]) [116]
 \openout2 = `./sections/LockFreeHashSetTest.aux'.
 
@@ -1128,6 +1570,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--80
 
 
 ] [118]
+=======
+[126]) [127]
+\openout2 = `./sections/LockFreeHashSetTest.aux'.
+
+ (./sections/LockFreeHashSetTest.tex) [128
+
+
+] [129]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \openout2 = `./sections/StripedCuckooHashSetTest.aux'.
 
 
@@ -1141,7 +1592,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--30
 
  []
 
+<<<<<<< HEAD
 [119
+=======
+[130
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
@@ -1149,9 +1604,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 58--60
 
  []
 
+<<<<<<< HEAD
 ) [120]
 Chapter 10.
 [121
+=======
+) [131]
+Chapter 10.
+[132
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
@@ -1182,9 +1643,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 37--39
 
  []
 
+<<<<<<< HEAD
 [122
 
 ]) [123]
+=======
+[133
+
+]) [134]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \openout2 = `./sections/FibTaskTest.aux'.
 
  (./sections/FibTaskTest.tex
@@ -1197,10 +1664,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 42--44
 
  []
 
+<<<<<<< HEAD
 [124
 
 
 ]) [125]
+=======
+[135
+
+
+]) [136]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \openout2 = `./sections/MMThreadTest.aux'.
 
  (./sections/MMThreadTest.tex
@@ -1208,7 +1682,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 7--12
 
  []
 
+<<<<<<< HEAD
 [126
+=======
+[137
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
@@ -1216,9 +1694,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 54--55
 
  []
 
+<<<<<<< HEAD
 ) [127]
 Chapter 11.
 [128
+=======
+) [138]
+Chapter 11.
+[139
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
@@ -1231,45 +1715,150 @@ Underfull \hbox (badness 10000) in paragraph at lines 13--18
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 44--47
+=======
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 45--46
 
  []
 
+) [61]
+\openout2 = `./sections/HBOLockTest.aux'.
+
+ (./sections/HBOLockTest.tex [62
+
+
+] [63]) [64]
+Chapter 4.
+[65
+
+
+]
+\openout2 = `./sections/QueueTest.aux'.
+
+ (./sections/QueueTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 17--24
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--34
+
+ []
+
+[66
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 50--55
+
+ []
+
+[67]
+Underfull \hbox (badness 10000) in paragraph at lines 106--112
+
+ []
+
+) [68]
+\openout2 = `./sections/CountDownLatch.aux'.
+>>>>>>> Stashed changes
+
+ (./sections/CountDownLatch.tex
+Overfull \hbox (0.35706pt too wide) in paragraph at lines 11--15
+[]\OT1/cmr/m/n/12 The con-cept of mon-i-tor con-sists on en-cap-su-lat-ing thre
+e com-po-nents: data,
+ []
+
+<<<<<<< HEAD
 [129
 
 ] [130]) [131]
+=======
+<<<<<<< Updated upstream
+[140
+
+] [141]) [142]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \openout2 = `./sections/SimpleLinearTest.aux'.
 
  (./sections/SimpleLinearTest.tex
 Underfull \hbox (badness 10000) in paragraph at lines 14--20
+=======
+[69
 
+>>>>>>> Stashed changes
+
+] [70]
+Overfull \hbox (60.00458pt too wide) in paragraph at lines 110--111
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
+<<<<<<< HEAD
 [132
+=======
+<<<<<<< Updated upstream
+[143
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 48--49
+=======
+>>>>>>> Stashed changes
 
+Overfull \hbox (60.00458pt too wide) in paragraph at lines 145--146
+[][][][][][][][][][][][][][][][][][][][][][] 
  []
 
+<<<<<<< Updated upstream
 
 Underfull \hbox (badness 10000) in paragraph at lines 51--54
 
+=======
+[71]
+Overfull \hbox (54.00452pt too wide) in paragraph at lines 160--161
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+>>>>>>> Stashed changes
  []
 
+) [72] [73]
+Chapter 5.
+[74
 
+<<<<<<< Updated upstream
 Underfull \hbox (badness 10000) in paragraph at lines 54--57
 
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 62--64
+=======
 
+]
+\openout2 = `./sections/CoarseList.aux'.
+>>>>>>> Stashed changes
+
+ (./sections/CoarseList.tex
+Overfull \hbox (2.5288pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/n/12 struc-ture by mul-ti-ple threads si-mul-ta-ne-ously. While al-l
+ow-ing mul-ti-ple threads
  []
 
+<<<<<<< HEAD
 ) [133]
 Chapter 12.
 [134
+=======
+<<<<<<< Updated upstream
+) [144]
+Chapter 12.
+[145
+=======
+[75
+
+] [76] [77] [78]) [79]
+\openout2 = `./sections/LazyListTest.aux'.
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
@@ -1300,14 +1889,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 43--45
 
  []
 
+<<<<<<< HEAD
 [135
+=======
+[146
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 67--74
 
  []
 
+<<<<<<< HEAD
 ) [136]
+=======
+) [147]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \openout2 = `./sections/FibTaskTest16.aux'.
 
  (./sections/FibTaskTest16.tex
@@ -1315,12 +1912,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--6
 
  []
 
+<<<<<<< Updated upstream
 
 Underfull \hbox (badness 10000) in paragraph at lines 14--19
 
  []
 
+<<<<<<< HEAD
 [137
+=======
+[148
+=======
+[80
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
@@ -1328,11 +1933,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 48--50
 
  []
 
+<<<<<<< HEAD
 ) [138]
+=======
+<<<<<<< Updated upstream
+) [149]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \openout2 = `./sections/MMThreadTest16.aux'.
 
  (./sections/MMThreadTest16.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--5
+=======
+[81]
+Underfull \hbox (badness 10000) in paragraph at lines 120--122
+>>>>>>> Stashed changes
 
  []
 
@@ -1341,17 +1955,59 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--17
 
  []
 
+<<<<<<< HEAD
 [139
+=======
+<<<<<<< Updated upstream
+[150
+=======
+[82]) [83]
+\openout2 = `./sections/LockFreeList.aux'.
 
+ (./sections/LockFreeList.tex [84
+
+
+]) [85]
+Chapter 6.
+[86
+
+>>>>>>> Stashed changes
 
 ]
+\openout2 = `./sections/LockFreeQueueTest_revisited.aux'.
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
+
+ (./sections/LockFreeQueueTest_revisited.tex [87
+
+]
+<<<<<<< Updated upstream
 Underfull \hbox (badness 10000) in paragraph at lines 59--60
 
  []
 
+<<<<<<< HEAD
 ) [140]
 Chapter 13.
 [141
+=======
+) [151]
+Chapter 13.
+[152
+=======
+Overfull \hbox (48.00444pt too wide) in paragraph at lines 61--62
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[88]) [89]
+\openout2 = `./sections/BoundedQueueTest.aux'.
+
+ (./sections/BoundedQueueTest.tex [90
+
+
+] [91]) [92]
+\openout2 = `./sections/SynchronousDualQueueTest.aux'.
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
@@ -1362,14 +2018,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--18
 
  []
 
+<<<<<<< Updated upstream
 
 Underfull \hbox (badness 10000) in paragraph at lines 19--28
 
  []
 
+<<<<<<< HEAD
 [142
 
 ] [143]
+=======
+[153
+
+] [154]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Underfull \hbox (badness 10000) in paragraph at lines 96--99
 
  []
@@ -1389,7 +2052,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 123--125
 
  []
 
+<<<<<<< HEAD
 ) [144]
+=======
+) [155]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \openout2 = `./sections/SenseBarrierTest.aux'.
 
  (./sections/SenseBarrierTest.tex
@@ -1402,7 +2069,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 18--27
 
  []
 
+<<<<<<< HEAD
 [145
+=======
+[156
+=======
+[93
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
@@ -1415,7 +2089,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 80--84
 
  []
 
+<<<<<<< HEAD
 [146]) [147]
+=======
+<<<<<<< Updated upstream
+[157]) [158]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \openout2 = `./sections/TreeBarrierTest.aux'.
 
  (./sections/TreeBarrierTest.tex
@@ -1423,10 +2102,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 11--24
 
  []
 
+<<<<<<< HEAD
 [148
 
 
 ] [149]
+=======
+[159
+
+
+] [160]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Underfull \hbox (badness 10000) in paragraph at lines 100--106
 
  []
@@ -1436,9 +2122,61 @@ Underfull \hbox (badness 10000) in paragraph at lines 116--118
 
  []
 
+<<<<<<< HEAD
 ) [150]
 Chapter 14.
 [151
+=======
+) [161]
+Chapter 14.
+[162
+=======
+[94]) [95]
+\openout2 = `./sections/SynchronousQueueTest.aux'.
+
+ (./sections/SynchronousQueueTest.tex [96
+
+
+] [97] [98]) [99]
+\openout2 = `./sections/LockFreeQueueRecycleTest.aux'.
+
+
+(./sections/LockFreeQueueRecycleTest.tex
+Underfull \hbox (badness 10000) in paragraph at lines 10--18
+
+ []
+
+[100
+
+
+]) [101]
+\openout2 = `./sections/BoundedQueueTest.aux'.
+
+ (./sections/BoundedQueueTest.tex [102
+
+
+] [103]) [104]
+Chapter 7.
+[105
+
+
+]
+\openout2 = `./sections/Exchanger.aux'.
+
+ (./sections/Exchanger.tex [106
+
+] [107]
+Overfull \hbox (24.00421pt too wide) in paragraph at lines 96--97
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+LaTeX Font Info:    Font shape `OML/cmr/m/it' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 124.
+[108]) [109]
+Chapter 8.
+[110
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 
 ]
@@ -1454,6 +2192,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 17--22
 
  []
 
+<<<<<<< Updated upstream
 
 Underfull \hbox (badness 10000) in paragraph at lines 24--29
 
@@ -1467,7 +2206,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--35
 
  []
 
+<<<<<<< HEAD
 [152
+=======
+[163
+=======
+[111
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 56--58
@@ -1484,14 +2230,72 @@ Underfull \hbox (badness 10000) in paragraph at lines 87--91
 
  []
 
+<<<<<<< HEAD
 [153]
+=======
+<<<<<<< Updated upstream
+[164]
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 Underfull \hbox (badness 10000) in paragraph at lines 97--100
 
  []
 
+<<<<<<< HEAD
 ) [154]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 258.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 258.
+=======
+) [165]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 259.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 259.
+=======
+[112]
+Underfull \hbox (badness 10000) in paragraph at lines 108--115
+
+ []
+
+) [113]
+\openout2 = `./sections/BalancerTest.aux'.
+
+ (./sections/BalancerTest.tex [114
+
+
+]) [115]
+Chapter 9.
+[116
+
+
+]
+\openout2 = `./sections/CoarseHashSetTest.aux'.
+
+ (./sections/CoarseHashSetTest.tex [117
+
+] [118]) [119]
+Chapter 10.
+[120
+
+
+]
+Chapter 11.
+[121
+
+]
+Chapter 12.
+[122
+
+]
+Chapter 13.
+[123
+
+]
+Chapter 14.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 242.
+[124
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 242.
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
  (./MPP_Report.aux (./sections/LockFreeQueueTest.aux)
 (./sections/Peterson.aux) (./sections/Bakery.aux)
 (./sections/SafeBooleanMRSW.aux) (./sections/RegMRSWRegisterTest.aux)
@@ -1503,11 +2307,17 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 258.
 (./sections/HBOLockTest.aux) (./sections/QueueTest.aux)
 (./sections/CountDownLatch.aux) (./sections/CoarseList.aux)
 (./sections/LazyListTest.aux) (./sections/LockFreeList.aux)
-(./sections/BoundedQueueTest.aux) (./sections/SynchronousDualQueueTest.aux)
+(./sections/LockFreeQueueTest_revisited.aux) (./sections/BoundedQueueTest.aux)
+(./sections/SynchronousDualQueueTest.aux) (./sections/SynchronousQueueTest.aux)
+<<<<<<< Updated upstream
 (./sections/LockFreeQueueRecycleTest.aux)
 (./sections/LockFreeQueueTest_revisited.aux) (./sections/BoundedQueueTest.aux)
 (./sections/Exchanger.aux) (./sections/TreeTest.aux)
+<<<<<<< HEAD
 (./sections/CoarseHashSetTest.aux) (./sections/StripedHashSetTest.aux)
+=======
+(./sections/BalancerTest.aux) (./sections/CoarseHashSetTest.aux)
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 (./sections/CoarseCuckooHashSetTest.aux) (./sections/LockFreeHashSetTest.aux)
 (./sections/StripedCuckooHashSetTest.aux) (./sections/ArraySumTest.aux)
 (./sections/FibTaskTest.aux) (./sections/MMThreadTest.aux)
@@ -1516,6 +2326,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 258.
 (./sections/MMThreadTest16.aux) (./sections/DisBarrierTest.aux)
 (./sections/SenseBarrierTest.aux) (./sections/TreeBarrierTest.aux)
 (./sections/ListTest-ofree.aux))
+<<<<<<< HEAD
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 258.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 258.
 Package rerunfilecheck Info: File `MPP_Report.out' has not changed.
@@ -1550,4 +2361,70 @@ PDF statistics:
  3632 compressed objects within 37 object streams
  1823 named destinations out of 2073 (max. 500000)
  2104 words of extra memory for PDF output out of 10000 (max. 10000000)
+=======
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 259.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 259.
+Package rerunfilecheck Info: File `MPP_Report.out' has not changed.
+(rerunfilecheck)             Checksum: 1338B719C3DB2308C8DE824E289CB424;19829.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 259.
+ ) 
+Here is how much of TeX's memory you used:
+ 13352 strings out of 493089
+ 213094 string characters out of 6140664
+ 301543 words of memory out of 5000000
+ 14367 multiletter control sequences out of 15000+600000
+ 13876 words of font info for 53 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 36i,8n,40p,553b,1830s stack positions out of 5000i,500n,10000p,200000b,80000s
+=======
+(./sections/LockFreeQueueRecycleTest.aux) (./sections/BoundedQueueTest.aux)
+(./sections/Exchanger.aux) (./sections/TreeTest.aux)
+(./sections/BalancerTest.aux) (./sections/CoarseHashSetTest.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 242.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 242.
+Package rerunfilecheck Info: File `MPP_Report.out' has not changed.
+(rerunfilecheck)             Checksum: 9EF259583F243110774F87496159C5DF;13627.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 242.
+ ) 
+Here is how much of TeX's memory you used:
+ 12517 strings out of 493089
+ 198703 string characters out of 6140664
+ 300561 words of memory out of 5000000
+ 14192 multiletter control sequences out of 15000+600000
+ 13876 words of font info for 53 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 36i,8n,40p,553b,1796s stack positions out of 5000i,500n,10000p,200000b,80000s
+>>>>>>> Stashed changes
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
+/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmtt8.pfb>
+<<<<<<< Updated upstream
+Output written on MPP_Report.pdf (166 pages, 554730 bytes).
+PDF statistics:
+ 4187 PDF objects out of 4296 (max. 8388607)
+ 3960 compressed objects within 40 object streams
+ 2029 named destinations out of 2073 (max. 500000)
+ 2216 words of extra memory for PDF output out of 10000 (max. 10000000)
+=======
+Output written on MPP_Report.pdf (125 pages, 466871 bytes).
+PDF statistics:
+ 3057 PDF objects out of 3580 (max. 8388607)
+ 2882 compressed objects within 29 object streams
+ 1480 named destinations out of 1728 (max. 500000)
+ 1560 words of extra memory for PDF output out of 10000 (max. 10000000)
+>>>>>>> Stashed changes
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 

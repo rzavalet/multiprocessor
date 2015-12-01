@@ -146,9 +146,10 @@
 % ch 10 Concurrent Queues Start
 % --------------------------- %
 \chapter{Concurrent Queues and the ABA Problem}
+\include{./sections/LockFreeQueueTest_revisited}
 \include{./sections/BoundedQueueTest}
 \include{./sections/SynchronousDualQueueTest}
-%\include{./sections/SynchronousQueueTest}
+\include{./sections/SynchronousQueueTest}
 \include{./sections/LockFreeQueueRecycleTest}
 \include{./sections/LockFreeQueueTest_revisited}
 \include{./sections/BoundedQueueTest}
@@ -170,7 +171,7 @@
 % --------------------------- %
 \chapter{Counting, Sorting and Distributed Coordination}
 \include{./sections/TreeTest}
-%\include{./sections/BalancerTest}
+\include{./sections/BalancerTest}
 % --------------------------- %
 % Counting/Sorting End
 % --------------------------- %
@@ -178,9 +179,14 @@
 % --------------------------- %
 % ch 13 Concurrent Hashing and Natural Parallelism Start
 % --------------------------- %
+<<<<<<< HEAD
 \chapter{Concurrent Hashing and Natural Parallelism}
 \include{./sections/CoarseHashSetTest}
 \include{./sections/StripedHashSetTest}
+=======
+\chapter{Concurrent Hasing and Natural Parallelism}
+\include{./sections/CoarseHashSetTest}
+>>>>>>> 984a9afdcc367bf8ee7ece6148d3d09141f409fc
 \include{./sections/CoarseCuckooHashSetTest}
 \include{./sections/LockFreeHashSetTest}
 %\include{./sections/RefinableCuckooHashSetTest}
