@@ -5,14 +5,98 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+In this exercise we deal with the problem of implementing a Queue data
+structure with the particular characteristic of being lock free. 
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+Here we present the implementation of the Lock Free Queue that is based on the paper by Michael and Scott. 
+\par
+Here is the \textit{enqueue()} method:
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   * Append item to end of queue.
+   * @param item
+   */
+  public void enq(T item) {
+    if (item == null) throw new NullPointerException();
+    Node node = new Node(item); // allocate & initialize new node
+    while (true) {		 // keep trying
+      Node last = tail.get();    // read tail
+      Node next = last.next.get(); // read next
+      if (last == tail.get()) { // are they consistent?
+        AtomicReference[] target = {last.next, tail};
+        Object[] expect = {next, last};
+        Object[] update = {node, node};
+        if (multiCompareAndSet(
+            (AtomicReference<T>[]) target,
+            (T[]) expect,
+            (T[]) update)){
+          return;
+        }
+      }
+    }
+  }
+\end{lstlisting}
+\hfill
+\par
+Here is the dequeue method.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   * Remove and return head of queue.
+   * @return remove first item in queue
+   * @throws queue.EmptyException
+   */
+  public T deq() throws EmptyException {
+    while (true) {
+      Node first = head.get();
+      Node last = tail.get();
+      Node next = first.next.get();
+      if (first == head.get()) {// are they consistent?
+        if (first == last) {	// is queue empty or tail falling behind?
+          if (next == null) {	// is queue empty?
+            throw new EmptyException();
+          }
+          // tail is behind, try to advance
+          tail.compareAndSet(last, next);
+        } else {
+          T value = next.value; // read value before dequeuing
+          if (head.compareAndSet(first, next))
+            return value;
+        }
+      }
+    }
+\end{lstlisting}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+The test consists of 4 test cases. Let us briefly describe each one of them:
+\par
+\begin{itemize}
+\item testSequential. In this test case 512 elements are enqueued in the data
+structure. After that, each of the elements are dequeued. At each dequeue, we
+verify that the dequeued elements are in sequential order (just as they were
+inserted).
+\item testParallelEnqueue. This test cases spawns $8$ enqueuer threads. Each of
+them will add 512 elements to the queue. When they are done, the main thread
+dequeues each of the elements performing the same check described above.
+\item testParallelDequeue. In this test case, the master thread enqueues 512
+elements. When done, 8 dequeuer threads are spawned. The job of each of these
+dequeuer threads is to remove the elements. Additionally, an array that keeps
+track of which elements have been already dequeued is mantained. The test
+checks that no element is removed more than once.
+\item testParallelBoth. This is the most complete test in the suite. It spawns
+8 enqueuer threads and 8 dequeuer threads. Each enqueuer adds 512 elements to
+the queue. The dequeuers must remove each of these elements. A check similar to
+the one described in the \textit{testParallelDequeue} test is performed.
+\end{itemize}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}

@@ -5,17 +5,51 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
-As stated in the text book, a \textit{Balancer} is a simple switch with two input wires
-and two output wires (top and botom wires). The token arrives to the input lines and the
-balancer must output the input one at a time.
+The problem we are dealing with in this experiment is that of creating a 
+balancer class.
+\par
+As stated in the text book, a \textit{Balancer} is a simple switch with two
+input wires and two output wires (top and botom wires). The token arrives to
+the input lines and the balancer must output the input one at a time.
+\par
+A balancer has two states: \textit{up} and \textit{down}. If the state is
+\textit{up}, the next token exits on the top of the wire. Otherwise, it exits
+on the bottom wire.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+The following is a simple implementation of a Balancer
+class. As described above, the balancer consists of a
+toggle. 
 \par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public synchronized int traverse(int input) {
+    try {
+      if (toggle) {
+        return 0;
+      } else {
+        return 1;
+      }
+    } finally {
+      toggle = !toggle;
+    }
+  }
+\end{lstlisting}
+\hfill
+\par
+As we can observe, the traverse method simply switches the state of the toggle
+and outputs either $0$ or $1$. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+The balancer class described above is used in one test case. The test case
+consists of a 2-slot array. Each slot keeps track of how many times the
+balancer has output a signal on the \textit{up} wire and how many on the
+\textit{down} wire. 
+\par
+So, the test activates the balancer exactly $256$ times. The final result must be that each slot has the number $128$. If that is the case, we declare the test as passed, otherwise it failed.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}

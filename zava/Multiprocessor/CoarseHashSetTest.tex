@@ -5,14 +5,103 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+The problem we are trying to solve now is that of building a concurrent Hash
+data structure. In the particular case described in the book, the hash data
+structure is used to construct a representation of a set ADT. Hence, we ought
+to provide three operations:
+\par
+\begin{enumerate}
+\item add. Aggregate a new element to the set
+\item remove. Remove a given element from the set
+\item contains. Determine whether a given element is already in the set
+\end{enumerate}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+Here we present a first approach to solving the problem stated above. We do so
+by providing a coarse version. As in other coarse data structures, the problem
+with this implementation is its poor performance in parallel environments.
+\par
+Let us briefly describe how this implementation works. First we should mention
+that we have a base abstract class that implements the three operations
+mentioned previously. We extend this base class by providing four methods:
+\par
+\begin{itemize}
+\item resize. Resizes the hash based on a policy. In this implementation, it
+simply doubles the size of t he hash.
+\item acquire. Acquires a lock on the hash.
+\item release. Releases the lock.
+\item policy. Returns true if each bucket contains more than 4 elements.
+\end{itemize}
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   * double the set size
+   */
+  public void resize() {
+    int oldCapacity = table.length;
+    lock.lock();
+    try {
+      if (oldCapacity != table.length) {
+        return; // someone beat us to it
+      }
+      int newCapacity  = 2 * oldCapacity;
+      List<T>[] oldTable = table;
+      table = (List<T>[]) new List[newCapacity];
+      for (int i = 0; i < newCapacity; i++)
+        table[i] = new ArrayList<T>();
+      for (List<T> bucket : oldTable) {
+        for (T x : bucket) {
+          int myBucket = Math.abs(x.hashCode() % table.length);
+          table[myBucket].add(x);
+        }
+      }
+    } finally {
+      lock.unlock();
+    }
+  }
+  /**
+   * Synchronize before adding, removing, or testing for item
+   * @param x item involved
+   */
+  public final void acquire(T x) {
+    lock.lock();
+  }
+  /**
+   * synchronize after adding, removing, or testing for item
+   * @param x item involved
+   */
+  public void release(T x) {
+    lock.unlock();
+  }
+  public boolean policy() {
+    return size / table.length > 4;
+  }
+\end{lstlisting}
+\hfill
+\par
+This implementation is said to be coarse because any operation on the hash locks the entire data structure. 
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+As in other experiments, here we have four test cases:
+\begin{itemize}
+\item testSequential. The master thread adds 512 elements to the set, then it
+verifies that these elements were actually added and finally removes them.
+\item testParallelEnq. It creates 8 \textit{adders} threads. Each of them will
+add 512 elements to the set. When all of them are done, the master thread
+checks that all the elements were actually added and finally removes them.
+\item testParallelRemove. In this test case, the master thread adds 512
+elements to the set and verifies that the elements were actually added. After
+that, 8 \textit{remover} threads are spawned. Each of them will remove $512/8$
+elements. 
+\item testParallelBoth. This test is a mix of the two above. 8
+\textit{removers} and 8 \textit{adders} are spawned. Removers should remove
+elements added by the adders.
+\end{itemize}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
