@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Cygwin) (preloaded format=pdflatex 2015.11.29)  30 NOV 2015 20:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Cygwin) (preloaded format=pdflatex 2015.11.29)  30 NOV 2015 20:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -474,7 +474,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.32 ...ular Case (problem)}{30}{subsection.2.2.1}
+l.32 ...ular Case (problem)}{23}{subsection.2.2.1}
                                                    [1
 
 ] [2] [3] [4] [5] [6]
@@ -1540,12 +1540,16 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 259.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 259.
 Package rerunfilecheck Info: File `MPP_Report.out' has not changed.
 (rerunfilecheck)             Checksum: 1338B719C3DB2308C8DE824E289CB424;19829.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 259.
  ) 
 Here is how much of TeX's memory you used:
  13352 strings out of 493089
  213094 string characters out of 6140664
- 301545 words of memory out of 5000000
+ 301543 words of memory out of 5000000
  14367 multiletter control sequences out of 15000+600000
  13876 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1562,7 +1566,7 @@ cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
 usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmtt8.pfb>
-Output written on MPP_Report.pdf (166 pages, 554731 bytes).
+Output written on MPP_Report.pdf (166 pages, 554730 bytes).
 PDF statistics:
  4187 PDF objects out of 4296 (max. 8388607)
  3960 compressed objects within 40 object streams
