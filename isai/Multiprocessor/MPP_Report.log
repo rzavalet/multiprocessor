@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 DEC 2015 01:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 DEC 2015 03:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -209,7 +209,9 @@ LaTeX Warning: Unused global option(s):
 (./sections/UnboundedQueueTest.aux) (./sections/BitonicTest.aux)
 (./sections/CuckooHashingTest.aux) (./sections/RefinableHashSetTest.aux)
 (./sections/DEQueueTest.aux) (./sections/MatrixTaskTest.aux)
-(./sections/UDEQueueTest.aux) (./sections/SequentialHeapTest.aux))
+(./sections/UDEQueueTest.aux) (./sections/SequentialHeapTest.aux)
+(./sections/SkipQueueTest.aux) (./sections/RevBarrierTest.aux)
+(./sections/BloomFilterTest.aux))
 \openout1 = `MPP_Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
@@ -563,7 +565,37 @@ Overfull \hbox (16.56575pt too wide) in paragraph at lines 9--9
 [62
 
 
-] [63] [64] [65]) [66] (./MPP_Report.aux (./sections/FilterTest.aux)
+] [63] [64] [65]) [66]
+Chapter 11.
+[67
+
+
+]
+\openout2 = `sections/RevBarrierTest.aux'.
+
+ (./sections/RevBarrierTest.tex [68
+
+]) [69]
+Chapter 12.
+[70
+
+
+]
+\openout2 = `sections/BloomFilterTest.aux'.
+
+ (./sections/BloomFilterTest.tex [71
+
+]) [72]
+\openout2 = `sections/SkipListSetTest.aux'.
+
+ (./sections/SkipListSetTest.tex
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+[73
+
+
+]) [74] (./MPP_Report.aux (./sections/FilterTest.aux)
 (./sections/QueueTest.aux) (./sections/RegBooleanMRSWRegisterTest.aux)
 (./sections/SeqSnapshotTest.aux) (./sections/ALockTest.aux)
 (./sections/CompositeFastPathLockTest.aux) (./sections/TOLockTest.aux)
@@ -573,27 +605,29 @@ Overfull \hbox (16.56575pt too wide) in paragraph at lines 9--9
 (./sections/BitonicTest.aux) (./sections/CuckooHashingTest.aux)
 (./sections/RefinableHashSetTest.aux) (./sections/DEQueueTest.aux)
 (./sections/MatrixTaskTest.aux) (./sections/UDEQueueTest.aux)
-(./sections/SequentialHeapTest.aux) (./sections/SkipQueueTest.aux)) ) 
+(./sections/SequentialHeapTest.aux) (./sections/SkipQueueTest.aux)
+(./sections/RevBarrierTest.aux) (./sections/BloomFilterTest.aux)
+(./sections/SkipListSetTest.aux)) ) 
 Here is how much of TeX's memory you used:
- 4971 strings out of 493089
- 75698 string characters out of 6134842
- 276991 words of memory out of 5000000
- 8254 multiletter control sequences out of 15000+600000
+ 4995 strings out of 493089
+ 76332 string characters out of 6134842
+ 278093 words of memory out of 5000000
+ 8257 multiletter control sequences out of 15000+600000
  11048 words of font info for 41 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,6n,38p,782b,1455s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on MPP_Report.pdf (67 pages, 223238 bytes).
+</usr/local/texlive/2015/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmti12.pfb>
+Output written on MPP_Report.pdf (75 pages, 234188 bytes).
 PDF statistics:
- 252 PDF objects out of 1000 (max. 8388607)
- 173 compressed objects within 2 object streams
+ 278 PDF objects out of 1000 (max. 8388607)
+ 191 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

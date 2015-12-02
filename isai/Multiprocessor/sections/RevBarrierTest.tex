@@ -1,0 +1,91 @@
+% -------------------------------------------------------- %
+% RevBarrierTes 
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Reusable Barrier}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment we implement an n-thread reusable barrier from an n-wire counting network and a single Boolean variable.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+To implement a reusable barrier, we use a Combining Tree Barrier implementation and change the constructor in order to support the reuse of the barrier. 
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public RevBarrier(int _size, int _radix) {
+    radix = _radix;
+    leaves = 0;
+    this.leaf = new Node[_size / _radix];
+    int depth = 0;
+    threadSense = new ThreadLocal<Boolean>() {
+      protected Boolean initialValue() { return true; };
+    };
+    // compute tree depth
+    while (_size > 1) {
+      depth++;
+      _size = _size / _radix;
+      assert _size > 0;
+    }
+    Node root = new Node();
+    build(root, depth - 1);
+  }
+  
+  // recursive tree constructor
+  void build(Node parent, int depth) {
+    // are we at a leaf node?
+    if (depth == 0) {
+      leaf[leaves++] = parent;
+    } else {
+      for (int i = 0; i < radix; i++) {
+        Node child = new Node(parent);
+        build(child, depth - 1);
+      }
+    }
+  }
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that need to use the barrier \textit{await()} in order to write values into the log and let the writer finish. 
+If the round doesn't correspond to the value in the log then a System.out showing the expected value and found are displayed.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found.
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.511 sec
+
+------------- Standard Output ---------------
+Testing 8 threads, 8 rounds
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 0 seconds)
+\end{lstlisting}
+
+
+
+
