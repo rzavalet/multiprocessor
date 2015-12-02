@@ -1,0 +1,95 @@
+% -------------------------------------------------------- %
+% Bitonic Counting
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Bitonic Counting Network}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment we implement a \textit{Bitonic} counting network, a \textit{Bitonic} network is a comparison-based sorting network that can be run in parallel. It focuses on converting a random sequence of numbers into a bitonic sequence, one that monotonically increases, then decreases.
+We represent this network as switches in a counting network, but as we use shared-memory multiprocessor however, we represent this network as objects in memory mimicking a real network.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+According to the theory each balancer is an object, whose wires are references from one balancer to another. Each thread repeatedly traverses the object, starting on some input wire and emerging at some output wire, effectively shepherding a token through the network.
+The \textit{Balancer} class has a single Boolean field: toggle. The synchronized \textit{traverse()} method complements the toggle field and returns as output wire, either 0 or 1. 
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public synchronized int traverse(int input) {
+    try {
+      if (toggle) {
+        return 0;
+      } else {
+        return 1;
+      }
+    } finally {
+      toggle = !toggle;
+    }
+  }
+\end{lstlisting}
+\par
+The \textit{Merger} class has three fields; the \textit{width} field must be a power of 2, \textit{half[]} is a two-element array of half-width \textit{Merger} objects, and \textit{layer[]} is an array of width/2 balancers implementing the final network layer.
+The class provides a \textit{traverse(i)} method, where i is the wire on which the token enters. If the token entered on the lower width/2 wires, then it passes through \textit{half[0]}, otherwise \textit{half[1]}.
+\begin{lstlisting}[frame=single,breaklines=true]
+  public Merger(int _size) {
+    size = _size;
+    layer = new Balancer[size / 2];
+    for (int i = 0; i < size / 2; i++) {
+      layer[i] = new Balancer();
+    }
+    if (size > 2) {
+      half = new Merger[]{new Merger(size/2), new Merger(size/2)};
+    }    
+  }
+
+  public int traverse(int input) {
+    int output = 0;
+    if (size > 2) {
+      output = half[input % 2].traverse(input / 2);
+    }
+    return output + layer[output].traverse(0);
+  }
+\end{lstlisting}
+\par
+The \textit{Bitonic} class provides a \textit{traverse(i)} method. If the token entered on the lower width/2 wires, then it passes through \textit{half[0]}, otherwise \textit{half[1]}. A token that emerges from the half-merger subnetwork on wire $i$ then traverses the final merger network from input wire $i$.
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates a $256$ array that get values mapped to it and later checks that the steps where properly executes, by validating the result in the \textit{position-1} of each elements the bitonic sorted should have accommodated the array into a proper sequence. If the result doesn't match the mapping a new exception is thrown.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found. The bitonic counting network as represented through software is replicating hardware that is well understood and easy to follow.
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,052 sec
+
+test:
+Deleting: /var/folders/hn/vlmcc1gj1kl7bb9rpqb8tdqr0000gn/T/TEST-counting.BitonicTest.xml
+BUILD SUCCESSFUL (total time: 0 seconds)
+\end{lstlisting}
+
+
+
+

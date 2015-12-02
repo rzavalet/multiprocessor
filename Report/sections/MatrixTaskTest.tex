@@ -1,0 +1,97 @@
+% -------------------------------------------------------- %
+% Matrix Task
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Parallel Matrix Multiplication}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment, the particular case we are trying to study is matrix parallel multiplication by devising methods to add and multiply matrices.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+To implement a parallel multiplication we create a Matrix class that provides \textit{set()} and \textit{get()} methods to access matrix elements, along with a constant-time \textit{split()} method that splits an $n$-by-$n$ matrix into four $(n/2)$-by-$(n/2)$ submatrices.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+    double get(int row, int col) {
+      return data[row+rowDisplace][col+colDisplace];
+    }
+    
+    void set(int row, int col, double value) {
+      data[row+rowDisplace][col+colDisplace] = value;
+    }    
+    
+    Matrix[][] split() {
+      Matrix[][] result = new Matrix[2][2];
+      int newDim = dim / 2;
+      result[0][0] = new Matrix(data, rowDisplace, colDisplace, newDim);
+      result[0][1] = new Matrix(data, rowDisplace, colDisplace + newDim, newDim);
+      result[1][0] = new Matrix(data, rowDisplace + newDim, colDisplace, newDim);
+      result[1][1] = new Matrix(data, rowDisplace + newDim, colDisplace + newDim, newDim);
+      return result;
+    }
+\end{lstlisting}
+For simplicity, we consider matrices whose dimension $n$ is a power of $2$. Any such matrix can be decomposed into four submatrices, thus their sums can be done in parallel.
+\par
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates two matrices with a dimension of four which will be multiplied in parallel, the resulting matrix will be verified and a fail assertion will be thrown is the result is incorrect.
+\par
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+When compiling the code the Matrix class had to be changed from private to public and the offset and dimension of the Matrix must be added to the test class as shown below.
+\begin{lstlisting}[frame=single,breaklines=true]
+    Matrix aa = new Matrix(a, 0, 0, 4);
+    Matrix bb = new Matrix(b, 0, 0, 4);
+\end{lstlisting}
+After making this changes the codes compiles and everything works fine.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.369 sec
+
+------------- Standard Output ---------------
+run
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 0 seconds)
+\end{lstlisting}
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Proposed changes to fix the problem}
+
+\par
+The MatrixTask class needs to have the visibility of the inner Matrix class change to public in order for the test to view it.
+\begin{lstlisting}[frame=single,breaklines=true]
+  public static class Matrix {
+    int dim;
+    double[][] data;
+    int rowDisplace;
+    int colDisplace;
+    ---
+  }
+\end{lstlisting}

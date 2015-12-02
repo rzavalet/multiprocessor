@@ -1,0 +1,72 @@
+% -------------------------------------------------------- %
+% DEQueue Lock
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Double Ended Queue}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment each thread keeps a pool of tasks waiting to be executed in the form of a double-ended queue (DEQueue), providing \textit{pushBottom()}, \textit{popBottom()}, and \textit{popTop()} methods.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+According to the theory when a thread creates a new task, it calls\textit{ pushBottom()} to push that task onto its \textit{DEQueue}. When a thread needs a task to work on, it calls \textit{popBottom()} to remove a task from its own \textit{DEQueue}. If the thread discovers its queue is empty, then it becomes a thief, it chooses a victim thread at random, and calls that thread’s DEQueue’s \textit{popTop()} method to steal a task for itself.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public Runnable popTop() {
+    int[] stamp = new int[1];
+    int oldTop = top.get(stamp), newTop = oldTop + 1;
+    int oldStamp = stamp[0], newStamp = oldStamp + 1;
+    if (bottom <= oldTop) // empty
+      return null;
+    Runnable r= tasks[oldTop];
+    if (top.compareAndSet(oldTop, newTop, oldStamp, newStamp))
+      return r;
+    return null;
+  }
+\end{lstlisting}
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $16$ threads, eight that need to be coordinate in order to \textit{pushBottom()} and \textit{popBottom()} an array of values. All threads have to cooperate to add and remove elements from the queue and eight \textit{Dummy()} threads will be stealing execution from the running ones. After each thread execution, if everything works according to the test the map will have all values set to true.
+If that is not the case, a duplicate or missing fail will be raised.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found.
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.162 sec
+
+------------- Standard Output ---------------
+sequential pushBottom and popBottom
+concurrent pushBottom and popBottom
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 2 seconds)
+\end{lstlisting}
+
+
+
+

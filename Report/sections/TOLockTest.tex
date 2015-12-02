@@ -1,0 +1,90 @@
+% -------------------------------------------------------- %
+% TO Lock
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Time Out Lock}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment we consider the Java Lock interface which includes a \textit{tryLock()} method that allows the caller to specify a \textit{timeout} or maximum duration the caller is willing to wait to acquire the lock. The TOLock implements this mechanism in order to wait for a resource.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+The \textit{tryLock()} method creates a new QNode with a null pred field and appends it to the list as in the CLHLock class. If the lock was free, the thread enters the critical section. Otherwise, it spins waiting for its predecessor’s QNode’s pred field to change. If the predecessor thread times out, it sets the pred field to its own predecessor, and the thread spins instead on the new predecessor. 
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+    while (System.nanoTime() - startTime < patience) {
+      QNode predPred = pred.pred;
+      if (predPred == AVAILABLE) {
+        return true;
+      } else if (predPred != null) {  // skip predecessors
+        pred = predPred;
+      }
+    }
+    // timed out; reclaim or abandon own node
+    if (!tail.compareAndSet(qnode, pred))
+      qnode.pred = pred;
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that need to be coordinate in order to increase a counter. All threads have to cooperate in order to increase the counter into the desire value, this lock implements a explicit lock that the test calls, but with the addition of a time out.
+If that is not the case, an assertion fail will be raised.
+\par
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Proposed changes to improve execution}
+
+\par
+By making volatile the QNode's in the TOLock class the execution finishes faster.
+\begin{lstlisting}[frame=single,breaklines=true]
+  volatile static QNode AVAILABLE = new QNode();
+  volatile AtomicReference<QNode> tail;
+  ThreadLocal<QNode> myNode;
+\end{lstlisting}
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found. But the time out generates some waiting depending on the number of cores the machine has.
+
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 22.551 sec
+
+------------- Standard Output ---------------
+locking
+Created Threads
+Started Threads
+Finished Threads
+timeout
+timeouts: 8191
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 24 seconds)
+\end{lstlisting}
+
+
+
+

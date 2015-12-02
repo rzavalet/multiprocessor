@@ -1,0 +1,68 @@
+% -------------------------------------------------------- %
+% Regular Boolean MRSW Register Lock
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Regular Boolean MRSW Register}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+A register, is an object that encapsulates a value that can be observed by a \textit{read()} method and modified by a \textit{write()} method
+\par
+For Boolean registers, the only difference between safe and regular arises when the newly written value $x$ is the same as the old. A regular register can only return $x$, while a safe register may return either Boolean value.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+A register that implements the \textit{Register<Boolean>} interface is called a Boolean register (we sometimes use 1 and 0 as synonyms for true and false).
+This register uses the \textit{ThreadLocal} Java java.lang package, which provides thread-local variables. These variables differ from their normal counterparts in that each thread that accesses one (via its get or set method) has its own, independently initialized copy of the variable. \textit{ThreadLocal} instances are typically private static fields in classes that wish to associate state with a thread
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+public class RegBooleanMRSWRegister 
+implements Register<Boolean> {
+  ThreadLocal<Boolean> last;
+  private boolean s_value;
+  RegBooleanMRSWRegister(int capacity) {
+    this.last = new ThreadLocal<Boolean>() {
+      protected Boolean initialValue() { return false; };
+    };
+  }
+  public void write(Boolean x) {
+    if (x != last.get()) {  // if new value different ...
+      last.set(x);          // remember new value
+      s_value =x;           // update register
+    }
+  }
+  public Boolean read() {
+    return s_value;
+  }
+}
+\end{lstlisting}
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that reads the value of a register. All threads have to be able to read the current value of the register despite the previous value is contrary to the current one.
+The expected result is must be a $1$ or true value.
+\par
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+\par
+The tests executed as expected and no errors where found.
+

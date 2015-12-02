@@ -87,6 +87,8 @@
 \include{./sections/LockFreeQueueTest}
 \include{./sections/Peterson}
 \include{./sections/Bakery}
+\include{./sections/FilterTest}
+\include{./sections/QueueTest}
 % --------------------------- %
 % Mutual End
 % --------------------------- %
@@ -97,6 +99,8 @@
 \chapter{Foundations of Shared Memory}
 \include{./sections/SafeBooleanMRSW}
 \include{./sections/RegMRSWRegisterTest}
+\include{./sections/RegBooleanMRSWRegisterTest}
+\include{./sections/SeqSnapshotTest}
 \include{./sections/AtomicMRSWRegister}
 \include{./sections/AtomicMRMWRegisterTest}
 \include{./sections/SimpleSnapshotTest}
@@ -115,6 +119,9 @@
 \include{./sections/BackoffLockTest}
 \include{./sections/CLHLockTest}
 \include{./sections/MCSLockTest}
+\include{./sections/ALockTest}
+\include{./sections/CompositeFastPathLockTest}
+\include{./sections/TOLockTest}
 \include{./sections/CompositeLockTest}
 \include{./sections/HBOLockTest}
 % --------------------------- %
@@ -126,6 +133,7 @@
 % --------------------------- %
 \chapter{Monitors and Blocking Synchronization}
 \include{./sections/QueueTest}
+\include{./sections/MutexTest}
 \include{./sections/CountDownLatch}
 % --------------------------- %
 % Monitors End
@@ -136,6 +144,8 @@
 % --------------------------- %
 \chapter{Linked Lists: The Role of Locking}
 \include{./sections/CoarseList}
+\include{./sections/FineListTest}
+\include{./sections/OptimisticListTest}
 \include{./sections/LazyListTest}
 \include{./sections/LockFreeList}
 % --------------------------- %
@@ -147,7 +157,9 @@
 % --------------------------- %
 \chapter{Concurrent Queues and the ABA Problem}
 \include{./sections/LockFreeQueueTest_revisited}
+\include{./sections/HWQueueTest}
 \include{./sections/BoundedQueueTest}
+\include{./sections/UnboundedQueueTest}
 \include{./sections/SynchronousDualQueueTest}
 \include{./sections/SynchronousQueueTest}
 \include{./sections/LockFreeQueueRecycleTest}
@@ -172,6 +184,7 @@
 \chapter{Counting, Sorting and Distributed Coordination}
 \include{./sections/TreeTest}
 \include{./sections/BalancerTest}
+\include{./sections/BitonicTest}
 % --------------------------- %
 % Counting/Sorting End
 % --------------------------- %
@@ -184,6 +197,8 @@
 \include{./sections/StripedHashSetTest}
 \include{./sections/CoarseCuckooHashSetTest}
 \include{./sections/LockFreeHashSetTest}
+\include{./sections/CuckooHashingTest}
+\include{./sections/RefinableHashSetTest}
 \include{./sections/RefinableCuckooHashSetTest}
 \include{./sections/StripedCuckooHashSetTest}
 
@@ -195,6 +210,9 @@
 % ch 14 Skiplists and Balanced Search
 % --------------------------- %
 \chapter{Skiplists and Balanced Search}
+\include{sections/DEQueueTest}
+\include{sections/MatrixTaskTest}
+\include{sections/UDEQueueTest}
 \include{./sections/ArraySumTest}
 %\include{./sections/BDEQueueTest}
 \include{./sections/FibTaskTest}
@@ -211,6 +229,8 @@
 \chapter{Priority Queues}
 \include{./sections/BitReversedCounterTest}
 \include{./sections/SimpleTreeTest}
+\include{./sections/SequentialHeapTest}
+\include{./sections/SkipQueueTest}
 \include{./sections/FineGrainedHeapTest}
 \include{./sections/SimpleLinearTest}
 % --------------------------- %
@@ -237,7 +257,8 @@
 \chapter{Barriers}
 \include{./sections/DisBarrierTest}
 %\include{./sections/GTreeBarrierTest}
-\include{./sections/SenseBarrierTest}
+\include{sections/SenseBarrierTest}
+\include{sections/RevBarrierTest}
 %\include{./sections/StaticTreeBarrierTest}
 \include{./sections/TreeBarrierTest}
 % --------------------------- %
@@ -248,6 +269,8 @@
 % ch 18 Transactional Memory
 % --------------------------- %
 \chapter{Transactional Memory}
+\include{./sections/BloomFilterTest}
+\include{./sections/SkipListSetTest}
 %\include{./sections/ListTest_locking}
 \include{./sections/ListTest-ofree}
 %\include{./sections/SkipListSetTest}

@@ -1,0 +1,118 @@
+% -------------------------------------------------------- %
+% SeqSnapshot
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Sequential Snapshot}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In order to read multiple register values atomically we use an atomic snapshot.
+An atomic snapshot constructs an instantaneous view of an array of atomic registers. We construct a wait-free snapshot, meaning that a thread can take an instantaneous snapshot of memory without delaying any other thread.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+Each thread repeatedly calls \textit{collect()}, and returns as soon as it detects a clean double collect (one in which both sets of timestamps were identical). This construction always returns correct values. The \textit{update()} calls are wait-free, but \textit{scan()} is not because any call can be repeatedly interrupted by \textit{update()}, and may run forever without completing. It is however obstruction-free, since a \textit{scan()} completes if it runs by itself for long enough.
+\begin{lstlisting}[frame=single,breaklines=true]
+public class SeqSnapshot<T> implements Snapshot<T> {
+  private T[] a_value;
+  public SeqSnapshot(int capacity, T init) {
+    a_value = (T[])new Object[capacity];
+    for (int i = 0; i < a_value.length; i++) {
+      a_value[i] = init;
+    }
+  }
+  public synchronized void update(T v) {
+    a_value[ThreadID.get()] = v;
+  }
+  public synchronized T[] scan() {
+    T[] result = (T[]) new Object[a_value.length];
+    for (int i = 0; i < a_value.length; i++)
+      result[i] = a_value[i];
+    return result;
+  }
+}
+\end{lstlisting}
+\par
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $2$ threads that write the register twice with the the values \textit{FIRST} and \textit{SECOND} and later parallel reads the values.
+\par
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+When executing the test the test fails on the parallel part due to a index out of bound exception.
+\begin{lstlisting}[frame=single,breaklines=true]
+Testcase: testSequential(register.SeqSnapshotTest):	Caused an ERROR
+2
+java.lang.ArrayIndexOutOfBoundsException: 2
+	at register.SeqSnapshot.update(SeqSnapshot.java:26)
+	at register.SeqSnapshotTest.testSequential(SeqSnapshotTest.java:40)
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Proposed changes to fix the problem}
+
+\par
+By resetting the thread id at the beginning of the test the id is guarantee to be the experted while doing the parallel test.
+\begin{lstlisting}[frame=single,breaklines=true]
+  class MyThread extends Thread {
+    public void run() {
+      ThreadID.reset();
+      instance.update(FIRST);
+      instance.update(SECOND);
+      Object[] a = instance.scan();
+      for (Object x : a) {
+        Integer i = (Integer) x;
+        int me = ThreadID.get();
+        for (int j = 0; j < THREADS; j++) {
+          results[me][j] = (Integer)a[j];
+        }
+      }
+    }
+  }
+\end{lstlisting}
+Once the change is made the execution works fine on every equipment used.
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 sec
+
+------------- Standard Output ---------------
+sequential
+parallel
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 0 seconds)
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Why?
+
+\subsection{Proposed solution}
+\par
+Once the ThreadID is reset before changing from the sequential to the parallel test the execution never fails, since the out of bound happens due to the id being incremental.
+
