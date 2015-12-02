@@ -62,8 +62,8 @@
 % Mutual Start
 % --------------------------- %
 \chapter{Mutual Exclusion}
-\include{sections/Peterson}
-\include{sections/Bakery}
+\include{sections/FilterTest}
+\include{sections/QueueTest}
 % --------------------------- %
 % Mutual End
 % --------------------------- %
@@ -73,9 +73,8 @@
 % Shared Memory Start
 % --------------------------- %
 \chapter{Foundations of Shared Memory}
-\include{sections/SafeBooleanMRSW}
-\include{sections/AtomicMRSWRegister}
-\include{sections/WFSnapshot}
+\include{sections/RegBooleanMRSWRegisterTest}
+\include{sections/SeqSnapshotTest}
 % --------------------------- %
 % Shared Memory End
 % --------------------------- %
@@ -85,10 +84,9 @@
 % Spin Lock Start
 % --------------------------- %
 \chapter{Spin Locks and Contention}
-\input{sections/SpinLocks}
-\include{sections/TASLockTest}
-\include{sections/HBOLockTest}
-\include{sections/CLHLockTest}
+\include{sections/ALockTest}
+\include{sections/CompositeFastPathLockTest}
+\include{sections/TOLockTest}
 % --------------------------- %
 % Spin Lock End
 % --------------------------- %
@@ -98,7 +96,7 @@
 % Monitor Start
 % --------------------------- %
 \chapter{Monitors and Blocking Synchronization}
-\include{sections/CountDownLatch}
+\include{sections/MutexTest}
 % --------------------------- %
 % Monitor End
 % --------------------------- %
@@ -108,11 +106,87 @@
 % Linked List Start
 % --------------------------- %
 \chapter{Linked Lists: The Role of Locking}
-%\include{sections/CoarseList}
-%\include{sections/LockFreeList}
+\include{sections/FineListTest}
+\include{sections/OptimisticListTest}
 % --------------------------- %
 % Linked List End
 % --------------------------- %
 
+
+% --------------------------- %
+% Concurrent Queues Start
+% --------------------------- %
+\chapter{Concurrent Queues and the ABA Problem}
+\include{sections/HWQueueTest}
+\include{sections/BoundedQueueTest}
+\include{sections/UnboundedQueueTest}
+% --------------------------- %
+% Concurrent Queues End
+% --------------------------- %
+
+
+% --------------------------- %
+% Concurrent Queues Start
+% --------------------------- %
+\chapter{Counting, Sorting, and Distributed Coordination}
+\include{sections/BitonicTest}
+% --------------------------- %
+% Concurrent Queues End
+% --------------------------- %
+
+
+% --------------------------- %
+% Concurrent Hashing and Natural Parallelism Start
+% --------------------------- %
+\chapter{Concurrent Hashing and Natural Parallelism}
+\include{sections/CuckooHashingTest}
+\include{sections/RefinableHashSetTest}
+% --------------------------- %
+% Concurrent Hashing and Natural Parallelism End
+% --------------------------- %
+
+
+% --------------------------- %
+% Skiplists and Balanced Search Start
+% --------------------------- %
+\chapter{Skiplists and Balanced Search}
+\include{sections/DEQueueTest}
+\include{sections/MatrixTaskTest}
+\include{sections/UDEQueueTest}
+% --------------------------- %
+% Skiplists and Balanced Search End
+% --------------------------- %
+
+
+% --------------------------- %
+% Priority Queues Start
+% --------------------------- %
+\chapter{Priority Queues}
+\include{sections/SequentialHeapTest}
+\include{sections/SkipQueueTest}
+% --------------------------- %
+% Priority Queues End
+% --------------------------- %
+
+
+% --------------------------- %
+% Barriers Start
+% --------------------------- %
+\chapter{Barriers}
+\include{sections/RevBarrierTest}
+% --------------------------- %
+% Barriers End
+% --------------------------- %
+
+
+% --------------------------- %
+% Barriers Start
+% --------------------------- %
+\chapter{Transactional Memory}
+\include{sections/BloomFilterTest}
+\include{sections/SkipListSetTest}
+% --------------------------- %
+% Barriers End
+% --------------------------- %
 
 \end{document}

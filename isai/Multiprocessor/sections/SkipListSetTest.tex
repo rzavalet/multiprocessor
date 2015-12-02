@@ -1,0 +1,71 @@
+% -------------------------------------------------------- %
+% Lazy skiplist  
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Lazy Skiplist}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment we implement a Lazy Skiplist which uses an optimistic fine-grained locking, meaning that the method searches for its target node without locking, and acquires locks and validates only when it discovers the target. 
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+Acording to the theory we use a skiplist to implement a set providing the methods, \textit{add(x)} adds $x$ to the set, \textit{remove(x)} removes x from the set, and \textit{contains(x)} returns true if, and only if $x$ is in the set.
+Recall that a skiplist is a collection of linked lists. Each node in the list contains an item field (an element of the set), a key field (the item’s hash code), and a next field, which is an array of references to successor nodes in the list.
+Using \textit{TinyTM}, threads communicate via shared atomic objects, which provide synchronization, ensuring that transactions cannot see one another's uncommitted effects, and recovery, undoing the effects of aborted transactions. Fields of atomic objects are not directly accessible. Instead, they are accessed indirectly through getter and setter methods.
+Accessing fields through getters and setters provides the ability to interpose transactional synchronization and recovery on each field access.
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $32$ thread that parallel insert values, commits them and aborts then and compare the length and commits.
+If values are missing an assert fail is thrown.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found.
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.445 sec
+
+------------- Standard Output ---------------
+TestSequential
+inserts: 186147, removes: 185635, missed: 370334, delta: 512
+commits: 742116, aborts: 0
+SkipListSet OK
+length = 1536 (expected 1536)
+Commits: 742116 (expected 742116)
+TestParallel(32)
+inserts: 24, removes: 0, missed: 41, delta: 24
+commits: 65, aborts: 66
+SkipListSet OK
+length = 1048 (expected 1048)
+Commits: 65 (expected 65)
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 12 seconds)
+\end{lstlisting}
+
+
+
+

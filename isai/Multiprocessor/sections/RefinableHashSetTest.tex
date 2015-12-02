@@ -1,0 +1,141 @@
+% -------------------------------------------------------- %
+% Refinable Hashing
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Refinable Hash Set}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this test we want to refine the granularity of locking as the table size grows, so that the number of locations in a stripe does not continuously grow by using a globally shared owner field that combines a \textit{Boolean} value with a reference to a thread.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+While a resizing is in progress, the \textit{owner} Boolean value is true, and the associated reference indicates the thread that is in charge of resizing.
+We use the owner as a mutual exclusion flag between the \textit{resize()} method and any of the \textit{add()} methods, so that while resizing, there will be no successful updates, and while updating, there will be no successful resizes.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public void resize() {
+    int oldCapacity = table.length;
+    int newCapacity = 2 * oldCapacity;
+    Thread me = Thread.currentThread();
+    if (owner.compareAndSet(null, me, false, true)) {
+      try {
+        if (table.length != oldCapacity) {  // someone else resized first
+          System.out.println("Someone else resizd first");
+          return;
+        }
+        quiesce();
+        List<T>[] oldTable = table;
+        table = (List<T>[]) new List[newCapacity];
+        for (int i = 0; i < newCapacity; i++)
+          table[i] = new ArrayList<T>();
+        locks = new ReentrantLock[newCapacity];
+        for (int j = 0; j < locks.length; j++) {
+          locks[j] = new ReentrantLock();
+        }
+        initializeFrom(oldTable);
+      } finally {
+        owner.set(null, false);       // restore prior state
+      }
+    }
+  }
+\end{lstlisting}
+\par
+The \textit{acquire()} and the \textit{resize()} methods guarantee mutually exclusive access via the flag principle using the mark field of the \textit{owner} flag and the table’s locks array, \textit{acquire()} first acquires its locks and then reads the mark field, while \textit{resize()} first sets mark and then reads the locks during the \textit{quiesce()} call. This ordering ensures that any thread that acquires the locks after \textit{quiesce()} has completed will see that the set is in the processes of being resized, and will back off until the resizing is complete.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  protected void quiesce() {
+    for (ReentrantLock lock : locks) {
+      while (lock.isLocked()) {}  // spin
+    }
+  }
+\end{lstlisting}
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public void acquire(T x) {
+    boolean[] mark = {true};
+    Thread me = Thread.currentThread();
+    Thread who;
+    while (true) {
+      do { // wait until not resizing
+        who = owner.get(mark);
+      } while (mark[0] && who != me);
+      ReentrantLock[] oldLocks = this.locks;
+      int myBucket = Math.abs(x.hashCode() % oldLocks.length);
+      ReentrantLock oldLock = oldLocks[myBucket];
+      oldLock.lock();  // acquire lock
+      who = owner.get(mark);
+      if ((!mark[0] || who == me) && this.locks == oldLocks) { // recheck
+        return;
+      } else {  //  unlock & try again
+        oldLock.unlock();
+      }
+    }
+  }
+\end{lstlisting}
+\par
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that perform \textit{enq()} and \textit{deq()} operations in sequential and parallel.
+The dequeue values are revised and if a value is missing a fail assertion is thrown.
+\par
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+When executing the test the test fails on the parallel part due to a duplicate value when executing the parallel both test.
+\begin{lstlisting}[frame=single,breaklines=true]
+Assertion error: duplicate pop Exception in thread "Thread-13" junit.framework.AssertionFailedError: DeqThread: duplicate pop
+
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Proposed changes to fix the problem}
+
+\par
+By adding terminal output through System.out in the \textit{remove()} method or Debugging the file the execution works, thus becoming a problem of observation, since the fail assertion only happens when its not observed, this happens with the TCuckooHash and CuckooHas tests.
+\begin{lstlisting}[frame=single,breaklines=true]
+compile-test:
+.sequential add, contains, and remove
+.parallel add
+.parallel remove
+.parallel both
+
+Time: 0.081
+
+OK (4 tests)
+\end{lstlisting}
+
+
+
+% -------------------------------------------------------- %
+% Why?
+
+\subsection{Proposed solution}
+\par
+It is not clear why the observation would affect the execution, thus it is possible that the issue is a propagation of the values in the memory which are forced to be executed constantly through the debug implementation. Also worth mentioning that several hashing test suffer from this same situation and adding volatile didn't help as in other tests.
+

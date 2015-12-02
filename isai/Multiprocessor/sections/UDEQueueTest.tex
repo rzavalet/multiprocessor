@@ -1,0 +1,98 @@
+% -------------------------------------------------------- %
+% UDEQueue Lock
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Unbounded Double Ended Queue}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment we implement an unbounded double queue based on the previous double queue implemented.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+According to the theory the \textit{UnboundedDEQueue} class dynamically resizes itself as needed.
+We implement the \textit{UnboundedDEQueue} in a cyclic array, with top and bottom fields as in the \textit{BoundedDEQueue} (except indexed modulo the array's capacity). As before, if bottom is less than or equal to top, the \textit{UnboundedDEQueue} is empty.
+The difference resides in the \textit{CircularArray()} class which provides \textit{get()} and \textit{put()} methods that add and remove tasks, and a \textit{resize()} method that allocates a new circular array and copies the old array's contents into the new array.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  class CircularArray {
+    private int logCapacity;
+    private Runnable[] currentTasks;
+    CircularArray(int logCapacity) {
+      this.logCapacity = logCapacity;
+      currentTasks = new Runnable[1 << logCapacity];
+    }
+    int capacity() {
+      return 1 << this.logCapacity;
+    }
+    Runnable get(int i) {
+      return this.currentTasks[i % capacity()];
+    }
+    void put(int i, Runnable task) {
+      this.currentTasks[i % capacity()] = task;
+    }
+    CircularArray resize(int bottom, int top) {
+      CircularArray newTasks =
+          new CircularArray(this.logCapacity+1);
+      for (int i = top; i < bottom; i++) {
+        newTasks.put(i, this.get(i));
+      }
+      return newTasks;
+    }
+  }
+\end{lstlisting}
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $16$ threads, eight that need to be coordinate in order to \textit{pushBottom()} and \textit{popBottom()} an array of values. All threads have to cooperate to add and remove elements from the queue and eight \textit{Dummy()} threads will be stealing execution from the running ones. After each thread execution, if everything works according to the test the map will have all values set to true.
+If that is not the case, a duplicate or missing fail will be raised.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The test needs some changes in order to compile, once this changes are implemented the test executes as expected.
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.4 sec
+
+------------- Standard Output ---------------
+sequential pushBottom and popBottom
+concurrent pushBottom and popBottom
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 1 second)
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Proposed changes to fix the problem}
+
+\par
+The UDEQueueTest class needs to have replaced the calls to non defined reset by new instance in order to compile.
+\begin{lstlisting}[frame=single,breaklines=true]
+  //instance.reset();
+  instance = new UDEQueue(THREADS);
+\end{lstlisting}
+

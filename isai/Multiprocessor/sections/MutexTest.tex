@@ -1,0 +1,87 @@
+% -------------------------------------------------------- %
+% Mutex Lock
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Non-Reentrant Mutual Exclusion}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment we use a re-entrant mutual exclusion Lock with the same basic behavior and semantics as the implicit monitor lock accessed using synchronized methods and statements, but with extended capabilities.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+The Mutex lock extends a \textit{AbstractQueuedSynchronizer}, we have a \textit{tryAcquire()} that only acquire the lock when the state is FREE, an \textit{tryRelease()} that releases the lock by setting the state to FREE and a method to verify the current state of the lock. Due to the AbstractQueued we use a framework for implementing blocking locks and related synchronizers (semaphores, events, etc) that rely on first-in-first-out (FIFO) wait queues. This extended class is designed to be a useful basis for most kinds of synchronizers that rely on a single atomic int value to represent state, thus the object does all the work and we forward the conditions. 
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  private final LockSynch sync = new LockSynch();
+  
+  public void lock() {
+    sync.acquire(0);
+  }
+  public boolean tryLock() {
+    return sync.tryAcquire(0);
+  }
+  public void unlock() {
+    sync.release(0);
+  }
+  public Condition newCondition() {
+    return sync.newCondition();
+  }
+  public boolean isLocked() {
+    return sync.isHeldExclusively();
+  }
+  public boolean hasQueuedThreads() {
+    return sync.hasQueuedThreads();
+  }
+  public void lockInterruptibly() throws InterruptedException {
+    sync.acquireInterruptibly(0);
+  }
+  public boolean tryLock(long timeout, TimeUnit unit) throws InterruptedException {
+    return sync.tryAcquireNanos(1, unit.toNanos(timeout));
+  }
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that need to be coordinate in order to increase a counter. All threads have to cooperate in order to increase the counter into the desire value, this lock implements a explicit lock that the test calls, but with the addition of a re-entrant lock sync, which in addition to implementing the Lock interface, this class defines methods \textit{isLocked()} and \textit{hasQueueThreads()}, as well as some associated protected access methods that may be used for instrumentation and monitoring.
+If that is not the case, an assertion fail will be raised.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found. Since we extend the AbstractQueuedSynchronizer, we are mainly using the Java java.util.concurrent.locks package.
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.382 sec
+
+------------- Standard Output ---------------
+parallel
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 1 second)
+\end{lstlisting}
+
+
+
+

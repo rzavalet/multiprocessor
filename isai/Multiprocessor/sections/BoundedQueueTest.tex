@@ -1,0 +1,127 @@
+% -------------------------------------------------------- %
+% Bounded Queue
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Bounded Partial Queue}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment we implement a bounded queue as a linked list and using the Java \textit{ReentrantLock} implementation for the enqueue-er and dequeue-er explicit call of the lock.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+According to the theory there is a limited concurrency we can expect a bounded queue implementation with multiple concurrent enqueue-ers and dequeue-ers to provide, but can extend the enq() and deq() methods to operate on opposite ends of the queue, so as long as the queue is neither full nor empty, an enq() call and a deq() call should, in principle, be able to proceed without interference.
+\par
+The \textit{deq()} method reads the size field to check whether the queue is empty. If so, the dequeue-er must wait until an item is enqueued. The dequeue-er waits on \textit{notEmptyCondition}, which temporarily releases \textit{deqLock}, and blocks until the condition is signaled. 
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public T deq() {
+    T result;
+    boolean mustWakeEnqueuers = true;
+    deqLock.lock();
+    try {
+      while (size.get() == capacity) {
+        try {
+          notEmptyCondition.await();
+        } catch (InterruptedException ex) {}
+      }
+      result = head.next.value;
+      head = head.next;
+      if (size.getAndIncrement() == 0) {
+        mustWakeEnqueuers = true;
+      }
+    } finally {
+      deqLock.unlock();
+    }
+    if (mustWakeEnqueuers) {
+      enqLock.lock();
+      try {
+        notFullCondition.signalAll();
+      } finally {
+        enqLock.unlock();
+      }
+    }
+    return result;
+  }
+\end{lstlisting}
+\par
+The \textit{enq()} method thread acquires the \textit{enqLock}, and reads the size field. While that field is equal to the capacity, the queue is full, and the enqueue-er must wait until a dequeue-er makes room. The enqueue-er waits on the \textit{notFullCondition} field, releasing the enqueue lock temporarily, and blocking until that condition is signalled.
+\par 
+\begin{lstlisting}[frame=single,breaklines=true]
+  public void enq(T x) {
+    if (x == null) throw new NullPointerException();
+    boolean mustWakeDequeuers = false;
+    enqLock.lock();
+    try {
+      while (size.get() == 0) {
+        try {
+          notFullCondition.await();
+        } catch (InterruptedException e) {}
+      }
+      Entry e = new Entry(x);
+      tail.next = e;
+      tail = e;
+      if (size.getAndDecrement() == capacity) {
+        mustWakeDequeuers = true;
+      }
+    } finally {
+      enqLock.unlock();
+    }
+    if (mustWakeDequeuers) {
+      deqLock.lock();
+      try {
+        notEmptyCondition.signalAll();
+      } finally {
+        deqLock.unlock();
+      }
+    }
+  }
+\end{lstlisting}
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that need to be coordinate in order to \textit{enq()} and \textit{deq()} a range of numbers. All threads have to cooperate to add and remove elements from the queue. Each of the threads will enqueue and dequeue values into the queue, if everything works according to the test there will be mutual exclusion and the mapping of elements will corresponds to the queue elements.
+If that is not the case, a duplicate fail will be raised.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found. Since the ReentrantLock is used to acquire an explicit lock, the mutual exclusion is guarantee by the Java java.util.concurrent.locks package.
+
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,076 sec
+
+------------- Standard Output ---------------
+sequential push and pop
+parallel enq
+parallel deq
+parallel both
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 1 second)
+\end{lstlisting}
+
+
+
+

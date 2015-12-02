@@ -1,0 +1,99 @@
+% -------------------------------------------------------- %
+% Filter Lock
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Filter Lock}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment, the particular case we are trying to study is mutual exclusion where several threads try to use a shared resource.
+\par
+We are trying to do so using waiting rooms called levels that a thread must traverse before acquiring the lock.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+We now consider two mutual exclusion protocols that work for $n$ threads, where $n$ is greater than $2$. The Filter lock, is a direct generalization of the Peterson lock to multiple threads.
+\par
+The Filter lock, creates \(n - 1\) ``waiting rooms'', called levels, that a thread must traverse before acquiring the lock. The Peterson lock uses a two-element boolean flag array to indicate whether a thread is trying to enter the critical section. The Filter lock generalizes this notion with an $n$-element integer $level[]$ array, where the value of $level[A]$ indicates the highest level that thread $A$ is trying to enter. 
+\par
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that need to be coordinate in order to increment a common counter. All threads have to cooperate to increase this counter from 0 to $1024$. Each of the threads will increase by one the counter $128$ times.
+The expected result is that regardless of the order in which each thread executes the increment, at the end the counter must stay at $1024$.
+If that is not the case, then it means that mutual exclusion did not work.
+\par
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+When executing the test on a dual core machine there was a a low chance of failure, but when executed on a Quad core and Six core machines the problems where more consistent.
+\begin{lstlisting}[frame=single]
+Testcase: testParallel(mutex.FilterTest):	FAILED
+expected:<1023> but was:<1024>
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Proposed changes to fix the problem}
+
+\par
+Even do the victim and level arrays are \textit{volatile}, the atomicity is not guarantee and so to fix this I added the \textit{synchronized} reserved word to the \textit{sameOrHigher()} method in order to guarantee atomicity while checking the levels.
+\begin{lstlisting}[frame=single,breaklines=true]
+// Is there another thread at the same or higher level?
+private synchronized boolean 
+  sameOrHigher(int me, int myLevel) {
+  for (int id = 0; id < size; id++)
+    if (id != me && level[id] >= myLevel) {
+      return true;
+    }
+    return false;
+}
+\end{lstlisting}
+Once the change is made the execution works fine on every equipment used.
+\begin{lstlisting}[frame=single,breaklines=true]
+Script Directory: .
+Using OS: Linux
+Linux Java 6 Runtime: ./jre/linux/bin
+Will execute test from input: mutex.FilterTest
+Classpath: .:./lib/*:./output/:./build/
+Running JUnit using Linux
+JUnit version 4.12
+.
+Time: 0.021
+
+OK (1 test)
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Why?
+
+\subsection{Proposed solution}
+\par
+Once the comparing of the level was made atomic, the spin made for conflicting threads was properly working and able to cooperate to increase the counter to 1024.
+\par
+One thing that is worth mentioning is that the \textit{volatile} keyword seems to either have an implementation problem or not documented restriction, since it is not helping guarantee the use of the waiting rooms causing additional increases in the counter, thus ending with a different number rather than the one expected.
+

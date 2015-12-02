@@ -1,0 +1,184 @@
+% -------------------------------------------------------- %
+% SkipQueue
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Skiplist-Based Unbounded Priority Queue}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment we implement a skip-list priority queue which in contrast to the \textit{FineGrainedHeap} priority queue algorithm, that the underlying heap structure requires complex, coordinated rebalancing. We requires no rebalancing.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+According to the theory the \textit{PrioritySkipList} class sorts items by priority instead of by hash value, ensuring that high-priority items (the ones we want to remove first) appear at the front of the list. Removing the item with highest priority is done lazily. A node is logically removed by marking it as removed, and is later physically removed by unlinking it from the list.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public T removeMin() {
+      Node<T> node = skiplist.findAndMarkMin();
+    
+      if (node != null) {
+        skiplist.remove(node);
+        return node.item;
+      } else{
+        return null;
+      }
+  }
+\end{lstlisting}
+\par
+The \textit{add()} and \textit{remove()} calls take skiplist nodes instead of items as arguments and results. These methods are straightforward adaptations of the corresponding \textit{LockFreeSkipList} methods. This class nodes differ from \textit{LockFreeSkipList} nodes in two fields, an integer score field, and an \textit{AtomicBoolean} marked field used for logical deletion from the priority queue (not from the skiplist).
+\begin{lstlisting}[frame=single,breaklines=true]
+  boolean add(Node node) {
+    int bottomLevel = 0;
+    Node<T>[] preds = (Node<T>[]) new Node[MAX_LEVEL + 1];
+    Node<T>[] succs = (Node<T>[]) new Node[MAX_LEVEL + 1];
+    while (true) {
+      boolean found = find(node, preds, succs);
+      if (found) { // if found it's not marked
+        return false;
+      } else {
+        for (int level = bottomLevel; level <= node.topLevel; level++) {
+          Node<T> succ = succs[level];
+          node.next[level].set(succ, false);
+        }
+        // try to splice in new node in bottomLevel going up
+        Node<T> pred = preds[bottomLevel];
+        Node<T> succ = succs[bottomLevel];
+        node.next[bottomLevel].set(succ, false);
+        if (!pred.next[bottomLevel].compareAndSet(succ, node, false, false)) {// lin point
+          continue; // retry from start
+        }
+        // splice in remaining levels going up
+        for (int level = bottomLevel+1; level <= node.topLevel; level++) {
+          while (true) {
+            pred = preds[level];
+            succ = succs[level];
+            if (pred.next[level].compareAndSet(succ, node, false, false))
+              break;
+            find(node, preds, succs); // find new preds and succs
+          }
+        }
+        return true;
+      }
+    }
+  }
+  
+  boolean remove(Node<T> node) {
+    int bottomLevel = 0;
+    Node<T>[] preds = (Node<T>[]) new Node[MAX_LEVEL + 1];
+    Node<T>[] succs = (Node<T>[]) new Node[MAX_LEVEL + 1];
+    Node<T> succ;
+    while (true) {
+      boolean found = find(node, preds, succs);
+      if (!found) { 
+        return false;
+      } else {
+        // proceed to mark all levels
+        // some levels could stil be unthreaded by concurrent add() while being marked
+        // other find()s could be modifying node's pointers concurrently
+        for (int level = node.topLevel; level >= bottomLevel+1; level--) {
+          boolean[] marked = {false};
+          succ = node.next[level].get(marked);
+          while (!marked[0]) { // until I succeed in marking
+            node.next[level].attemptMark(succ, true);
+            succ = node.next[level].get(marked);
+          }
+        }
+        // proceed to remove from bottom level
+        boolean[] marked = {false};
+        succ = node.next[bottomLevel].get(marked);
+        while (true) { // until someone succeeded in marking
+          boolean iMarkedIt = node.next[bottomLevel].compareAndSet(succ, succ, false, true);
+          succ = succs[bottomLevel].next[bottomLevel].get(marked);
+          if (iMarkedIt) {
+            // run find to remove links of the logically removed node
+            find(node, preds, succs);
+            return true;
+          } else if (marked[0]) return false; // someone else removed node
+          // else only succ changed so repeat
+        }
+      }
+    }
+  }
+\end{lstlisting}
+
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads, eight that need to be coordinate in order to \textit{add()} and \textit{removeMin()} an array of values. All threads have to cooperate to add and remove elements from the queue and a validation of the priorities is done to validate non-ascending priorities.
+If that is not the case, a fail will be raised.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The test needs some changes in order to execute and avoid starvation.
+\begin{lstlisting}[frame=single,breaklines=true]
+------------- Standard Output ---------------
+add
+OK.
+testParallelAdd
+OK.
+testParallelBoth
+
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Proposed changes to fix the problem}
+
+\par
+The \textit{findAndMarkMin()} method must choose the coresponding element that will be removed in order to mark it and later on the \textit{remove()} method we verify the marked node and remove it, but the atomicity of this operations are not guarantee, thus when a node is marked it can be marked by other thread causing the remove process to hand, since the internal logic tries to remove the node and has no escape sequence when the mark is affected.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public T removeMin() {
+    synchronized(this) {
+      Node<T> node = skiplist.findAndMarkMin();
+    
+      if (node != null) {
+        skiplist.remove(node);
+        return node.item;
+      } else{
+        return null;
+      }
+    }
+  }
+\end{lstlisting}
+\par
+By doing so, the execution finishes as expected and no errors are found.
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.358 sec
+
+------------- Standard Output ---------------
+add
+OK.
+testParallelAdd
+OK.
+testParallelBoth
+OK.
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 0 seconds)
+\end{lstlisting}

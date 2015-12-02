@@ -1,0 +1,164 @@
+% -------------------------------------------------------- %
+% Optimistic List
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Optimistic Synchronization}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment, the particular case we are trying to study an Optimistic Synchronization which to reduce synchronization costs we take a chance by, search without acquiring locks, lock the nodes found, and then confirm that the locked nodes are correct.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+The \textit{OptimisticList} \textit{add()} method traverses the list ignoring locks, acquires locks, and validates before adding the new node, we must validate and guarantee freedom from interference by checking that predA points to currA and is reachable from head.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public boolean add(T item) {
+    int key = item.hashCode();
+    while (true) {
+      Entry pred = this.head;
+      Entry curr = pred.next;
+      while (curr.key <= key) {
+        pred = curr; curr = curr.next;
+      }
+      pred.lock(); curr.lock();
+      try {
+        if (validate(pred, curr)) {
+          if (curr.key == key) { // present
+            return false;
+          } else {               // not present
+            Entry entry = new Entry(item);
+            entry.next = curr;
+            pred.next = entry;
+            return true;
+          }
+        }
+      } finally {                // always unlock
+        pred.unlock(); curr.unlock();
+      }
+    }
+  }
+\end{lstlisting}
+The \textit{remove()} method traverses ignoring locks, acquires locks, and validates before removing the node.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public boolean remove(T item) {
+    int key = item.hashCode();
+    while (true) {
+      Entry pred = this.head;
+      Entry curr = pred.next;
+      while (curr.key < key) {
+        pred = curr; curr = curr.next;
+      }
+      pred.lock(); curr.lock();
+      try {
+          if (validate(pred, curr)) {
+            if (curr.key == key) { // present in list
+              pred.next = curr.next;
+              return true;
+            } else {               // not present in list
+              return false;
+            }
+          }
+      } finally {                // always unlock
+        pred.unlock(); curr.unlock();
+      }
+    }
+  }
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that need to be coordinate in order to add and remove values from a list. All threads have to cooperate in order to parallel add and remove values from the list while avoiding duplicate remove of the values.
+If that is not the case, a fail will be raised.
+\par
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+When executing the test duplicate removes where found.
+\begin{lstlisting}[frame=single,breaklines=true]
+junit.framework.AssertionFailedError: RemoveThread: duplicate remove: 
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Proposed changes to fix the problem}
+
+\par
+The test approach is naive, since it assumes that data would exist always prior deletion, thus not handling the case when there is no data to remove.
+By doing a retry until there is data to remove the problem seems to be fix.
+\begin{lstlisting}[frame=single,breaklines=true]
+  public boolean remove(T item) {
+    int key = item.hashCode();
+    boolean bRetry = true;
+    while (true) {
+      Entry pred = this.head;
+      Entry curr = pred.next;
+      while (curr.key < key) {
+        pred = curr; curr = curr.next;
+      }
+      pred.lock(); curr.lock();
+      try {
+        while (bRetry) {
+          if (validate(pred, curr)) {
+            bRetry = false;
+            if (curr.key == key) { // present in list
+              pred.next = curr.next;
+              return true;
+            } else {               // not present in list
+              return false;
+            }
+          }
+        }
+      } finally {                // always unlock
+        pred.unlock(); curr.unlock();
+      }
+    }
+  }
+}
+\end{lstlisting}
+Once the change is made the execution works fine on every equipment used.
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,071 sec
+
+------------- Standard Output ---------------
+sequential add, contains, and remove
+parallel add
+parallel remove
+parallel both
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 3 seconds)
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Why?
+
+\subsection{Proposed solution}
+\par
+This error may imply a bad scheduling of the list. Apparently old JVM depending on the OS, executed using a logic that avoided this from happening by working in a round robin fashion.
+

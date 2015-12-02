@@ -1,0 +1,69 @@
+% -------------------------------------------------------- %
+% BloomFilter  
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Restricted Bloom Filter}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment we implement a bloom filters to reduce expensive disk lookups for non-existent keys.
+If the element is not in the bloom filter, then we know for sure we don't need to perform the expensive lookup. On the other hand, if it is in the bloom filter, we perform the lookup. 
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+The basic bloom filter supports two operations, \textit{contains()} and \textit{add()}.
+Contains is used to check whether a given element is in the set or not. 
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+ public boolean contains(Object x) {
+    return filter.get(hash0(x)) && filter.get(hash1(x));
+  }
+\end{lstlisting}
+Add simply adds an element to the set. Removal is impossible without introducing false negatives.
+\begin{lstlisting}[frame=single,breaklines=true]
+  public void add(Object x) {
+    filter.set(hash0(x));
+    filter.set(hash1(x));
+  }
+\end{lstlisting}
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates three values and adds two off them to the filter, then we check if the hash contains them and only fail if the assertion fails if a non-existing value returns true.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found.
+\begin{lstlisting}[frame=single,breaklines=true]
+Testsuite: TinyTM.locking.BloomFilterTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.393 sec
+
+test-single:
+BUILD SUCCESSFUL (total time: 0 seconds)
+\end{lstlisting}
+
+
+
+

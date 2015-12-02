@@ -1,0 +1,121 @@
+% -------------------------------------------------------- %
+% Fine List
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Fine-Grained Synchronization List}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+The Fine-Grained synchronization improves concurrency by locking individual nodes, rather than locking the list as a whole. Instead of placing a lock on the entire list, we add a Lock to each node, along with \textit{lock()} and \textit{unlock()} methods.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+Just as in the coarse-grained list, \textit{remove()} makes currA unreachable by setting predA next field to currA successor. To be safe, \textit{remove()} must lock both predA and currA. To guarantee progress, it is important that all methods acquire locks in the same order, starting at the head and following next references toward the tail.
+The \textit{FineList} class \textit{add()} method uses hand-over-hand locking to traverse the list. The finally blocks release locks before returning. 
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public boolean add(T item) {
+    int key = item.hashCode();
+    head.lock();
+    Node pred = head;
+    try {
+      Node curr = pred.next;
+      curr.lock();
+      try {
+        while (curr.key < key) {
+          pred.unlock();
+          pred = curr;
+          curr = curr.next;
+          curr.lock();
+        }
+        if (curr.key == key) {
+          return false;
+        }
+        Node newNode = new Node(item);
+        newNode.next = curr;
+        pred.next = newNode;
+        return true;
+      } finally {
+        curr.unlock();
+      }
+    } finally {
+      pred.unlock();
+    }
+  }
+\end{lstlisting}
+\begin{lstlisting}[frame=single,breaklines=true]
+  public boolean remove(T item) {
+    Node pred = null, curr = null;
+    int key = item.hashCode();
+    head.lock();
+    try {
+      pred = head;
+      curr = pred.next;
+      curr.lock();
+      try {
+        while (curr.key < key) {
+          pred.unlock();
+          pred = curr;
+          curr = curr.next;
+          curr.lock();
+        }
+        if (curr.key == key) {
+          pred.next = curr.next;
+          return true;
+        }
+        return false;
+      } finally {
+        curr.unlock();
+      }
+    } finally {
+      pred.unlock();
+    }
+  }
+\end{lstlisting}
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that need to be coordinate in order to add and remove values from a list. All threads have to cooperate in order to parallel add and remove values from the list while avoiding duplicate remove of the values.
+If that is not the case, a fail will be raised.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found. 
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,183 sec
+
+------------- Standard Output ---------------
+sequential add, contains, and remove
+parallel add
+parallel remove
+parallel both
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 2 seconds)
+\end{lstlisting}
+
+
+
+
