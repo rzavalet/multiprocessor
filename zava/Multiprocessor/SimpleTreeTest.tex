@@ -5,14 +5,89 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+The problem we want to solve now is how we can implement a bounded priority
+queue that can be accessed concurrently by multiple threads.
+\par
+Remember that priority queue is said to be \textit{bounded} when the range of
+the priorities are taken from the range $0,...,m-1$.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+One possible solution to this problem is given by the \textit{Tree-Based Bounded
+Priority Queue} data structure. This structure is esentially a binary tree where
+the leaf nodes have a bin holding items of priority $i$. Internal nodes mantain
+a shared counter that indicates the number of elements stored to the left of
+a given node.
+\par
+The interesting methods in this data structure are the \textit{add()} and
+\textit{removeMin()}, so let us talk about them.
+\par
+The \textit{add()} method first takes the bin associated with the given
+priority. It puts the item into that bin and then starts increasing the counter
+of the parent nodes all the way to the root. Note that it only increases the
+counter if the current node happens to be a left child of the parent.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   *  add item to priority queue
+   * @param item new item
+   * @param priority item''s priority
+   */
+  public void add(T item, int priority) {
+    TreeNode node = leaves.get(priority);
+    node.bin.put(item);
+    while(node != root) {
+      TreeNode parent = node.parent;
+      if (node == parent.left) { // increment if ascending from left
+        parent.counter.getAndIncrement();
+      }
+      node = parent;
+    }
+  }
+\end{lstlisting}
+\hfill
+\par
+The \textit{removeMin()} method has to retrieve the item with the lowest
+priority. In order to do that, the method starts from the root and traverses the
+tree. If the current counter of the inner node is $0$, then it knows that the
+min must be on the left. Otherwise, it goes through the right child. 
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public T removeMin() {
+    TreeNode node = root;
+    while(!node.isLeaf()) {
+      if (node.counter.getAndDecrement() > 0 ) {
+        node = node.left;
+      } else {
+        node = node.right;
+      }
+    }
+    return node.bin.get(); // if null pqueue is empty
+  }
+\end{lstlisting}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+Three test cases were provided to exercise this code:
+\begin{itemize}
+\item testAdd. This test adds elements with random priority to the priority
+queue one by one. At the end, it extracts each element and it must be the case
+that the previously removed element had a lower priority than the current
+element. 
+\item testParallelAdd. This test spawns 8 threads. Each of the test adds 8
+elements to the queue concurrently. At the end, it performs the same checking as
+in the previous test case. Notice that each thread is in charge of adding
+elements from a fixed range in ascending order.
+\item testParallelBoth. Does the same as the previous test case but also removes
+elements in parallel. Each remover thread will perform the same checking. Since
+adders add elements in ascending order, it is garanteed that any removal from
+any thread will retrieve an element with a lower priority than the next one.
+\end{itemize}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}

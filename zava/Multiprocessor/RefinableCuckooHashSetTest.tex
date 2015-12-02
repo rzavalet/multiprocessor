@@ -5,14 +5,94 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+The particular problem we are trying to solve here is how to implement a
+concurrent open-addressed hash (specifically a hash set).
+\par
+We ought to remember that an open-addressed hash table is one in which each
+table entry holds one and only one item. In previous examples we had seen that
+an entry in the table can handle multiple elements which are stored in a linked
+list within the bucket.
+\par
+The other thing we have to consider is that in this exercise we are willing to
+have a concurrent hash. Previously we saw a open-addressed hash that allowed
+coarse granularity. Here we want to go beyond that.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+The solution to this problem is given by what is called the \textit{Refinable
+Concurrent Cuckoo Hash}. The difference between this implementation and
+previously presented \textit{Cuckoo Hashes} is that this one is a fine-grained
+approach where a lock is always responsible for protecting a fixed number of
+elements in the hash.
+\par
+The interesting bits of this implementation are the \textit{acquire()},
+\textit{release()} and \textit{resize()} methods. Let us take a quick look at those:
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   * Synchronize before adding, removing, or testing for item
+   * @param x item involved
+   */
+  public void acquire(T x) {
+    boolean[] mark = {true};
+    Thread me = Thread.currentThread();
+    Thread who;
+    while (true) {
+      do { // wait until not resizing
+        who = owner.get(mark);
+      } while (mark[0] && who != me);
+      ReentrantLock[][] oldLocks = this.locks;
+      ReentrantLock oldLock0 = oldLocks[0][hash0(x) % oldLocks[0].length];
+      ReentrantLock oldLock1 = oldLocks[1][hash1(x) % oldLocks[1].length];
+      oldLock0.lock();  // acquire locks
+      oldLock1.lock();
+      who = owner.get(mark);
+      if ((!mark[0] || who == me) && this.locks == oldLocks) { // recheck
+        return;
+      } else {  //  unlock & try again
+        oldLock0.unlock();
+        oldLock1.unlock();
+      }
+    }
+  }
+\end{lstlisting}
+\hfill
+\par
+The \textit{acquire()} method first spins till if finds that no one is doing a
+resizing. This means that resizing and adding are exclusive operations. After
+this step, the thread acquires the two locks that protect the intended slot in
+the table. If after this point, the lock array is still the same we saw before
+taking the lock, then we are free to continue. Otherwise we attempt to take the
+locks again.
+\par
+The \textit{release()} method simply unlocks the slot: 
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   * synchronize after adding, removing, or testing for item
+   * @param x item involved
+   */
+  public final void release(T x) {
+    Lock lock0 = locks[0][hash0(x) % locks[0].length];
+    Lock lock1 = locks[1][hash1(x) % locks[1].length];
+    lock0.unlock();
+    lock1.unlock();
+  }
+\end{lstlisting}
+\hfill
+\par
+The \textit{resize()} method is esentially the same as the one showed in the
+previous exercise.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+As for the tests provided for this experiment. They are the same discussed in
+previous exercises in this chapter. Nothing new has been added, so let us go
+directly to the results.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}

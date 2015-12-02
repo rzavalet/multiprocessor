@@ -5,14 +5,149 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+Now we look at the problem of implementing an Unbounded Priority Queue in a
+Fine-Grained fashion. 
+\par
+Again, remember that Unbounded in this context means that the range is
+unbounded, for example the set of 32-bits integers or floating point values.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+The solution proposed in this exercise is the Fine-Grained heap. The particular
+characteristic of this implementation is that percolation hapens in a sequence
+of discrete atomic steps that can be interleaved with other such steps. The same
+happens with the \textit{removeMin()} method.
+\par
+The \textit{add()} method first locks the heap and then takes the lock to the
+next available child and puts the new value there. After that, it releases the
+heap lock. After this point, it must percolate this new node. To do this, it has
+to swap child and parent after locking them. This only happens if the parent is
+available and the child has a higher priority. Otherwise, the node is already
+where it belongs. At the end of this step, child and parent are unlocked. Then
+it goes up one node in the heap, and does the same.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   * Add item to heap.
+   * @param item Uninterpreted item.
+   * @param priority item priority
+   */
+  public void add(T item, int priority) {
+    heapLock.lock();
+    int child = next++;
+    heap[child].lock();
+    heapLock.unlock();
+    heap[child].init(item, priority);
+    heap[child].unlock();
+    while (child > ROOT) {
+      int parent = child / 2;
+      heap[parent].lock();
+      heap[child].lock();
+      int oldChild = child;
+      try {
+        if (heap[parent].tag == Status.AVAILABLE && heap[child].amOwner()) {
+          if (heap[child].score < heap[parent].score) {
+            swap(child, parent);
+            child = parent;
+          } else {
+            heap[child].tag = Status.AVAILABLE;
+            heap[child].owner = NO_ONE;
+            return;
+          }
+        } else if (!heap[child].amOwner()) {
+          child = parent;
+        }
+      } finally {
+        heap[oldChild].unlock();
+        heap[parent].unlock();
+      }
+    }
+    if (child == ROOT) {
+      heap[ROOT].lock();
+      if (heap[ROOT].amOwner()) {
+        heap[ROOT].tag = Status.AVAILABLE;
+        heap[child].owner = NO_ONE;
+      }
+      heap[ROOT].unlock();
+    }
+  }
+
+\end{lstlisting}
+\hfill
+\par
+The \textit{removeMin()} method first locks the heap, the bottom and the root
+nodes. If the root is empty, then we are done. Otherwise, it swaps root and
+bottom and unlocks bottom. After that, it has to percolate the new root
+element. It follows a similar approach as the one mentioned in the
+\textit{add()} method. One difference is that this percolation goes from top to
+bottom.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   * Returns and removes lowest-priority item in heap.
+   * @return lowest-priority item.
+   */
+  public T removeMin() {
+    heapLock.lock();
+    int bottom = --next;
+    heap[bottom].lock();
+    heap[ROOT].lock();
+    heapLock.unlock();
+    if (heap[ROOT].tag == Status.EMPTY) {
+      heap[ROOT].unlock();
+      heap[bottom].lock();
+      return null;
+    }
+    T item = heap[ROOT].item;
+    heap[ROOT].tag = Status.EMPTY;
+    swap(bottom, ROOT);
+    heap[bottom].owner = NO_ONE;
+    heap[bottom].unlock();
+    if (heap[ROOT].tag == Status.EMPTY) {
+      heap[ROOT].unlock();
+      return item;
+    }
+    int child = 0;
+    int parent = ROOT;
+    while (parent < heap.length / 2) {
+      int left = parent * 2;
+      int right = (parent * 2) + 1;
+      heap[left].lock();
+      heap[right].lock();
+      if (heap[left].tag == Status.EMPTY) {
+        heap[right].unlock();
+        heap[left].unlock();
+        break;
+      } else if (heap[right].tag == Status.EMPTY || heap[left].score < heap[right].score) {
+        heap[right].unlock();
+        child = left;
+      } else {
+        heap[left].unlock();
+        child = right;
+      }
+      if (heap[child].score < heap[parent].score) {
+        swap(parent, child);
+        heap[parent].unlock();
+        parent = child;
+      } else {
+        heap[child].unlock();
+        break;
+      }
+    }
+    heap[parent].unlock();
+    return item;
+  }
+\end{lstlisting}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+The same three test cases were provided in this experiment, so let us go
+directly to the results.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
