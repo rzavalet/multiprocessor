@@ -1,0 +1,56 @@
+% -------------------------------------------------------- %
+% CompositeFastPath Lock
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Composite Fast Path Lock}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment, we extend the \textit{CompositeLock} algorithm to encompass a fast path in which a solitary thread acquires an idle lock without acquiring a node and splicing it into the queue.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+We use a \textit{FASTPATH} flag to indicate that a thread has acquired the lock through the fast path. Because we need to manipulate this flag together with the tail field’s reference, we take a high-order bit from the tail field’s integer stamp. The private \textit{fastPathLock()} method checks whether the tail field’s stamp has a clear \textit{FASTPATH} flag and a null reference. If so, it tries to acquire the lock simply by applying \textit{compareAndSet()} to set the FASTPATH flag to true, ensuring that the reference remains null. An uncontended lock acquisition thus requires a single atomic operation. The \textit{fastPathLock()} method returns true if it succeeds, and false otherwise.
+\par
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $2$ threads that need to be coordinate in order to increase a counter. All threads have to cooperate in order to increase the counter into the desire value, this lock implements a explicit lock that the test calls.
+If that is not the case, an assertion fail will be raised.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found. Since the \textit{CompositeFastPathLock} is used to acquire an explicit lock, the mutual exclusion is guarantee.
+
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.895 sec
+
+test-single:
+BUILD SUCCESSFUL (total time: 3 seconds)
+\end{lstlisting}
+
+
+
+

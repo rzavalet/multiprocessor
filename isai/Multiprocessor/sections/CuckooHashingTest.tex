@@ -1,0 +1,134 @@
+% -------------------------------------------------------- %
+% Cuckoo Hashing
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Cuckoo Hashing}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+Cuckoo hashing is a (sequential) hashing algorithm in which a newly added item displaces any earlier item occupying the same slot. 
+In this test we modify the sequential Cuckoo hashing in order to change the sequential hashing algorithm to concurrent hashing.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+We break up each method call into a sequence of phases, where each phase adds, removes, or displaces a single item $x$.
+We use a two-entry array \textit{table[]} of tables, and two independent hash functions, (denoted as \textit{hash0()} and \textit{hash1()} in the code) mapping the set of possible keys to entries in the array. 
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public TCuckooHashSet(int capacity) {
+    locks = new Lock[2][LOCKS];
+    table = (T[][]) new Object[2][capacity];
+    size = capacity;
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < LOCKS; j++) {
+        locks[i][j] = new ReentrantLock();
+      }
+    }
+  }
+  private final int hash0(Object x) {
+    return Math.abs(x.hashCode() % size);
+  }
+  private final int hash1(Object x) {
+    random.setSeed(x.hashCode());
+    return random.nextInt(size);
+  }
+\end{lstlisting}
+\par
+To test whether a value $x$ is in the set, \textit{contains(x)} tests whether either table[0][h0(x)] or $table[1][h1(x)]$ is equal to $x$. Similarly, \textit{remove(x)} checks whether $x$ is in either $table[0][h0(x)]$ or $table[1][h1(x)]$, and removes it if found.
+\begin{lstlisting}[frame=single,breaklines=true]
+  public boolean remove(T x) {
+    if (x == null) {
+      throw new IllegalArgumentException();
+    }
+    int h0 = hash0(x);
+    Lock lock0 = locks[0][h0 % LOCKS];
+    try {
+      lock0.lock();
+      if (x.equals(table[0][h0])) {
+        table[0][h0] = null;
+        return true;
+      } else {
+        int h1 = hash1(x);
+        Lock lock1 = locks[1][h1 % LOCKS];
+        try {
+          lock1.lock();
+          if (x.equals(table[1][h1])) {
+            table[1][h1] = null;
+            return true;
+          }
+          return false;
+        } finally {
+          lock1.unlock();
+        }
+      }
+    } finally {
+      lock0.unlock();
+    }
+  }
+\end{lstlisting}
+\par
+The \textit{add(x)} method is the most interesting. It successively removes conflicting items until every key has a slot. To add $x$, the method swaps $x$ with $y$, the current occupant of $table[0][h0(x)]$. If the prior value $y$ was null, it is done, otherwise, it swaps the newly nestles value $y$ for the current occupant of $table[1][h1(y)]$ in the same way and continues swapping entries (alternating tables) until it finds an empty slot.
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that perform \textit{enq()} and \textit{deq()} operations in sequential and parallel.
+The dequeue values are revised and if a value is missing a fail assertion is thrown.
+\par
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+When executing the test the test fails on the parallel part due to a missing value when executing the parallel both test.
+\begin{lstlisting}[frame=single,breaklines=true]
+Exception in thread "Thread-5" Exception in thread "Thread-7" junit.framework.AssertionFailedError: Th 0	DeqThread: missing value: 3
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Proposed changes to fix the problem}
+
+\par
+By adding terminal output through System.out in the \textit{remove()} method or Debugging the file the execution works, thus becoming a problem of observation, since the fail assertion only happens when its not observed.
+\begin{lstlisting}[frame=single,breaklines=true]
+compile-test:
+.sequential add, contains, and remove
+.parallel add
+.parallel remove
+.parallel both
+
+Time: 0.071
+
+OK (4 tests)
+\end{lstlisting}
+
+
+
+% -------------------------------------------------------- %
+% Why?
+
+\subsection{Proposed solution}
+\par
+It is not clear why the observation would affect the execution, thus it is possible that the issue is a propagation of the values in the memory which are forced to be executed constantly through the debug implementation.
+

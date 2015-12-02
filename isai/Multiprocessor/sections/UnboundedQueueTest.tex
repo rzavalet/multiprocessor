@@ -1,0 +1,95 @@
+% -------------------------------------------------------- %
+% Unbounded Queue
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Unbounded Queue}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+In this experiment we implement a unbounded queue, the representation is the same as the bounded queue, except there is no need to count the number of items in the queue, or to provide conditions on which to wait.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+According to the theory an item is actually enqueued when the \textit{enq()} call sets the last node’s next field to the new node, even before \textit{enq()} resets tail to refer to the new node. After that instant, the new item is reachable along a chain of the next references. 
+The actual head is the successor of the node referenced by head, and the actual tail is the last item reachable from the head. Both the \textit{enq()} and \textit{deq()} methods are total as they do not wait for the queue to become empty or full.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public T deq() throws EmptyException {
+    T result;
+    deqLock.lock();
+    try {
+      if (head.next == null) {
+        throw new EmptyException();
+      }
+      result = head.next.value;
+      head = head.next;
+    } finally {
+      deqLock.unlock();
+    }
+    return result;
+  }
+\end{lstlisting}
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public void enq(T x) {
+    if (x == null) throw new NullPointerException();
+    enqLock.lock();
+    try {
+      Node e = new Node(x);
+      tail.next = e;
+      tail = e;
+    } finally {
+      enqLock.unlock();
+    }
+  }
+\end{lstlisting}
+\par
+This queue cannot deadlock, because each method acquires only one lock, either \textit{enqLock} or \textit{deqLock} and is much simpler than the bounded queue.
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that need to be coordinate in order to \textit{enq()} and \textit{deq()} a range of numbers. All threads have to cooperate to add and remove elements from the queue. Each of the threads will enqueue and dequeue values into the queue, if everything works according to the test there will be mutual exclusion and the mapping of elements will corresponds to the queue elements.
+If that is not the case, a duplicate fail will be raised.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found. Since the \textit{ReentrantLock} is used to acquire an explicit lock, the mutual exclusion is guarantee by the Java java.util.concurrent.locks package.
+As a interesting note, once each $100$ executions the running time increases exponentially as shown below.
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10,102 sec
+
+------------- Standard Output ---------------
+sequential push and pop
+parallel enq
+parallel deq
+parallel both
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 11 seconds)
+\end{lstlisting}
+
+
+
+

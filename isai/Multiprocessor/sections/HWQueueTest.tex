@@ -1,0 +1,83 @@
+% -------------------------------------------------------- %
+% HW Queue
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{HW Queue}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+The HW Queue uses the Atomic values defined by the Java language in order to implement a locking free queue.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+The unbounded queue implementation used by the \textit{HWQueue} class is blocking, meaning that the \textit{deq()} method does not return until it has found an item to dequeue.  
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public T deq() {
+    while (true) {
+      int range = tail.get();
+      for (int i = 0; i < range; i++) {
+        T value = items[i].getAndSet(null);
+        if (value != null) {
+          return value;
+        }
+      }
+    }
+  }
+\end{lstlisting}
+\par
+The \textit{enq()} method uses the \textit{AtomicInteger} \textit{getAndIncrement()} method that atomically incremented the counter.
+\par
+\begin{lstlisting}[frame=single,breaklines=true]
+  public void enq(T x) {
+    int i = tail.getAndIncrement();
+    items[i].set(x);
+  }
+\end{lstlisting}
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that need to be coordinate in order to add and remove values from a list. All threads have to cooperate in order to parallel add and remove values from the list while avoiding duplicate remove of the values.
+If that is not the case, a fail will be raised.
+\par
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+The tests executed as expected and no errors where found. 
+\begin{lstlisting}[frame=single,breaklines=true]
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,121 sec
+
+------------- Standard Output ---------------
+sequential push and pop
+parallel enq
+parallel deq
+parallel both
+------------- ---------------- ---------------
+test-single:
+BUILD SUCCESSFUL (total time: 1 second)
+\end{lstlisting}
+
+
+
+

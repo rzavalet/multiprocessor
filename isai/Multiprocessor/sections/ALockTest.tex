@@ -1,0 +1,125 @@
+% -------------------------------------------------------- %
+% ALock
+% by: Isai Barajas Cicourel
+
+
+% -------------------------------------------------------- %
+% Document Start
+
+\section{\textbf{Array Lock}}
+
+
+% -------------------------------------------------------- %
+% Particular Caes
+
+\subsection{Particular Case}
+\par
+The ALock, is a simple array-based queue lock. In a queue, each thread can learn if its turn has arrived by checking whether its predecessor has finished.
+\par
+
+
+% -------------------------------------------------------- %
+% Solution Information
+
+\subsection{Solution}
+\par
+The threads share an \textit{AtomicInteger} tail field, initially zero. To acquire the lock, each thread atomically increments tail. Call the resulting value the thread’s slot. The slot is used as an index into a Boolean flag array. If \textit{flag[j]} is true, then the thread with slot \textit{j} has permission to acquire the lock.
+\begin{lstlisting}[frame=single,breaklines=true]
+public class ALock implements Lock {
+  // thread-local variable
+  ThreadLocal<Integer> mySlotIndex = new ThreadLocal<Integer> (){
+    protected Integer initialValue() {
+      return 0;
+    }
+  };
+  volatile AtomicInteger tail;
+  volatile boolean[] flag;
+  int size;
+  /**
+   * Constructor
+   * @param capacity max number of array slots
+   */
+  public ALock(int capacity) {
+    size = capacity;
+    tail = new AtomicInteger(0);
+    flag = new boolean[capacity];
+    flag[0] = true;
+  }
+  public void lock() {
+    int slot = tail.getAndIncrement() % size;
+    mySlotIndex.set(slot);
+    while (! flag[mySlotIndex.get()]) {}; // spin
+  }
+  public void unlock() {
+    flag[mySlotIndex.get()] = false;
+    flag[(mySlotIndex.get() + 1) % size] = true;
+  }
+  // any class implementing Lock must provide these methods
+  public Condition newCondition() {
+    throw new java.lang.UnsupportedOperationException();
+  }
+  public boolean tryLock(long time,
+      TimeUnit unit)
+      throws InterruptedException {
+    throw new java.lang.UnsupportedOperationException();
+  }
+  public boolean tryLock() {
+    throw new java.lang.UnsupportedOperationException();
+  }
+  public void lockInterruptibly() throws InterruptedException {
+    throw new java.lang.UnsupportedOperationException();
+  }
+}
+\end{lstlisting}
+\par
+
+
+% -------------------------------------------------------- %
+% Experiment
+
+\subsection{Experiment Description} 
+\par
+The test creates $8$ threads that need to be coordinate in order to increment a common counter. All threads have to cooperate to increase this counter from 0 to $1024$. Each of the threads will increase by one the counter $128$ times.
+The expected result is that regardless of the order in which each thread executes the increment, at the end the counter must stay at $1024$.
+If that is not the case, then it means that mutual exclusion did not work.
+\par
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Observations and Interpretations}
+
+\par
+When executing the test values where lost from the queue.
+\begin{lstlisting}[frame=single,breaklines=true]
+1009
+1010
+1011
+1013
+1014
+1015
+\end{lstlisting}
+
+
+% -------------------------------------------------------- %
+% Results
+
+\subsection{Proposed changes to fix the problem}
+
+\par
+By adding the volatile keyword in the ALock class the execution was fixed.
+\begin{lstlisting}[frame=single,breaklines=true]
+  volatile AtomicInteger tail;
+  volatile boolean[] flag;
+  int size;
+\end{lstlisting}
+Once the change is made the execution works fine on every equipment used.
+
+
+% -------------------------------------------------------- %
+% Why?
+
+\subsection{Proposed solution}
+\par
+Apparently the AtomicInteger keyword is not guarantee that the values are propagated through the memory hierarchy and by making the value atomic the execution works.
+
