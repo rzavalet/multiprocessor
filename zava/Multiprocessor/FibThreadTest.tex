@@ -5,14 +5,49 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+Here we are dealing of computing the Fibonacci numbers in parallel. In
+particular we want to do so by spawning slave threads.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+The way to implement a parallel generator of Fibonacci number is by creating two
+threads to calculate $F(n-1)$ and $F(n-2)$. This process is repeated
+recursively. When each thread finishes calculating its values, the parent thread
+adds the value of the children. Here is the code:
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public FibThread(int n) {
+    arg = n;
+    result = -1;
+  }
+
+  public void run() {
+    FibThread left, right;
+    if (arg < 2) {
+      result = arg;
+    } else {
+      left = new FibThread(arg-1);
+      right = new FibThread(arg-2);
+      left.start();
+      right.start();
+      try {
+       left.join();
+       right.join();
+      } catch (InterruptedException e) {};
+      result = left.result + right.result;
+    }
+  }
+\end{lstlisting}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+The test provided for this exercise consists of calculating $F(16)$. This result
+must be equal to $987$. If that is the case, the test passes. Otherwise, it
+fails.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
@@ -21,6 +56,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Interpretation}
 \par
+As it is mentioned in the book, for this kind of applications where a lot of
+short living threads is very inefficient. Instead, we should consider using a
+thread pool.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Proposed solution}
