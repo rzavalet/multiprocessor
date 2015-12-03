@@ -150,17 +150,39 @@ The same three test cases were provided in this experiment, so let us go
 directly to the results.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sample Results}
+\subsection{Sample Results and Interpretation}
 \par
+Here is a sample output of the test demonstrating that the implementation of
+this concurrent heap works properly:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 ch15]$ junit priority.FineGrainedHeapTest
+.testSequential
+OK.
+.testParallelBoth
+OK.
+.testParallelAdd
+OK.
+
+Time: 3.175
+
+OK (3 tests)
+\end{verbatim}
+\hfill
 \par
+One interesting thing about this exercise is that it takes longer than other
+tests. Actually, other students shared the results with us and all of them
+experimented different execution times. For example:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
+\begin{itemize}
+\item Our machine, that has 24cores, executed the test in $3.175$ seconds.
+\item On a 6-cores machine, it took 1-6 secs.
+\item On a 2-cores machine, it took 8-9 secs.
+\item On a 100-cores machine it took $> 5$min and it did not finish.
+\end{itemize}
 \par
-\par
+As a future work, we might want to understand why we had these execution times.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
 % FineGrainedHeapTest End

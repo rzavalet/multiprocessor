@@ -84,17 +84,23 @@ the previous test case.
 \end{itemize}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sample Results}
+\subsection{Sample Results and Interpretation}
 \par
+The result of the execution of the test cases was as follows:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Steal]$ junit steal.BDEQueueTest
+.sequential pushBottom and popBottom
+.concurrent pushBottom and popBottom
+
+Time: 0.055
+
+OK (2 tests)
+\end{verbatim}
+\hfill
 \par
-\par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
-\par
-\par
+The tests passed every time
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
 % BDEQueueTest_Revisited End

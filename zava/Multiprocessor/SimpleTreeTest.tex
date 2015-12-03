@@ -92,15 +92,25 @@ any thread will retrieve an element with a lower priority than the next one.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
 \par
+Here is the result of the execution of the test cases:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 ch15]$ junit priority.SimpleTreeTest
+.sequential test
+OK.
+.testParallelBoth
+OK.
+.testParallelAdd
+OK.
+
+Time: 0.01
+
+OK (3 tests)
+\end{verbatim}
+\hfill
 \par
-\par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
-\par
-\par
+The tests passed every time
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
 % SimpleTreeTest End

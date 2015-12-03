@@ -61,9 +61,23 @@ short living threads is very inefficient. Instead, we should consider using a
 thread pool.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
+\subsection{Sample Results and Interpretation}
 \par
+This is the result of the execution of the test:
 \par
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Steal]$ junit steal.FibThreadTest
+.run
+
+Time: 0.825
+
+OK (1 test)
+\end{verbatim}
+\hfill
+\par
+This indicates that the concurrent implementation of the Fibonacci sequence by
+using threads works correctly
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
 % FibThreadTest End

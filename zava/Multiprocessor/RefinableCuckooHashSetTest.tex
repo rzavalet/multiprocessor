@@ -97,15 +97,21 @@ directly to the results.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
 \par
+Here is the result of the execution. The tests passed as expected:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
-\par
-\par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
-\par
-\par
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Hash]$ junit hash.RefinableCuckooHashSetTest
+.sequential add, contains, and remove
+.parallel both
+.parallel add
+.parallel remove
+
+Time: 0.018
+
+OK (4 tests)
+\end{verbatim}
+\hfill
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
 % RefinableCuckooHashSetTest End

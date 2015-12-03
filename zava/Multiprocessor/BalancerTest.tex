@@ -52,17 +52,19 @@ balancer has output a signal on the \textit{up} wire and how many on the
 So, the test activates the balancer exactly $256$ times. The final result must be that each slot has the number $128$. If that is the case, we declare the test as passed, otherwise it failed.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sample Results}
+\subsection{Sample Results and Interpretation}
 \par
+Here is  the result of the execution. It passed every time:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
-\par
-\par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
-\par
-\par
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Counting]$ junit counting.BalancerTest
+.
+Time: 0.002
+
+OK (1 test)
+\end{verbatim}
+\hfill
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
 % BalancerText End

@@ -50,17 +50,23 @@ happen to be in a different round, it means that they are not honoring  the
 imposed barrier.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sample Results}
+\subsection{Sample Results and Interpretation}
 \par
+Here we present the result of the execution:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Barrier]$ junit barrier.GTreeBarrierTest
+.Testing 8 threads, 8 rounds
+
+Time: 0.013
+
+OK (1 test)
+\end{verbatim}
+\hfill
 \par
-\par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
-\par
-\par
+The implementation worked as expected since the test passed. So here we
+effectively have a solution for the proposed problem $201$ in the book.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
 % GTreeBarrierTest End
