@@ -44,14 +44,250 @@ number of elements in the list is as expected.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
 \par
+The following is the output that we observe:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 ch18]$ junit TinyTM.skiplistset.ofree.SkipListSetTest
+.TestSequential
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+  at TinyTM.skiplistset.ofree.TSkipNode.getNext(TSkipNode.java:43)
+  at TinyTM.skiplistset.ofree.SkipListSet.find(SkipListSet.java:108)
+  at TinyTM.skiplistset.ofree.SkipListSet.add(SkipListSet.java:57)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread$1.call(SkipListSetTest.java:130)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread$1.call(SkipListSetTest.java:128)
+  at TinyTM.TThread.doIt(TThread.java:41)
+  ... 1 more
+inserts: 0, removes: 0, missed: 0, delta: 0
+commits: 0, aborts: 0
+E.TestParallel(32)
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+  at TinyTM.skiplistset.ofree.TSkipNode.getNext(TSkipNode.java:43)
+  at TinyTM.skiplistset.ofree.SkipListSet.find(SkipListSet.java:108)
+  at TinyTM.skiplistset.ofree.SkipListSet.add(SkipListSet.java:57)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread$1.call(SkipListSetTest.java:130)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread$1.call(SkipListSetTest.java:128)
+  at TinyTM.TThread.doIt(TThread.java:41)
+  ... 1 more
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+TinyTM.exceptions.PanicException: java.lang.NullPointerException
+  at TinyTM.TThread.doIt(TThread.java:51)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest$TestThread.run(SkipListSetTest.java:128)
+Caused by: java.lang.NullPointerException
+inserts: 0, removes: 0, missed: 0, delta: 0
+commits: 0, aborts: 0
+E.
+Time: 12.102
+There were 2 errors:
+1)
+testSequential(TinyTM.skiplistset.ofree.SkipListSetTest)java.lang.NullPointerException
+  at TinyTM.skiplistset.ofree.TSkipNode.getNext(TSkipNode.java:43)
+  at TinyTM.skiplistset.ofree.SkipListSet$1.hasNext(SkipListSet.java:126)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest.sanityCheck(SkipListSetTest.java:181)
+  at
+TinyTM.skiplistset.ofree.SkipListSetTest.testSequential(SkipListSetTest.java:97)
+  at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+  at
+sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+  at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+2)
+testParallel(TinyTM.skiplistset.ofree.SkipListSetTest)java.lang.NullPointerException
+
+FAILURES!!!
+Tests run: 3,  Failures: 0,  Errors: 2
+\end{verbatim}
+\hfill
 \par
+So, two test were complaining about NullPointerException. We started by adding
+the fix we put in the ListTest problem. With that, we got the following output:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 ch18]$ junit TinyTM.skiplistset.ofree.SkipListSetTest
+.TestSequential
+inserts: 220167, removes: 219660, missed: 438834, delta: 507
+commits: 878661, aborts: 1
+SkipListSet OK
+length = 1531 (expected 1531)
+Commits: 878661 (expected 878661)
+.TestParallel(32)
+inserts: 22, removes: 0, missed: 34, delta: 22
+commits: 56, aborts: 66
+SkipListSet OK
+length = 1046 (expected 1046)
+Commits: 56 (expected 56)
+.
+Time: 12.133
+
+OK (3 tests)
+\end{verbatim}
+\hfill
 \par
+So, that fixed the problem.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
