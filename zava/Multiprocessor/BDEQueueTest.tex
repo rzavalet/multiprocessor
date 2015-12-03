@@ -1,32 +1,111 @@
 % --------------------------- %
-% BDEQueueTest Start
+% BDEQueueTest_Revisited Start
 % --------------------------- %
 \section{\textbf{BDEQueueTest Test}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+\textbf{Note: We noticed that this problem is repeated. Actually, it should not
+go here. It corresponds to the chapter of Scheduling. Including it here just to
+follow the order of the programs in the web site.}
+\par
+The problem we want to solve in this exercise is how do we perform Work
+Distribution among threads in an efective way.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+The solution proposed in this exercise is by using Work-Stealing Dequeues.
+Specifically, we will use a bounded version.
+\par
+The idea is that we will have a pool of tasks and each task has a queue of Work
+to be done. It is possible that some threads finish the jobs in their queues
+faster than other. In such situation, this algorithm will allow faster threads
+to steal jobs from other threads' queues. 
+\par
+The implementation of this algorithm requires a DEQueue (Double Ended Queue).
+When picking a job from a queue, we distinguish two cases. The first one, which
+is the most common one, is that one thread picks a job from its own queue. In
+that case, the thread uses the \textit{popBottom()} method.
+\par
+The other case is when a thread steals a job from another queue. In that case,
+the thread uses the \textit{popTop()} method.
+\par
+Let us take a look at the interesting methods.
+\par
+\textit{popBottom()} distinguishes between two cases. If there is a conflict
+between a \textit{popBottom()} and \textit{popTop()}, then it resets the
+bookmark of the top of the queue using a \textit{compareAndSet()}. If it
+succeds, then it means that our method won and it returns the element. Other
+wise it means that the stealer won, and we have to return null.
+\par
+If there is no conflict between the two pop methods, then we simply return the
+element. There is no need to call a \textit{compareAndSet()}.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  Runnable popBottom() {
+    // is the queue empty?
+    if (bottom == 0)  // empty  `\label{line:steal:empty}`
+      return null;
+    bottom--;
+    // bottom is volatile to assure all reads beyond this line see it
+    Runnable r = tasks[bottom];
+    int[] stamp = new int[1];
+    int oldTop = top.get(stamp), newTop = 0;
+    int oldStamp = stamp[0], newStamp = oldStamp + 1;
+    // no conflict with thieves `\label{line:steal:noconflict}`
+    if (bottom > oldTop)
+      return r;
+    // possible conflict: try to pop it ourselves
+    if (bottom == oldTop) {
+      // even if stolen by other, queue will be empty, reset bottom
+      bottom = 0;
+      if (top.compareAndSet(oldTop, newTop, oldStamp, newStamp))
+        return r;
+      } 
+    return null;
+  }
+\end{lstlisting}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+Two test cases are provided with this program:
+\begin{itemize}
+\item testSequential. 16 threads are spawned. Each thread pushes a value in our
+DEQueue. After that, even threads call \textit{popTop()} and odd threads call
+\textit{popBottom()}. Depending on the pop'd value, an associated slot in an
+array is marked as true. The test checks that no slot in the array is marked
+true twice, since that would mean that a conflict between the pop methods was
+not resolved correctly.
+\item testConcurrent. Again, 16 threads are spanwed and each thread first pushes
+a value into our DEQueue. After that, all threads are in competition to pop the
+values. The idea is that some threads will call \textit{popTop()} to steal from
+other's queues. However, at the end we should still see the same invariant as in
+the previous test case.
+\end{itemize}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sample Results}
+\subsection{Sample Results and Interpretation}
 \par
+The result of the execution of the test cases was as follows:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Steal]$ junit steal.BDEQueueTest
+.sequential pushBottom and popBottom
+.concurrent pushBottom and popBottom
+
+Time: 0.055
+
+OK (2 tests)
+\end{verbatim}
+\hfill
 \par
-\par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
-\par
-\par
+The tests passed every time
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
-% BDEQueueTest End
+% BDEQueueTest_Revisited End
 % --------------------------- %

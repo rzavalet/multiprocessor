@@ -117,16 +117,89 @@ polynomial $x^7+x^6+x^5+x^4+x^3+x^2+x+1$ by itself. The result of this
 sum should be $2x^7+2x^6+2x^5+2x^4+2x^3+2x^2+2x+2$. 
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sample Results}
+\subsection{Sample Results and Interpretation}
 \par
+First, we had to fix the test case. The right one is as follows:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{lstlisting}[style=numbers]
+  /** 
+   * Test of run method, of class steal.PolynomialTask.
+   */
+  public void testRun() throws InterruptedException, ExecutionException {
+    System.out.println("run");
+    
+    int[] a = {1, 1, 1, 1, 1, 1, 1, 1}; 
+    int[] b = {1, 1, 1, 1, 1, 1, 1, 1}; 
+    Polynomial aa = new Polynomial(a, 0, 8); 
+    Polynomial bb = new Polynomial(b, 0, 8); 
+    Polynomial cc = PolynomialTask.add(aa, bb);
+    for (int i = 0; i < cc.getDegree(); i++) {
+      assertEquals(2, cc.get(i));
+    }   
+    Polynomial dd = PolynomialTask.multiply(aa,bb);
+  }
+\end{lstlisting}
+\hfill
 \par
+After this fix, we had the following failure:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Steal]$ junit steal.PolynomialTaskTest
+.run
+java.lang.ArrayIndexOutOfBoundsException: 7
+  at steal.PolynomialTask$MulTask.run(PolynomialTask.java:102)
+  at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+  at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+  at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+  at
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+  at
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+  at java.lang.Thread.run(Thread.java:724)
+...
+java.lang.ArrayIndexOutOfBoundsException: 7
+  at steal.PolynomialTask$MulTask.run(PolynomialTask.java:102)
+  at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+  at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+  at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+  at
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+  at
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+  at java.lang.Thread.run(Thread.java:724)
+java.lang.ArrayIndexOutOfBoundsException: 7
+  at steal.PolynomialTask$MulTask.run(PolynomialTask.java:102)
+  at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+  at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+  at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+  at
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+  at
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+  at java.lang.Thread.run(Thread.java:724)
+
+Time: 0.13
+
+OK (1 test)
+\end{verbatim}
+\hfill
 \par
+The problem is that the size of the \textit{futures} array was not big enough.
+It is 7, but it actually required 8 elements. After that fix, we were able to
+run the test successfully every time:
+\par
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Steal]$ junit steal.PolynomialTaskTest
+.run
+
+Time: 0.072
+
+OK (1 test)
+\end{verbatim}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %

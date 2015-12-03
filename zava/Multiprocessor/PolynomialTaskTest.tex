@@ -1,32 +1,211 @@
 % --------------------------- %
-% PolynomialTaskTest Start
+% PolynomialTaskTest_Revisited Start
 % --------------------------- %
-\section{\textbf{PolynomialTaskTest Test}}
+\section{\textbf{PolynomialTaskTest}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+\textbf{Note: We noticed that this problem is repeated. Actually, it should not
+go here. It corresponds to the chapter of Futures. Including it here just to
+follow the order of the programs in the web site.}
+\par
+The particular problem we want to solve in this exercise is how can we implement
+an efficient polynomial parallel adder and multiplier.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+The solution to this problem requires the use of a pool of threads, which are
+called \textit{executor services} in Java.  In this case, we will use Runnable
+objects. These Runnable objects return what are called Futures. Futures of
+Runnables provide the \textit{get()} method. This method blocks the caller till
+the computation finishes. 
+\par
+Let us examine the code to understand how the Futures are used to solve the
+Polynomial problem.
+\par
+Here is the \textit{MulTask} Runnable. It requires 3 references to polynomials:
+the multipliers and the result. When it is executed, it will split each of the
+multipliers into two, say $p_1$, $p_2$ and $q_1$, $q_2$. The concatenation of
+$p_1$ and $p_2$ is the original $p$ polynomial. Given this partition, the result
+of a multiplication should be $p_1*q_1 + p_1*q_2 + p_2*q_1 + p_2*q_2$. So, the
+task of multiplying two polynomials is decomposed into $4$ multiplications and
+$3$ sums. 
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  static class MulTask implements Runnable {
+    Polynomial p, q, r;
+    Polynomial[] temp;
+    public MulTask(Polynomial p, Polynomial q, Polynomial r) {
+      this.p = p; this.q = q; this.r = r;
+      int newDegree = 2 * p.getDegree();
+      temp = new Polynomial[6];
+      for (int i  = 0; i < temp.length; i++) {
+        temp[i] = new Polynomial(newDegree);
+      }
+    }
+    public void run() {
+      try {
+        if (p.getDegree() == 0) {
+          r.set(0, p.get(0) * q.get(0));
+        } else {
+          Polynomial[] pp = p.split();
+          Polynomial[] qq = q.split();
+          Future<?>[] future = (Future<?>[]) new Future[7];
+          // launch parallel multiplications
+          future[0] = exec.submit(new MulTask(pp[0], qq[0], temp[0]));
+          future[1] = exec.submit(new MulTask(pp[0], qq[1], temp[1]));
+          future[2] = exec.submit(new MulTask(pp[1], qq[0], temp[2]));
+          future[3] = exec.submit(new MulTask(pp[1], qq[1], temp[3]));
+          // wait for them to finish
+          for (int i = 0; i < 4; i++)
+            future[i].get();
+          // do partial sums
+          future[5] = exec.submit(new AddTask(temp[0], temp[1], temp[4]));
+          future[6] = exec.submit(new AddTask(temp[2], temp[3], temp[5]));
+          // wait for them to finish
+          future[5].get();
+          future[6].get();
+          // final sum
+          future[7] = exec.submit(new AddTask(temp[4], temp[5], r));
+          future[7].get();
+        }
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
+\end{lstlisting}
+\hfill
+\par
+Here we have now the \textit{AddTask}. This Runnable is simpler. It again
+requires $3$ references to polynomials. The execution consists of spliting each
+polynomial into two. After that, sub-polynomials are added one to one. 
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  static class AddTask implements Runnable {
+    Polynomial p, q, r;
+    public AddTask(Polynomial p, Polynomial q, Polynomial r) {
+      this.p = p; this.q = q; this.r = r;
+    }
+    public void run() {
+      try {
+        int n = p.getDegree();
+        if (n == 1) {
+          r.set(0, p.get(0) + q.get(0));
+        } else {
+          Polynomial[] pp = p.split(), qq = q.split(), rr = r.split();
+          Future<?>[] future = (Future<?>[]) new Future[2];
+          // create asynchronous computations
+          future[0] = exec.submit(new AddTask(pp[0], qq[0], rr[0]));
+          future[1] = exec.submit(new AddTask(pp[1], qq[1], rr[1]));
+          // wait for them to finish
+          future[0].get();
+          future[1].get();
+        }
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
+\end{lstlisting}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+Now let us discuss the experiment. It is actually a sum of the
+polynomial $x^7+x^6+x^5+x^4+x^3+x^2+x+1$ by itself. The result of this
+sum should be $2x^7+2x^6+2x^5+2x^4+2x^3+2x^2+2x+2$. 
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sample Results}
+\subsection{Sample Results and Interpretation}
 \par
+First, we had to fix the test case. The right one is as follows:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{lstlisting}[style=numbers]
+  /** 
+   * Test of run method, of class steal.PolynomialTask.
+   */
+  public void testRun() throws InterruptedException, ExecutionException {
+    System.out.println("run");
+    
+    int[] a = {1, 1, 1, 1, 1, 1, 1, 1}; 
+    int[] b = {1, 1, 1, 1, 1, 1, 1, 1}; 
+    Polynomial aa = new Polynomial(a, 0, 8); 
+    Polynomial bb = new Polynomial(b, 0, 8); 
+    Polynomial cc = PolynomialTask.add(aa, bb);
+    for (int i = 0; i < cc.getDegree(); i++) {
+      assertEquals(2, cc.get(i));
+    }   
+    Polynomial dd = PolynomialTask.multiply(aa,bb);
+  }
+\end{lstlisting}
+\hfill
 \par
+After this fix, we had the following failure:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Steal]$ junit steal.PolynomialTaskTest
+.run
+java.lang.ArrayIndexOutOfBoundsException: 7
+  at steal.PolynomialTask$MulTask.run(PolynomialTask.java:102)
+  at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+  at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+  at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+  at
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+  at
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+  at java.lang.Thread.run(Thread.java:724)
+...
+java.lang.ArrayIndexOutOfBoundsException: 7
+  at steal.PolynomialTask$MulTask.run(PolynomialTask.java:102)
+  at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+  at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+  at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+  at
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+  at
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+  at java.lang.Thread.run(Thread.java:724)
+java.lang.ArrayIndexOutOfBoundsException: 7
+  at steal.PolynomialTask$MulTask.run(PolynomialTask.java:102)
+  at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+  at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+  at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+  at
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+  at
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+  at java.lang.Thread.run(Thread.java:724)
+
+Time: 0.13
+
+OK (1 test)
+\end{verbatim}
+\hfill
 \par
+The problem is that the size of the \textit{futures} array was not big enough.
+It is 7, but it actually required 8 elements. After that fix, we were able to
+run the test successfully every time:
+\par
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Steal]$ junit steal.PolynomialTaskTest
+.run
+
+Time: 0.072
+
+OK (1 test)
+\end{verbatim}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
-% PolynomialTaskTest End
+% PolynomialTaskTest_Revisited End
 % --------------------------- %

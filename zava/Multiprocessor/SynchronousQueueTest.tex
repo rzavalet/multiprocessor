@@ -107,8 +107,27 @@ $arr[value]$. The test expects that each slot should not be set to
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
 \par
-To start with, we notice that they consistently failes with the following error:
+First, we need to mention that we had a problem compiling the test cases because
+we needed to add a try-catch block around the \textit{enq()} \textit{deq()}
+call like this:
 \par
+\hfill
+\begin{lstlisting}[style=numbers]
+        try{
+          int value = (Integer)instance.deq();
+          if (map[value]) {
+            fail("DeqThread: duplicate pop");
+          }
+          map[value] = true;                                                                                                                                                         
+        } catch(InterruptedException ie) {
+          System.out.println("Exception" + ie);
+        }
+\end{lstlisting}
+\hfill
+\par
+After that, we noticed that they consistently fails with the following error:
+\par
+\hfill
 \begin{verbatim}
 [oraadm@gdlaa008 Queue]$ junit queue.SynchronousQueueTest
 .parallel both
@@ -164,13 +183,46 @@ java.lang.IllegalMonitorStateException
         at queue.SynchronousQueueTest$EnqThread.run(SynchronousQueueTest.java:61)
 \end{verbatim}
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+The problem is a bad use of the monitor API. Here is the corrected code:
 \par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public void enq(T value) throws InterruptedException {
+    if (value == null) throw new NullPointerException();
+    lock.lock();
+    try {
+      while (enqueuing) { // another enqueuer's turn
+        condition.await();
+      }
+      enqueuing = true; // my turn starts
+      item = value;
+      condition.signalAll();
+      while (item != null) {
+        condition.await();
+      }
+      enqueuing = false;  // my turn ends
+      condition.signalAll();
+    } catch(Exception e) {
+      System.out.println("Exception: " + e);
+    } finally {
+      lock.unlock();
+    }
+  }    
+\end{lstlisting}
+\hfill
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
+After this fix, here is the result:
 \par
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Queue]$ junit queue.SynchronousQueueTest
+.parallel both
+
+Time: 0.167
+
+OK (1 test)
+\end{verbatim}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
