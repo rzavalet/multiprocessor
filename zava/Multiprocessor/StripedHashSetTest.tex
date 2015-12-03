@@ -54,16 +54,27 @@ experiment. As mentioned before, there are four variants:
 and \textit{testParallelBoth}.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sample Results}
+\subsection{Sample Results and Interpretation}
 \par
+Here is the result that we got:
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Hash]$ junit hash.StripedHashSetTest
+.sequential add, contains, and remove
+.parallel both
+.parallel add
+.parallel remove
+
+Time: 0.027
+
+OK (4 tests)
+\end{verbatim}
+\hfill
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
-\par
-\par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
-\par
+However, some people in the group mentioned that they had the same test issue as
+mentioned in the Coarse Hash Set exercise. Again, we think that it is a test
+issue since there is no garantee that removers will remove elements that have
+been really inserted.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %

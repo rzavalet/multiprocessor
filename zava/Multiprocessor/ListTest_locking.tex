@@ -67,16 +67,36 @@ number of elements in the list is as expected.
 \end{itemize}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sample Results}
+\subsection{Sample Results and Interpretation}
 \par
+Here is the result of the execution:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 ch18]$ junit TinyTM.list.locking.ListTest
+.TestSequential
+inserts: 12658, removes: 12142, missed: 24587, delta: 516
+commits: 49387, aborts: 1
+length = 1540 (expected 1540)
+Commits: 49387 (expected 49387)
+List OK
+length = 1540
+.TestParallel(32)
+inserts: 12, removes: 0, missed: 10, delta: 12
+commits: 22, aborts: 1521782
+length = 1036 (expected 1036)
+Commits: 22 (expected 22)
+List OK
+length = 1036
+.
+Time: 12.119
+
+OK (3 tests)
+\end{verbatim}
+\hfill
 \par
-\par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
-\par
+This demostrates that the implementation of the List by using TinyTM with
+Lock-Based Atomic objects works correctly
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %

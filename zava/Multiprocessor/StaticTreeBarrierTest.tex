@@ -60,14 +60,26 @@ means that we will have only 2 leves in the tree.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
 \par
+In our 24-cores machine, we got the following result:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Barrier]$ junit barrier.StaticTreeBarrierTest
+.Testing 13 threads, 1 rounds, radix 3
+radix 3 done
+.Testing 7 threads, 1 rounds, radix 2
+radix 2 done
+
+Time: 0.015
+
+OK (2 tests)
+\end{verbatim}
+\hfill
 \par
+However, some people in the group mentioned that they found a hang in this test
+which was fixed by adding the volatile qualifier to the global sense attribute.
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
-\par
+So, in this exercise we learnt another way of implementing a barrier mechanismo.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %

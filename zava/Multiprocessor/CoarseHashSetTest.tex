@@ -104,16 +104,55 @@ elements added by the adders.
 \end{itemize}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sample Results}
+\subsection{Sample Results and Interpretation}
 \par
+Here is the result of the execution:
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Interpretation}
+\hfill
+\begin{verbatim}
+[oraadm@gdlaa008 Hash]$ junit hash.CoarseHashSetTest
+.sequential add, contains, and remove
+.parallel both
+Exception in thread "Thread-7" Exception in thread "Thread-9"
+junit.framework.AssertionFailedError: DeqThread: duplicate pop
+        at junit.framework.Assert.fail(Assert.java:57)
+        at junit.framework.TestCase.fail(TestCase.java:227)
+        at hash.CoarseHashSetTest$RemoveThread.run(CoarseHashSetTest.java:143)
+Exception in thread "Thread-13" junit.framework.AssertionFailedError: DeqThread:
+duplicate pop
+        at junit.framework.Assert.fail(Assert.java:57)
+        at junit.framework.TestCase.fail(TestCase.java:227)
+        at hash.CoarseHashSetTest$RemoveThread.run(CoarseHashSetTest.java:143)
+junit.framework.AssertionFailedError: DeqThread: duplicate pop
+        at junit.framework.Assert.fail(Assert.java:57)
+        at junit.framework.TestCase.fail(TestCase.java:227)
+        at hash.CoarseHashSetTest$RemoveThread.run(CoarseHashSetTest.java:143)
+Exception in thread "Thread-15" junit.framework.AssertionFailedError: DeqThread:
+duplicate pop
+        at junit.framework.Assert.fail(Assert.java:57)
+        at junit.framework.TestCase.fail(TestCase.java:227)
+        at hash.CoarseHashSetTest$RemoveThread.run(CoarseHashSetTest.java:143)
+.parallel add
+.parallel remove
+
+Time: 0.043
+
+OK (4 tests)
+\end{verbatim}
+\hfill
 \par
+The test complains saying that when we add and remove elements from
+the hash table concurrently the remover threads are removing an element twice.
+However, we found that this is not necesarily correct because the test simply
+assumes that if a remove fails, it is because we have repeated elements. 
 \par
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposed solution}
+If we look into the code carefully, we can see that a remove operation can also
+fail if it is the case that it is trying to remove an element that has not been
+inserted yet. 
 \par
+So, in order to make this test work, we have to garantee that removers try to
+remove elements that have been actually added to the set. We leave this
+enhancement as a future work.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------------------------- %
