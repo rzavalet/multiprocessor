@@ -5,14 +5,57 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+Here we want to implement a Barrier algorithm that does not suffer of either
+contention or excessive communication cost. 
+\par
+Just as a reminder, a barrier is a way of forcing asynchronous threads to act
+almost as if they were synchronous by adding synchronization points.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+The solution for this problem is given by the Static Tree Barrier. The way it
+works is: each thread is assigned to a node in a tree. A thread at a node has to
+wait until all nodes bellow it in the tree have finished and then let its parent
+know that he is done. After that, it keeps spinning since the root of the tree
+signals a global sense bit change. So, one the root knows that all its children
+are done, this bit is flipped.
+\par
+Here is the interesting code. Notice that the three is constructed within an
+array.
+\par
+When a thread finishes its work, it calls the \textit{await()} method below. Notice
+that it sits there till the sense is changed.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+    public void await() {
+      boolean mySense = threadSense.get();
+      while (childCount.get() > 0) {};  // spin until children done
+      childCount.set(children);         // prepare for next round
+      if (parent != null) { // not root?
+        parent.childDone();           // indicate child subtree completion
+        while (sense != mySense) {}; // wait for global sense to change
+      } else {
+        sense = !sense;   // am root: toggle global sense
+      }
+      threadSense.set(!mySense); // toggle sense
+    }
+\end{lstlisting}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+Two test cases are provided:
+\par
+\begin{itemize}
+\item testBarrier. Creates a tree barrier of radix 2. 7 threads are created,
+meaning that we will have 3 levels in the tree. What is thread does is confirm
+that all siblings are executing at the same time. 
+\item testBarrier3. Does the same bit using a tree barrier of radix 3. This
+means that we will have only 2 leves in the tree.
+\end{itemize}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}

@@ -1,18 +1,53 @@
 % --------------------------- %
 % GTreeBarrierTest Start
 % --------------------------- %
-\section{\textbf{GTreeBarrierTest Test}}
+\section{\textbf{GTreeBarrierTest}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+The problem we are trying to solve is how to implement a Barrier that mitigates
+the problem of memory contention of the Sense-Reversing Barrier.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+We present a Generic Tree Barrier, which actually uses the Sense Reversing
+Barrier, leading again to what the book called the Combining Tree Barrier.
+However, the implementation is done in such a way that each node's barrier can
+be changed to any other barrier. In fact, this exercise is a solution for
+problem $201$ in the book.
+\par
+As implied by the name, this Barrier is implemented in a tree, notice its
+similarity with the Simple Barrier Tree. The only difference is that we
+factorized the call to the node's barrier allowing it to actually use any type
+of barrier.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+    public void await(int me) {
+      boolean sense = threadSense.get();
+      barrier.await();
+      if (me % radix == 0) {
+        if (parent != null) { // root?
+          parent.await(me / radix);
+        }
+        done = sense;
+      } else {
+        while (done != sense) {};
+      }
+      threadSense.set(!sense);
+    }
+\end{lstlisting}
+\hfill
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+The experiment consists of 8 threads and 8 rounds. The test will create a
+GTreeBarrier with radix 2. Each thread will verify that its siblings are
+performing the same round. This is all the work they have to do. If siblings
+happen to be in a different round, it means that they are not honoring  the
+imposed barrier.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}

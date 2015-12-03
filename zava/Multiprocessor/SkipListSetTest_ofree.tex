@@ -1,0 +1,59 @@
+% --------------------------- %
+% SkipListSetTest Start
+% --------------------------- %
+\section{\textbf{SkipList (Obstruction-Free) Test}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Particular Case}
+\par
+In this exercise we are experimenting with the STM implementation mentioned in
+the book, which is called TinyTM. 
+\par
+The problem we are trying to solve is how to implement a concurrent Skip List by
+using STM with Obstruction-Free Atomic Objects.
+\par
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Solution}
+\par
+Since the solution consists pretty much on using the TinyTM package and it has
+been described before (both in the Obstruction-Free and Lock-Based approach) we
+will not do it again here.
+\par
+Please refer to previous exercises in this chapter for a better understanding of
+how TinyTM works.
+\par
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Experiment Description}
+\par
+In this exercise, three test cases are provided:
+\begin{itemize}
+\item testParallel. $1024$ elements are added initially to the list, then 32
+threads are spawned. On even turns, the threads will insert a new element to the
+list. On odd turns, the thread removes an element from the list. The test checks
+that the values in the list at the end of the test are in order, that there are
+no duplicate values, that the number of commits matches the number of operations
+on the list, and that the size of the list is as expected.
+\item testSequential. $1024$ elements are added initially to the list. Then a
+thread is spawned with the same behaviour for even and odd turns described
+above. After $6$ seconds, the thread is interruped and the same check as above
+is performed.
+\item testIterator. It adds $100$ consecutive elements to the list and then it
+checks that the list added these elements in the correct order and that the
+number of elements in the list is as expected.
+\end{itemize}
+\par
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Sample Results}
+\par
+\par
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Interpretation}
+\par
+\par
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proposed solution}
+\par
+\par
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --------------------------- %
+% SkipListSetTest End
+% --------------------------- %

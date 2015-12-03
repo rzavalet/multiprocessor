@@ -1,18 +1,70 @@
 % --------------------------- %
 % ListTest_locking Start
 % --------------------------- %
-\section{\textbf{ListTest_locking Test}}
+\section{\textbf{List (Lock-Based) Test}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
+Here we are again experimenting with the STM implementation of Herlihy, which is
+called TinyTM. In this case, we are implementing a concurrent list data
+structure using STM. 
+\par
+However, this time we are using another approach. Here we are going to use
+Lock-Based Atomic objects.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
+One problem with the obsctruction-free implementation that has been described in
+another experiment, is that writes allocate locators continously. Also, reads
+have to go through two levels of indirection. 
+\par
+The Lock-Based approach is called so because it locks the object when in
+performs a write. When writing to the object, the \textit{openWrite()} method
+will create a new tentative version and adds it to the so called write set.
+\par
+Reading an object on the other hand is done optimistically and then it checks
+for conflicts. These conflicts are detected by using a version clock. The
+\textit{openRead()} method will check whether the object is in the write set. If
+it is, then it creates a new tentative version. If not, it checks whether the
+object is locked. If so, the transaction aborts, otherwise the version is added
+to the read set.
+\par
+As for the commit, the following steps are performed:
+\par
+\begin{enumerate}
+\item Lock the objects in the write set
+\item Increment the global version clock in a thread-local stamp
+\item The transaction checks that objects in the read set is not locked by
+another thread and that eachs object's timestamp is not greater than the
+transaction's read stamp. If this validation succeds, then it commits.
+\item Update the stamp field of each object in the write set.
+\item Release any lock.
+\end{enumerate}
+\par
+For using these Atomic objects in our list implementation, all we have to do is
+us the TNode class which internally uses the LockObject version of the
+AtomicObject interface.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Experiment Description}
 \par
+Three test cases are provided for this exercise:
+\begin{itemize}
+\item testParallel. $1024$ elements are added initially to the list, then 32
+threads are spawned. On even turns, the threads will insert a new element to the
+list. On odd turns, the thread removes an element from the list. The test checks
+that the values in the list at the end of the test are in order, that there are
+no duplicate values, that the number of commits matches the number of operations
+on the list, and that the size of the list is as expected.
+\item testSequential. $1024$ elements are added initially to the list. Then a
+thread is spawned with the same behaviour for even and odd turns described
+above. After $6$ seconds, the thread is interruped and the same check as above
+is performed.
+\item testIterator. It adds $100$ consecutive elements to the list and then it
+checks that the list added these elements in the correct order and that the
+number of elements in the list is as expected.
+\end{itemize}
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sample Results}
