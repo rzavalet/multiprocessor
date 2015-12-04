@@ -9,7 +9,7 @@ In the following exercises we will be dealing with the idea of Hierarchical
 locks. The motivation of this type of locks are the architecture of modern
 cache-coherent computers where processors are organized as clusters.
 Communication between processors is then categorized in intra-cluster
-comunication and inter-cluster comunication. The former is faster and cheaper
+communication and inter-cluster communication. The former is faster and cheaper
 than the latter. 
 \par
 Given the following background, the idea is  to build locking algorithms that
@@ -19,11 +19,11 @@ create locking algorithm for this type of systems?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
 \par
-The first algorithm that we are going to study is the Hierarchical Backoff Lock.
+The first algorithm that we are going to study is the Hierarchical Back-off Lock.
 This algorithm uses the \textit{test-and-test-and-set} lock that we presented
 before. If a thread from a cluster releases a lock, then it is more likely that
 another thread from the same cluster acquires it. This strategy reduces the
-overal time needed to switch the lock ownership. Let us take a quick look at the
+overall time needed to switch the lock ownership. Let us take a quick look at the
 source code in java:
 \par
 \hfill
@@ -56,9 +56,9 @@ source code in java:
 \end{lstlisting}
 \hfill
 \par
-For locking, we create two backoff objects which are the ones that have a method to
-perform the backoff for a random period. Notice that we distinguish between two
-cases: a local backoff and a remote backoff. The delays are as follows:
+For locking, we create two back-off objects which are the ones that have a method to
+perform the back-off for a random period. Notice that we distinguish between two
+cases: a local back-off and a remote back-off. The delays are as follows:
 \par
 \hfill
 \begin{lstlisting}[style=numbers]
@@ -74,9 +74,9 @@ A remote delay is longer than a local delay. Then we perform a
 set its value to the value of our cluster. That indicates that we are holding
 the lock now.
 \par
-If the state was not free, then we perform a backoff. If the lock is being hold
-by another thread in the cluster, then we do a short backoff. Otherwise, we do a
-long backoff.
+If the state was not free, then we perform a back-off. If the lock is being hold
+by another thread in the cluster, then we do a short back-off. Otherwise, we do a
+long back-off.
 \par
 The unlock method simply sets the state to free.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -106,8 +106,8 @@ OK (1 test)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Interpretation}
 \par
-In this experimetn we discovered how to implement a locking algorithm in a
-cache-coherent architecture by performing backoffs of different delays depending
+In this experiment we discovered how to implement a locking algorithm in a
+cache-coherent architecture by performing back-offs of different delays depending
 on whether the thread holding the lock is in the same or in a different cluster
 of CPUs. 
 \par

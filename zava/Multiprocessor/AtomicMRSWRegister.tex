@@ -18,9 +18,9 @@ with a timestamp.
 \par
 In the other hand, when a reader wants to read from the register, it checks the
 timestamp of the cell $A[i][i]$. After that, it has to check other cells in the
-same column (ie, cells $A[x][i]$) to see if there has been an update in between.
+same column (i.e., cells $A[x][i]$) to see if there has been an update in between.
 That is done by comparing the timestamps. If there is a newer timestamp, the
-reader has then to update all cells in its row (ie $A[i][x]$). This is the way
+reader has then to update all cells in its row (i.e. $A[i][x]$). This is the way
 to indicate subsequent readers which version of the value has the previous
 reader retrieved.
 \par
@@ -29,7 +29,7 @@ to read a future value. In order to read a value, this value has to be written
 before.
 \par
 The second property is also satisfied because when a reader reads the value, it
-reads the one with the most recent timestamp by scaning the timestamps in its
+reads the one with the most recent timestamp by scanning the timestamps in its
 corresponding column. This reader also helps subsequent readers by updating all
 cells in its row. Forcing property 3 to be satisfied as well.
 \par

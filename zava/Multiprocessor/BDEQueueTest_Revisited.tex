@@ -6,7 +6,7 @@
 \subsection{Particular Case}
 \par
 The problem we want to solve in this exercise is how do we perform Work
-Distribution among threads in an efective way.
+Distribution among threads in an effective way.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
@@ -32,7 +32,7 @@ Let us take a look at the interesting methods.
 \textit{popBottom()} distinguishes between two cases. If there is a conflict
 between a \textit{popBottom()} and \textit{popTop()}, then it resets the
 bookmark of the top of the queue using a \textit{compareAndSet()}. If it
-succeds, then it means that our method won and it returns the element. Other
+succeeds, then it means that our method won and it returns the element. Other
 wise it means that the stealer won, and we have to return null.
 \par
 If there is no conflict between the two pop methods, then we simply return the
@@ -76,7 +76,7 @@ DEQueue. After that, even threads call \textit{popTop()} and odd threads call
 array is marked as true. The test checks that no slot in the array is marked
 true twice, since that would mean that a conflict between the pop methods was
 not resolved correctly.
-\item testConcurrent. Again, 16 threads are spanwed and each thread first pushes
+\item testConcurrent. Again, 16 threads are spawned and each thread first pushes
 a value into our DEQueue. After that, all threads are in competition to pop the
 values. The idea is that some threads will call \textit{popTop()} to steal from
 other's queues. However, at the end we should still see the same invariant as in

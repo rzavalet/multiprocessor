@@ -4,13 +4,13 @@
 \par
 In this experiment we are dealing with the problem of creating an algorithm to
 create a Snapshot of a set of Register in such a way that the algorithm
-garantees a Wait-Free operation.
+guarantees a Wait-Free operation.
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Solution}
 \par
 The purpose of a Wait-Free snapshot is to overcome the problems of the Simple
-snapshot presented before. Let us remember that such snapshot executes sucesive
+snapshot presented before. Let us remember that such snapshot executes successive
 collect() operations. Once it achieves a \textit{clean double collect}, it
 returns the snapshot. Otherwise, it uses the following idea:
 \par
@@ -64,7 +64,7 @@ The next method to understand is \textit{scan()}. The method first creates a
 backup or an old copy of the array. Then it takes a second collect. It then
 compares both copies. If both copies are equal, then it means that we have a
 double clean collect. And the result of the scan operation is any of the copies
-just as in the Sequentian Snapshot case.
+just as in the Sequential Snapshot case.
 \par
 On the other hand, if the copies are different, then there are two cases. For
 this, we have a counter that indicates how many times, the copies have been

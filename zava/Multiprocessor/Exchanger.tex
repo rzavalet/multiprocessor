@@ -13,12 +13,12 @@ threads are trying to access the queue and one of them wants to enqueue an
 element and the other one wants to dequeue an element. In this situation, we can
 avoid contention in the top of the stack by letting the threads simply exchange
 their values. That is, the enqueuer can pass its value to the dequeuer thread.
-This approach is called the \textit{Elimination backoff stack}.
+This approach is called the \textit{Elimination back-off stack}.
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Solution}
 \par
-The solution in this excercise is based on the \textit{A Scalable
+The solution in this exercise is based on the \textit{A Scalable
 Elimination-based Exchange Channel} paper. Since, this algorithm is a bit more
 involved and it is not discussed in the book, let us describe it in more detail.
 \par
@@ -130,7 +130,7 @@ thread.
 \hfill
 \par
 The algorithm adds some other improvements to the base case already described.
-The main improvement is the backoff logic which comes to play when two threads
+The main improvement is the back-off logic which comes to play when two threads
 are already exchanging their values in a slot. In that case, the thread will try
 using another slot.
 % ---------------------------------------------------------------------------- %

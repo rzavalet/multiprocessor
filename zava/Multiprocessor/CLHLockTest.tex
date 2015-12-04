@@ -71,11 +71,11 @@ OK (1 test)
 It was shown that the algorithm seems to work and allows synchronization of
 Multiple threads trying to access a shared variable.
 \par
-One important thing about this algorith is that threads spin checking for
+One important thing about this algorithm is that threads spin checking for
 different memory addresses which avoids invalidation of cached copies. Another
 important advantage is that it requieres a limited number of memory and also
 provides first-in-first-out fairness. 
 \par
 The case were this algorithm is not good is when, in a NUMA architecture, the
 \textit{previous} pointer points to a remote location. In that case, the
-performance of the algorithm degradates.
+performance of the algorithm degrades.

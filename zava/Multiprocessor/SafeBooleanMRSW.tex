@@ -3,8 +3,8 @@
 \subsection{Particular Case}
 \par
 In class we saw the difference between Safe, Regular and Atomic Registers. In
-this excersice we are experimenting with a Safe Boolean Register. In particular,
-we are trying a register that allows one single writer whose writen value can be
+this exercise we are experimenting with a Safe Boolean Register. In particular,
+we are trying a register that allows one single writer whose written value can be
 examined by multiple readers. We need to remember that Safe registers are those
 that :
 \begin{itemize}
@@ -16,7 +16,7 @@ domain of the register's values
 % ------------------------------------------------------------------------------------ %
 \subsection{Solution}
 \par
-One way to achive this behaviour is using a SRSW Safe register. The code that is
+One way to achieve this behavior is using a SRSW Safe register. The code that is
 provided with the book does this by having a boolean SRSW register per thread,
 in other words, it is an array of boolean values. When doing a write, the writer
 iterates over this array and writes the new value. The readers simply access its
@@ -54,7 +54,7 @@ overlap.
 % ------------------------------------------------------------------------------------ %
 \subsection{Sample Results}
 \par
-We found out that the tests failed ocassionally. The manifestation of the failure is a 
+We found out that the tests failed occasionally. The manifestation of the failure is a 
 \par
 \textit{indexOutOfBoundsException} as shown above.
 \begin{verbatim}

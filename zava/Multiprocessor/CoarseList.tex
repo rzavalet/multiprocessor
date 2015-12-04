@@ -9,7 +9,7 @@ accessing the data structure, we still want to maintain its consistency.
 As mentioned in the book, the invariants that we want to satisfy are:
 \par
 \begin{enumerate}
-\item Sentinels are neither added or removed (ie. the head and the tail)
+\item Sentinels are neither added or removed (i.e. the head and the tail)
 \item Nodes are sorted by key
 \item Keys are unique
 \end{enumerate}
@@ -157,7 +157,7 @@ One way of solving this problem is by asking the remover thread to retry till it
 is successful. (Obviously this fix should be improved further since it might
 lead to a hang in user's application -- Imagine the case where an specific
 element is never inserted. However, for this specific case, the fix is good
-enought.)
+enough.)
 \par
 This is the code of the remover thread before the fix:
 \par
@@ -214,5 +214,5 @@ OK (4 tests)
 \subsection{Interpretation}
 % ---------------------------------------------------------------------------- %
 In this experiment we observed how to implement a simple list that allows
-concurrent access by making all the access sequential. We saw that eventhough
+concurrent access by making all the access sequential. We saw that even though
 the algorithm is correct, a correct usage of the API is also required.

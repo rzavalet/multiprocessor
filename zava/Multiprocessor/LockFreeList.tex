@@ -10,7 +10,7 @@ to see how a Lock-Free implementation can be done. That is our current problem.
 \par
 There are two main ideas behind the Lock-Free implementation. The first one is
 to use a lazy approach. That is, do not remove an element to the list
-immediatly. Instead, mark it as \textit{deleted}. The second idea is to treat the node's
+immediately. Instead, mark it as \textit{deleted}. The second idea is to treat the node's
 \textit{next} and a new field \textit{marked} as a single atomic unit. 
 \par
 The second idea is important because that will allow us to have concurrent

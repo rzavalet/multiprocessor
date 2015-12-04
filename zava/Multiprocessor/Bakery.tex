@@ -8,7 +8,7 @@
 In this experiment, we are dealing with the problem of mutual exclusion with a
 number of participants $>2$.
 \par
-We have already seen that Peterson Algorithm works for two threads. It garantees
+We have already seen that Peterson Algorithm works for two threads. It guarantees
 mutual exclusion and is starvation free. Therefore, the algorithm is deadlock
 free. Now let us focus in an algorithm that can be used to coordinate more
 threads.
@@ -27,7 +27,7 @@ After that, the thread calculates the next number in the machine.
 The algorithm then chooses the next number to be attended. When that happens,
 the thread is allowed to enter the critical section.
 \par
-One thing that we ougth to mention is that threads can have the same number
+One thing that we ought to mention is that threads can have the same number
 assigned. If that is the case, the next in the line is decided using a
 lexicographical ordering of the threads ids.
 \par

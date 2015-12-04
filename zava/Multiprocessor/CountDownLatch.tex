@@ -24,7 +24,7 @@ know that they can now re-check for their locking condition.
 The java interface for \textit{Lock} suggests two methods to implement the
 protocol drafted above. First, there is a method \textit{await()} which
 basically asks the thread wait till it is signaled about an event. The
-accompaning method \textit{signalAll} achieves this latter task.
+accompanying method \textit{signalAll} achieves this latter task.
 \par
 Let us explain how the implementation of the methods \textit{countDown()} and
 \textit{await()} work:
@@ -57,11 +57,11 @@ Let us explain how the implementation of the methods \textit{countDown()} and
 \par
 Basically, when we create an object of type \textit{CountDownLatch}, we
 initialize a counter with a value. The goal of the object is to count down to
-zero. To achive this, we need to execute the method \textit{countDown()} a
+zero. To achieve this, we need to execute the method \textit{countDown()} a
 number of times. 
 \par
 For example, one thread can create a \textit{CountDownLatch} object with a
-counter of $10$ and then it sits to wait, ie. calls the \textit{await()}
+counter of $10$ and then it sits to wait, i.e. calls the \textit{await()}
 function. Other threads then call the method \textit{countDown} to decrement the
 counter. When the counter reaches zero, then the first thread gets signaled.
 \par
@@ -73,19 +73,19 @@ experiment is to show how the methods \textit{await()} and \textit{signalAll()}
 are combined in a working program. 
 \par
 So, the idea of the test is the following. Initially we have 8 threads. We start
-them as usual but we do not allow them to procced normally. Instead, we will ask
+them as usual but we do not allow them to proceed normally. Instead, we will ask
 them to wait for a signal. Internally, what we do is decrement a shared
 variable. When this variable becomes 0, the signal is triggered. Initially this
 signal is 1, meaning that we only need to decrement the variable once.
 \par
 After that, each thread will started and wait for the next signal. The variable
-that controlls this other signal is initially set to 8. Each thread will be in
+that controls this other signal is initially set to 8. Each thread will be in
 charge of decrementing this variable by one. Once it becomes 0, the second
 signal will be triggered announcing that our test must finish.
 \par
 Let us quickly review the test case:
 \par
-At the begining we see the two \textit{CountDownLatch} objects. One is used to
+At the beginning we see the two \textit{CountDownLatch} objects. One is used to
 start and one is used to finish. The one for start is initialized with 1 because
 only one thread will trigger it. The one for start is initialized with 8 because
 we will create 8 threads and each of them will call \textit{countDown()} once.
@@ -188,7 +188,7 @@ OK (1 test)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Interpretation}
 This experiment showed us the way in which Monitors are used. We saw that we did
-not need to continously poll for a flag to acquire a lock. Instead, the monitor
+not need to continuously poll for a flag to acquire a lock. Instead, the monitor
 sent the threads a signal to indicate them that a particular condition has been
 met. In our particular test, these signals indicated: (1) that the threads can
 start; and (2) that the threads must stop.

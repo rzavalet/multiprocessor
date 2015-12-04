@@ -1,7 +1,7 @@
 % --------------------------- %
 % SimpleTreeTest Start
 % --------------------------- %
-\section{\textbf{SimpleTreeTest Test}}
+\section{\textbf{SimpleTreeTest}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
@@ -15,8 +15,8 @@ the priorities are taken from the range $0,...,m-1$.
 \subsection{Solution}
 \par
 One possible solution to this problem is given by the \textit{Tree-Based Bounded
-Priority Queue} data structure. This structure is esentially a binary tree where
-the leaf nodes have a bin holding items of priority $i$. Internal nodes mantain
+Priority Queue} data structure. This structure is essentially a binary tree where
+the leaf nodes have a bin holding items of priority $i$. Internal nodes maintain
 a shared counter that indicates the number of elements stored to the left of
 a given node.
 \par
@@ -85,7 +85,7 @@ in the previous test case. Notice that each thread is in charge of adding
 elements from a fixed range in ascending order.
 \item testParallelBoth. Does the same as the previous test case but also removes
 elements in parallel. Each remover thread will perform the same checking. Since
-adders add elements in ascending order, it is garanteed that any removal from
+adders add elements in ascending order, it is guaranteed that any removal from
 any thread will retrieve an element with a lower priority than the next one.
 \end{itemize}
 \par

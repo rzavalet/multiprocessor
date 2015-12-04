@@ -1,7 +1,7 @@
 % --------------------------- %
 % BDEQueueTest_Revisited Start
 % --------------------------- %
-\section{\textbf{BDEQueueTest Test}}
+\section{\textbf{BDEQueueTest}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particular Case}
 \par
@@ -10,7 +10,7 @@ go here. It corresponds to the chapter of Scheduling. Including it here just to
 follow the order of the programs in the web site.}
 \par
 The problem we want to solve in this exercise is how do we perform Work
-Distribution among threads in an efective way.
+Distribution among threads in an effective way.
 \par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solution}
@@ -36,7 +36,7 @@ Let us take a look at the interesting methods.
 \textit{popBottom()} distinguishes between two cases. If there is a conflict
 between a \textit{popBottom()} and \textit{popTop()}, then it resets the
 bookmark of the top of the queue using a \textit{compareAndSet()}. If it
-succeds, then it means that our method won and it returns the element. Other
+succeeds, then it means that our method won and it returns the element. Other
 wise it means that the stealer won, and we have to return null.
 \par
 If there is no conflict between the two pop methods, then we simply return the
