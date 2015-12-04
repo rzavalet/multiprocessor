@@ -3,11 +3,127 @@
 \subsection{Particular Case}
 \par
 We have seen some algorithms for implementing a concurrent list. Now it is time
-to see how a Lock-Free implementation can be done.
+to see how a Lock-Free implementation can be done. That is our current problem.
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Solution}
 \par
+There are two main ideas behind the Lock-Free implementation. The first one is
+to use a lazy approach. That is, do not remove an element to the list
+immediatly. Instead, mark it as \textit{deleted}. The second idea is to treat the node's
+\textit{next} and a new field \textit{marked} as a single atomic unit. 
+\par
+The second idea is important because that will allow us to have concurrent
+\textit{add()} and \textit{remove()} with out missing updates.
+\par
+Three methods are important in the implementation of the Lock-Free List we are
+discussing. The first one is the \textit{find()} method which encapsulates the
+mechanism to search for a \textit{current} and \textit{previous} nodes that will
+be affected by an \textit{add()} or \textit{remove()} operation. These two
+fields are grouped in a \textit{Window} object.
+\par
+This method traverses the list. If it finds a node that is marked as deleted,
+then it tries to actually remove it from the list. It does so by applying a
+\textit{compareAndSet()} to both the \textit{pred.next} and its \textit{mark}.
+This latter field is implicit in the \textit{AtomicMarkableReference<T>} object.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  public Window find(Node head, int key) {
+    Node pred = null, curr = null, succ = null;
+    boolean[] marked = {false}; // is curr marked?
+    boolean snip;
+    retry: while (true) {
+      pred = head;
+      curr = pred.next.getReference();
+      while (true) {
+        succ = curr.next.get(marked); 
+        while (marked[0]) {           // replace curr if marked
+          snip = pred.next.compareAndSet(curr, succ, false, false);
+          if (!snip) continue retry;
+          curr = pred.next.getReference();
+          succ = curr.next.get(marked);
+        }
+        if (curr.key >= key)
+          return new Window(pred, curr);
+        pred = curr;
+        curr = succ;
+      }
+    }
+  }
+\end{lstlisting}
+\hfill
+\par
+The next interesting method is \textit{add()} which after finding its window, if
+it sees that the value we are trying to insert is already there, returns false.
+Otherwise it adds the new node using the \textit{compareAndSet()} operation.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   * Add an element.
+   * @param item element to add
+   * @return true iff element was not there already
+   */
+  public boolean add(T item) {
+    int key = item.hashCode();
+    boolean splice;
+    while (true) {
+      // find predecessor and curren entries
+      Window window = find(head, key);
+      Node pred = window.pred, curr = window.curr;
+      // is the key present?
+      if (curr.key == key) {
+        return false;
+      } else {
+        // splice in new node
+        Node node = new Node(item);
+        node.next = new AtomicMarkableReference(curr, false);
+        if (pred.next.compareAndSet(curr, node, false, false)) {
+          return true;
+        }
+      }
+    }
+  }
+\end{lstlisting}
+\hfill
+\par
+Finally, we have the \textit{remove()} method. After finding its window, if it
+does not see the value it is trying to delete, it returns false. Otherwise, it
+marks the node as \textit{logically deleted}. After that, it tries to
+\textit{physically delete} the node once. For the method, it is OK if it fails
+since any other thread trying to add or remove will attempt to do it again.
+\par
+\hfill
+\begin{lstlisting}[style=numbers]
+  /**
+   * Remove an element.
+   * @param item element to remove
+   * @return true iff element was present
+   */
+  public boolean remove(T item) {
+    int key = item.hashCode();
+    boolean snip;
+    while (true) {
+      // find predecessor and curren entries
+      Window window = find(head, key);
+      Node pred = window.pred, curr = window.curr;
+      // is the key present?
+      if (curr.key != key) {
+        return false;
+      } else {
+        // snip out matching node
+        Node succ = curr.next.getReference();
+        snip = curr.next.attemptMark(succ, true);
+        if (!snip)
+          continue;
+        pred.next.compareAndSet(curr, succ, false, false);
+        return true;
+      }
+    }
+  }
+\end{lstlisting}
+\hfill
 \par
 % ---------------------------------------------------------------------------- %
 \subsection{Experiment Description}
