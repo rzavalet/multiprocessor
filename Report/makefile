@@ -10,7 +10,7 @@ $(hw).pdf: $(tex)
 	pdflatex $(hw).tex
 
 clean:
-	rm -f $(hw).pdf *toc *.aux *.log *.out *.bbl *.blg
+	rm -f *toc *.aux *.log *.out *.bbl *.blg
 	cd $(sections); rm -f *toc *.aux *.log *.out *.bbl *.blg
 
 
